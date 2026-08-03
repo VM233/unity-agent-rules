@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1] - 2026-08-03
+
+- Make the shared small-change rule the explicit validation authority for every consumer-project change.
+- Move the common source-file EOF and Prefab responsibility-container conventions into the shared baseline.
+- Remove the obsolete reference to project-local small-change validation sections.
+
 ## [1.1.0] - 2026-08-03
 
 - Add shared code-quality, Unity Editor safety/evidence, Prefab/serialization, package/plugin, and localization contracts.

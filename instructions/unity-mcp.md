@@ -6,7 +6,7 @@
 - 修改本文件时必须在权威仓库完成审查、CHANGELOG、commit 与发布，再让所有消费项目更新到同一个 gitlink commit。项目名、项目路径、业务 Wrapper/Prefab、项目专属工作流和项目专属验证权限必须写入各自根 `AGENTS.md` 或专项细则，不得混入本文件。
 - submodule 未初始化或目标文件不可读时，消费项目必须先执行 `git submodule update --init --recursive` 并失败关闭；不得跳过共享规则后继续相关任务，也不得从其他本地 checkout 临时读取替代。
 - 使用或修改 Unity MCP、增改工具 route/schema、设计响应或工具元数据、诊断 MCP 故障或 workaround，以及发现工具名、description、typed schema、默认值、错误/状态文案、示例或恢复引导可能误导调用时，必须读取本文件。
-- 上级指令、用户当前明确要求和当前项目根 `AGENTS.md` 始终优先。本文件只统一 MCP 的技术契约与工作方法，不自行授予测试、Unity 运行时/视觉验证、提交、推送、发布或破坏性操作权限，也不得绕过项目的小改动验证禁令及其他明确禁止。
+- 上级指令、用户当前明确要求和当前项目根 `AGENTS.md` 始终优先。本文件只统一 MCP 的技术契约与工作方法，不自行授予测试、Unity 运行时/视觉验证、提交、推送、发布或破坏性操作权限，也不得绕过 `.agents/shared-rules/instructions/unity-editor-safety.md` 的“小改动默认不验证”及其他明确禁止。
 - 同一任务同时命中 Unity 开发、package/plugin 或其他专项细则时必须全部读取并同时满足。专项规则可按项目事实收紧本文件，但不得在项目侧复制或改写通用 MCP 契约；若真实条款仍无法同时满足，在相关写入或外部操作前列出冲突并请求用户决定。
 - 修改 plugin 源码、server 源码、package metadata 或消费项目固定的 Git revision 时，还必须读取 `.agents/shared-rules/instructions/unity-packages-and-plugins.md`，并同时读取消费项目提供的 package/plugin 本地 overlay。
 

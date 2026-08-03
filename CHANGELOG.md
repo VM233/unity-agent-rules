@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0] - 2026-08-03
+
+- Prohibit creating or expanding hand-written partial types and treating file movement as responsibility separation.
+- Require aggregate review and responsibility extraction when existing hand-written partial types are touched.
+- Make the shared partial-type prohibition override per-file size and organization rules, with a narrow generated-code exception.
+
 ## [1.1.1] - 2026-08-03
 
 - Make the shared small-change rule the explicit validation authority for every consumer-project change.

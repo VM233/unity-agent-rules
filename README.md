@@ -53,6 +53,8 @@ git commit -m "Update shared Unity agent rules"
 git ls-tree HEAD .agents/shared-rules
 ```
 
+共享代码质量基线禁止新增或扩写手写 `partial` 类型。既有手写 `partial` 必须先按聚合类型审查并提取当前受影响链上的真实职责；单文件行数或组织门禁不能通过拆成多个 `partial` 文件满足。仅编译器、代码生成器或框架硬契约可构成例外。
+
 ## 发布共享规则版本
 
 在本仓库完成修改后执行：

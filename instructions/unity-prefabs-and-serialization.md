@@ -24,7 +24,7 @@
 ## 序列化契约
 
 - 向 Unity 可序列化类新增字段或自动属性前，检查完整基类链和接口并复用同名同责成员。即使 C# 允许隐藏，也禁止重声明同名继承自动属性，避免重复 backing field 触发 `The same field name is serialized multiple times`。
-- Inspector/Odin 的 `Range`、`Min`、验证 Attribute、Shader range、`OnValidate` 与运行时 clamp 必须表达同一真实合法域；默认值和推荐调参窗口不得伪装成硬边界。
-- 合法值来自 Project Settings、Prefab/配置注册表、Preset 或其他权威集合时，优先复用语义匹配的选择器 Attribute/Drawer 与非空/合法性校验，不得暴露裸字符串/整数或在各 consumer 复制候选列表。
+- 合法域只由行为/配置 owner 的类型与权威数据定义一次。Inspector/Odin 的 `Range`、`Min`、选择器 Attribute 或 Shader range 只能把该域暴露给作者；不得再用 `OnValidate`、运行时 clamp、默认替换或 consumer guard 修正非法序列化值。非法值应在权威导入、构建或契约测试边界直接暴露并修正生产数据。
+- 合法值来自 Project Settings、Prefab/配置注册表、Preset 或其他权威集合时，使用语义匹配的强类型引用或选择器 Attribute/Drawer，使 authoring producer 只能生成合法值；不得暴露裸字符串/整数后再由各 consumer 判空、校验或复制候选列表。
 - Unity/Odin 正常保存产生的字段/条目顺序、空白、缩进、默认空字段、无语义空值和不改变对象图的 managed-reference ID 变化，只做一次快速语义判断；确认不改变引用、有效值、类型、Prefab override、组件/层级或反序列化对象图后保持结果，不得为缩小 diff 反复 trim、restore、重存、格式化或重建。
 - YAML 看似合理不能证明 Unity 对象引用和序列化类型有效。只有任务实际改变对象图、引用/GUID/local file ID、字段契约或已有证据指向反序列化故障时，才在允许范围内通过 Unity 实际反序列化读回；用户未授权相应验证时准确标记未读回，不得把静态检查写成运行时证明。

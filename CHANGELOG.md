@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.0] - 2026-08-04
+
+- Ban fail-close behavior, defensive code, fallback paths, retry-based recovery and guard-driven state during implementation and code review.
+- Require contract violations to surface at the originating owner while upstream producers are fixed and downstream defensive branches are removed.
+- Delete derivable, duplicated and recovery-only state, and keep each supported Unity version on one compile-time authoritative implementation.
+- Remove fallback permissions from Unity MCP, localization preview, package/plugin repair and operational rule wording.
+- Replace runtime clamp, `OnValidate` correction and consumer-side serialized-value guards with one authoritative authoring contract.
+
 ## [1.6.0] - 2026-08-04
 
 - Prohibit changing the next code layer immediately after observing only the earliest runtime failure boundary.

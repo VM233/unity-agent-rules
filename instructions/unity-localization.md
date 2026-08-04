@@ -21,7 +21,7 @@
 
 ## 静态、动态文本与条目生命周期
 
-- 静态 UI 文本优先使用项目既有 UXML/`LocalizedString` binding，并保留有意义的 Editor/UI Builder fallback；除非现有 binding 无法表达，不得只为静态本地化新增运行时组件或 `PanelModifier` 赋值。
+- 静态 UI 文本只使用项目既有 UXML/`LocalizedString` binding 作为运行时权威，不得同时保留手写 Editor/UI Builder fallback。确需设计期压力文本时使用不进入运行时 Asset 的 Editor-only 预览并在交付前清除；除非现有 binding 无法表达，不得只为静态本地化新增运行时组件或 `PanelModifier` 赋值。
 - Button、Tab、列表项、bind label、slot caption 等运行时生成文本必须响应项目既有语言变更接口/事件，不能只在创建或面板打开时赋值。
 - 从脚本迁移静态显示文本时只删除 display assignment；搜索、筛选、排序、Tooltip 或其他行为仍需的本地化查询必须保留。
 - 新建 key 前搜索相同语义条目并复用。删除或通用化旧 key 前必须全项目检查 UXML binding、脚本、Prefab、table、string-key 和运行时 consumer；确认无消费者后同步处理 Shared Data 与所有 Locale 值，不得留下孤儿或误删共享条目。

@@ -4,8 +4,8 @@
 
 - 本文件的唯一权威源是 GitHub 仓库 `VM233/unity-agent-rules`。消费项目必须通过项目内 Git submodule 固定到明确 commit，并由各自根 `AGENTS.md` 路由到 submodule 内本文件；不得在消费项目再维护正文副本，也不得依赖机器专属绝对路径。
 - 修改本文件时必须在权威仓库完成审查、CHANGELOG、commit 与发布，再让所有消费项目更新到同一个 gitlink commit。项目名、项目路径、业务 Wrapper/Prefab、项目专属工作流和项目专属验证权限必须写入各自根 `AGENTS.md` 或专项细则，不得混入本文件。
-- submodule 未初始化或目标文件不可读时，消费项目必须先执行 `git submodule update --init --recursive` 并失败关闭；不得跳过共享规则后继续相关任务，也不得从其他本地 checkout 临时读取替代。
-- 使用或修改 Unity MCP、增改工具 route/schema、设计响应或工具元数据、诊断 MCP 故障或 workaround，以及发现工具名、description、typed schema、默认值、错误/状态文案、示例或恢复引导可能误导调用时，必须读取本文件。
+- submodule 未初始化或目标文件不可读时，消费项目必须先执行 `git submodule update --init --recursive`；读取成功前停止相关任务并报告阻点，不得跳过共享规则，也不得从其他本地 checkout 临时读取替代。
+- 使用或修改 Unity MCP、增改工具 route/schema、设计响应或工具元数据、诊断 MCP 故障或清理现存 workaround/fallback，以及发现工具名、description、typed schema、默认值、错误/状态文案、示例或恢复引导可能误导调用时，必须读取本文件。
 - 上级指令、用户当前明确要求和当前项目根 `AGENTS.md` 始终优先。本文件只统一 MCP 的技术契约与工作方法，不自行授予测试、Unity 运行时/视觉验证、提交、推送、发布或破坏性操作权限，也不得绕过 `.agents/shared-rules/instructions/unity-editor-safety.md` 的“小改动默认不验证”及其他明确禁止。
 - 同一任务同时命中 Unity 开发、package/plugin 或其他专项细则时必须全部读取并同时满足。专项规则可按项目事实收紧本文件，但不得在项目侧复制或改写通用 MCP 契约；若真实条款仍无法同时满足，在相关写入或外部操作前列出冲突并请求用户决定。
 - 修改 plugin 源码、server 源码、package metadata 或消费项目固定的 Git revision 时，还必须读取 `.agents/shared-rules/instructions/unity-packages-and-plugins.md`，并同时读取消费项目提供的 package/plugin 本地 overlay。
@@ -24,7 +24,7 @@
 ## 响应契约与输出精简
 
 - 公开响应默认返回“完成下一步所需的最小充分证据”，不是把内部对象原样倾倒，也不是为追求最短而删除语义。每个语义事实只保留一个 canonical 表达；能从保留字段无损、无歧义推导出的 alias、重复 summary、默认值或完成态 metadata 应省略。
-- 类型与测试标识以完整稳定标识为 transport authority。`fullType`、`fullTypeName` 或 `fullName` 已无损包含短名时，省略匹配的 `type`、`component`、`typeName`、`name`、`shortName`、`simpleName` 或 fallback `title`；只有两者完全相等，或完整标识以 `.`/`+` 加短名结尾时，才视为可推导。对象/元素真实名称、display name、自定义 title、语义不同的 type，以及不一致的诊断值必须保留。
+- 类型与测试标识以完整稳定标识为 transport authority。`fullType`、`fullTypeName` 或 `fullName` 已无损包含短名时，省略匹配的 `type`、`component`、`typeName`、`name`、`shortName`、`simpleName` 或冗余 `title`；只有两者完全相等，或完整标识以 `.`/`+` 加短名结尾时，才视为可推导。对象/元素真实名称、display name、自定义 title、语义不同的 type，以及不一致的诊断值必须保留。
 - 输入便利性与输出权威性分离。selector 可以继续接受短类型名、完整类型名或其他明确输入别名，但不得因此在输出中同时回显短名和完整名，也不得为旧调用方保留响应 alias、旧 schema 或 wrapper。
 - 跨 route 的同类压缩必须实现为共享、可独立验证的纯 transport transform，并在所有适用嵌套对象上统一执行；不得只修报告中的一个 components/window/type handler。command、queue、reload 与持久 Job 的内部原始结果保持完整，跨 HTTP/MCP 边界时只压缩一次，禁止先改内部权威数据或在多层 double compact。
 - project tool 已声明并验证 `outputSchema` 时，transport 必须保持该 schema 的必需字段、空容器、count、flag 和嵌套形状；需要精简时应修改 project tool producer 与 output schema，而不是在通用 transport 中静默删字段。JSON Schema 自身也不得被普通响应压缩器改写。
@@ -36,7 +36,7 @@
 
 ## 工具发现与公开面
 
-- 优先使用命名明确、typed schema 可见的一等工具。只有具体工具缺失、过期或无法表达操作时才使用 `unity_advanced_tool`，并说明实际内部 route；稳定流程应升级为一等工具。
+- 只使用命名明确、typed schema 可见的一等工具。具体工具缺失、过期或无法表达操作时，将其视为公开能力缺陷并修复权威工具或报告阻点；不得改用 `unity_advanced_tool`、CLI、直接文件操作或另一 route 完成同一能力。
 - 工具名、typed input schema、关键前置条件、副作用和成功判据必须在调用时直接可发现；不得要求 Agent 猜 route、枚举整个实现或读源码后才能正确调用。
 - 大型工具目录采用分层懒发现：无参数只返回类别与数量，类别查询返回名称、brief、参数名与分页信息，search 返回小集合，单工具查询才返回完整 schema；只有显式 `includeSchemas` 才批量返回 schema。不得为寻找一个工具把完整 registry/schema 倾倒进上下文。
 - 元数据清单必须有 limit/pagination 并翻页到底后才能宣称完整；不得把第一页、default smoke 或 `npm test` 基线误报成完整工具审计或逐工具回归。
@@ -59,11 +59,11 @@
 ## 工具使用与 Plugin 开发
 
 - MCP 的引导性缺陷与功能性缺陷同等审计。工具能经 advanced route、execute-code、直接文件操作或源码阅读绕过，不代表一等工具契约合格；若正常调用者可能据公开 metadata 选择错误 route、参数、生命周期或成功判据，必须修正最窄权威 owner，并同步可发现性、机器校验、结构化错误、示例与文档。
-- 一次 Agent 误用是审计可发现性与防误用契约的信号，不自动等于 plugin 缺陷。若公开工具名、description、schema、默认值、前置校验或错误引导允许或稳定诱发该误用，按契约缺陷修复；若公开契约已明确拒绝而调用者无视它，则归为调用者误用，不得借此扩张 plugin。两种结论都必须有调用与契约证据，不能仅在最终回复主观分类。
+- 一次 Agent 误用是审计可发现性与输入契约的信号，不自动等于 plugin 缺陷。若公开工具名、description、schema、参数类型或错误语义允许或稳定诱发该误用，修正权威 schema/producer，使非法请求不能被构造或在公开边界直接返回声明的错误；不得在 handler 深处增加防御 guard。若公开契约已明确拒绝而调用者无视它，则归为调用者误用，不得借此扩张 plugin。两种结论都必须有调用与契约证据，不能仅在最终回复主观分类。
 - `unity_execute_code` 自动导入基础命名空间。项目中反复使用的扩展方法命名空间统一配置在 `Project Settings > Unity MCP > Execute Code > Additional Namespaces`；只有一次性依赖才通过请求的 `usings` 传入，不得在每次调用重复维护同一列表。
 - 直接修改 Unity MCP plugin/server 时，在各自权威 checkout 工作，不把 package 转成消费项目 embedded package，不修改 `Library/PackageCache`。发布后让消费项目从远端 revision 重新解析，并用公开正式路径验证；plugin 源码开发所需测试不得反向套用于单纯 pin 更新。
 - MCP 宿主启动的 stdio server 进程属于当前宿主连接；不得用 `Stop-Process`、`taskkill`、`kill` 或按 PID 年龄猜测并终止，也不得假定下一次工具调用会自动拉起。修改 server 后用独立 MCP stdio 测试客户端启动临时进程验证；让当前宿主加载新版只能使用宿主提供的 reload/reconnect，或明确告知用户重启宿主。若已出现 `Transport closed`，先审计本任务的进程操作和宿主日志，区分代理误杀、server 自身退出与 Unity bridge 故障。
-- 当前任务暴露出 route/schema、状态查询、取消/清理、幂等、持久 Job、结构化响应或证据产品的已确认能力缺口时，不得在项目代码、Editor builder、菜单生成器、一次性迁移脚本、本地状态文件或 Agent 操作中保留长期绕路。按当前项目根规则的授权边界，在对应 plugin checkout 修公开契约与实现、补与风险等级匹配的回归、发布并更新消费项目 pin，再用公开工具完成原任务。
+- 当前任务暴露出 route/schema、状态查询、取消/清理、幂等、持久 Job、结构化响应或证据产品的已确认能力缺口时，不得在项目代码、Editor builder、菜单生成器、一次性迁移脚本、本地状态文件或 Agent 操作中新增或保留绕路。按当前项目根规则的授权边界，在对应 plugin checkout 修公开契约与实现、补与风险等级匹配的回归、发布并更新消费项目 pin，再用唯一公开工具完成原任务。
 - 只为一次资产物化所需的项目编排可以临时存在，但必须在同一任务完成后删除；只有真正反复发生且拥有独立产品语义的工作流才可保留为 project tool。工具按目标对象、权限、事务和证据产品拆分，禁止把旧 builder 的方法逐个改名成 route，或在工具参数/代码常量中复制已提交 Asset 的玩法配置。
 - 合并 MCP 工具前生成完整 route-to-handler 清单，逐项比较目标对象、权限 owner、前置条件、生命周期、副作用、证据产品、schema、调用方和测试。只有契约相同，差异仅为 alias、传输形态、固定参数或立即/确认完成变体时才合并；Editor UI/运行时 UI、场景实例/Prefab Asset、读取证据/修改等不同所有权域必须分开。
 - 合并后只保留一个按职责命名的 canonical route，并同步删除旧 route、handler、profile、说明、schema、文档、调用方和重复测试；禁止兼容 alias/wrapper。验证公开 `_meta/tools` 包含全部 canonical route 且不含已删 route，定向测试覆盖保留的参数化变体，再按 L1-L4 决定回归范围，最后 pin 消费项目并实测 canonical route。单 route 合并/删除本身不触发 full suite。
@@ -72,7 +72,7 @@
 ## Queue、Job 与 reload
 
 - queue ticket、持久 Job 和 reload 恢复的内部状态必须保留唯一 identity、capability/access token、状态、阶段与下一步操作所需字段；输出精简不能破坏 polling、cancel、cleanup、manifest restore 或失败归因。
-- 遇到 domain reload 后 ticket 丢失，只允许 metadata 明确声明为幂等的读取操作进行一次 fresh submit，并在结果中保留 replay 事实；mutation 必须失败关闭并要求先核对目标状态，禁止自动重放或因 poll 暂时失败而盲目重提。
+- 遇到 domain reload 后 ticket 丢失，直接返回可判别的 terminal error；读取和 mutation 都不得自动 fresh submit、重放、重试或切换 route。调用方只有在重新确认目标 owner 与当前状态后，才能把后续显式用户操作作为全新的命令开始，不能把它伪装成原 ticket 的恢复。
 - status 工具应通过 canonical Job API 返回同一快照，不得同时保留旧 workflow/ticket alias。终态恢复标签一旦成立不得被后续无关文件变化改写；恢复失败必须使用独立、可判别的错误/tag，而不是伪装成普通测试失败。
 
 ## 截图与证据产品
@@ -84,6 +84,6 @@
 
 ## 故障报告与已知公开契约
 
-- 任何 Unity MCP 问题都必须在下一次用户进度更新和最终交付中明确报告，即使备用 route、CLI 或直接文件操作最终成功。说明受影响能力、具体故障、受影响动作/证据、备用路径、权威 owner、修复与发布/pin 状态及剩余不确定性；不得静默换路后假装原 MCP 成功，也不得把 MCP 故障误报成项目缺陷。
-- 若权威读回或修改依赖失败路径，在独立验证前标记为阻塞或无结论。只有源码、权限、凭据、上游控制、用户授权或更高安全边界明确阻挡时，才可保留 workaround；必须报告精确阻点，不得把问题写成已解决。
-- Unity MCP 导出 route 为 `asset/export-unitypackage`，公开工具名 `unity_asset_export_unitypackage`；可见工具列表过期时可经 `unity_advanced_tool` 调用。它使用 `AssetDatabase.ExportPackage`，接受 `assetPath` / `path` / `assetPaths`，规范化 `outputPath` / `filePath`，默认包含 dependencies 与 recurse，并返回最终路径和文件大小等 metadata。
+- 任何 Unity MCP 问题都必须在下一次用户进度更新和最终交付中明确报告。不得改用备用 route、`unity_advanced_tool`、CLI 或直接文件操作完成同一能力；在权威 owner 修复并发布/pin 前，受影响动作与证据标记为阻塞或无结论。
+- 若权威读回或修改依赖失败路径，在独立验证前标记为阻塞或无结论。源码、权限、凭据、上游控制、用户授权或更高安全边界构成阻点时，报告精确阻点；不得保留 workaround、防御性替代或“临时可用”结论。
+- Unity MCP 导出 route 为 `asset/export-unitypackage`，公开工具名 `unity_asset_export_unitypackage`。它使用 `AssetDatabase.ExportPackage`，接受 `assetPath` / `path` / `assetPaths`，规范化 `outputPath` / `filePath`，默认包含 dependencies 与 recurse，并返回最终路径和文件大小等 metadata。

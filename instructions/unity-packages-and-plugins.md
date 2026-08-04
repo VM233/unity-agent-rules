@@ -11,17 +11,17 @@
 - 先用仓库 remote、manifest URL、安装文档、本地 checkout、公开契约和实际 pin 证明 package/plugin 的 owner、权威源码与目标 revision；不得仅凭命名猜用户控制权，也不得把无上游权限的第三方依赖当成可自动发布项目。
 - 持久修复在独立权威仓库完成并推送，再由消费项目的 `Packages/manifest.json` 与 `Packages/packages-lock.json` 同步固定远端 revision。不得把 `Library/PackageCache`、生成物、缓存、静默 embedded override 或消费项目内副本作为最终权威。
 - 修改前重新检查消费项目 manifest/lock、真正解析的 package source 与目标 Unity 版本。只有命中下述唯一常设例外时，才继续审查 package manifest、README/Documentation、CI 矩阵和受控消费项目共同证明的 Unity 支持范围；没有权威证据的版本不得猜测为受支持。跨仓库执行 Git 操作前确认当前 repo root，避免在消费项目或错误 checkout 提交上游源码。
-- 唯一常设兼容例外是：由用户维护并作为通用能力面向多个 Unity 项目复用的 package/plugin/Editor extension，包括符合该归属的 Unity MCP package，必须兼容其权威声明支持的 Unity 版本。Unity API、编译器或 Editor 行为差异使用版本条件、窄适配层或等价实现，让各受支持版本只编译和执行适用分支；不得用 warning suppression 代替版本兼容实现。
+- 唯一常设兼容例外是：由用户维护并作为通用能力面向多个 Unity 项目复用的 package/plugin/Editor extension，包括符合该归属的 Unity MCP package，必须兼容其权威声明支持的 Unity 版本。Unity API、编译器或 Editor 行为差异使用版本条件或等价实现，让各受支持版本只编译和执行该版本的唯一权威分支；这不是运行时 fallback，不得先试新 API 再退旧 API，也不得为版本差异复制运行时状态。不得用 warning suppression 代替版本兼容实现。
 - 上述例外只覆盖 Unity 版本差异，不覆盖旧 plugin API、route、schema、响应、配置、序列化数据、工作流、server/protocol、package revision 或历史行为。项目专属代码、只服务单一项目的 package/tool、第三方依赖及其他兼容性仍执行共享代码质量细则的默认关闭规则，除非用户在当前请求中明确点名兼容范围。
 
 ## 已确认缺陷的闭环
 
-- 功能异常、假成功、缺少必要前置校验、恢复路径不完整，以及会稳定诱导错误调用的工具名、description、typed schema、默认值、状态/错误文案、示例、README、安装、配置、使用和迁移说明，都属于需要归因的问题；存在 workaround 或当前任务仍能推进不构成豁免。
+- 功能异常、假成功、契约违例被 guard/default/重试掩盖、存在 fallback/workaround，以及会稳定诱导错误调用的工具名、description、typed schema、默认值、状态/错误文案、示例、README、安装、配置、使用和迁移说明，都属于需要归因的问题；当前任务表面仍能推进不构成豁免。
 - 触发修复前必须有错误日志、最小复现、公开响应与实现不一致、源码与文档/schema 矛盾或其他权威证据。先区分调用者误用、消费项目错误、宿主/传输问题和 plugin 自身缺陷，不得未经归属就盲改上游。
-- 一旦项目规则授权且确认属于可维护 plugin，暂停继续堆 workaround，统一审计同类入口、handler、共享 schema/序列化/错误映射、调用方、测试和文档生成链，在最窄权威 producer/contract 修复报告实例与已确认同源实例。
-- 能由 typed schema、前置校验或结构化错误阻止的误用必须修代码契约，不能只补文档。临时绕行只可用于收集证据或避免丢失工作，不能关闭缺陷或替代正式路径。
+- 一旦项目规则授权且确认属于可维护 plugin，停止使用并删除 workaround/fallback，统一审计同类入口、handler、共享 schema/序列化/错误映射、调用方、测试和文档生成链，在最窄权威 producer/contract 修复报告实例与已确认同源实例。
+- 能由 typed schema、权威 producer 或结构化错误契约消除的误用必须修代码契约，不能只补文档，也不得为取证或继续任务写入临时绕行。只读诊断可以收集证据，但不能进入产品、工具、项目状态或交付物。
 - 完整闭环按适用范围覆盖：根因实现、风险匹配的聚焦回归、公开 schema/metadata/错误语义、文档与示例、版本/CHANGELOG、上游 commit/push、消费项目 manifest/lock pin、UPM 重新解析、reload/reconnect，以及通过正式公开接口重跑原失败路径。
-- 只有源码、仓库访问、凭据、上游控制、安全边界、用户权限或未经授权的 breaking/product change 构成明确阻点时，才可保留未闭环项；交付时说明精确阻点、临时措施和未验证范围。
+- 只有源码、仓库访问、凭据、上游控制、安全边界、用户权限或未经授权的 breaking/product change 构成明确阻点时，才可保留未闭环项；交付时说明精确阻点和未验证范围，不实现或保留临时措施、备用路径或防御性替代。
 
 ## Package 文件与消费更新
 

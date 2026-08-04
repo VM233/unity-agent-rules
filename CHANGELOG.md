@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0] - 2026-08-04
+
+- Limit every hand-written class, including record classes and allowed partial aggregates, to 1500 physical lines.
+- Allow only one top-level type per hand-written C# file while retaining genuinely owned nested types.
+- Require touched legacy violations to be split or responsibility-extracted without authorizing unrelated repository-wide cleanup.
+
 ## [1.3.0] - 2026-08-04
 
 - Make compatibility opt-in per current user request and require the current authoritative contract by default.

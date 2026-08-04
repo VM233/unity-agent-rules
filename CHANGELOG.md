@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0] - 2026-08-04
+
+- Prohibit changing the next code layer immediately after observing only the earliest runtime failure boundary.
+- Freeze executable implementation and test semantics while completing all independent, authorized scenarios on the same build.
+- Require state-transition and evidence-scope proofs across candidates, instances, branches and transactions before one coherent defect-family repair.
+- Preserve per-scenario fail-fast safety without allowing global evidence collection to stop or expand into unrelated tests.
+
 ## [1.5.0] - 2026-08-04
 
 - Make local UI refresh, visibility, and enablement wiring static-only small changes when they only read existing authoritative state and preserve visible behavior.

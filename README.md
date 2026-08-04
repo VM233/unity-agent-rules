@@ -53,6 +53,8 @@ git commit -m "Update shared Unity agent rules"
 git ls-tree HEAD .agents/shared-rules
 ```
 
+共享验证权限基线以 `instructions/unity-editor-safety.md` 为准。“修复”“实现”“提交”“推送”不包含验证授权；局部小改，以及只能在 Player/Addressables/AssetBundle 等打包后环境确认的 UI 改动，默认只做源码、引用、聚焦 diff 与 worktree 静态审查并交由用户验证。只有用户在当前请求中逐项明确要求，才能执行对应的 Unity/MCP、编译、构建、Play Mode、视觉或打包后检查；消费项目不得用固定清单、只读 MCP 或项目专项流程扩大这项权限。
+
 共享代码质量基线禁止新增或扩写手写 `partial` 类型。既有手写 `partial` 必须先按聚合类型审查并提取当前受影响链上的真实职责；单文件行数或组织门禁不能通过拆成多个 `partial` 文件满足。仅编译器、代码生成器或框架硬契约可构成例外。
 
 每个手写 C# 文件只允许一个顶层类型；属于唯一顶层 owner 的 nested class/enum/struct/interface 等可以保留。每个手写 class（含 `record class`）完整声明不得超过 1500 行，嵌套类型计入外层 class，总体职责已经分裂时必须在达到上限前提取。

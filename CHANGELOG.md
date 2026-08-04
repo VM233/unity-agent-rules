@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0] - 2026-08-04
+
+- Make local UI refresh, visibility, and enablement wiring static-only small changes when they only read existing authoritative state and preserve visible behavior.
+- Require explicit, itemized validation authorization in the current request; fixes, implementation, commits, pushes, runtime symptoms, and existing Editor state do not grant it.
+- Leave UI behavior that can only be confirmed after Player or content packaging to user validation by default, without Agent compilation, builds, Play Mode substitutes, screenshots, logs, or input automation.
+- Prevent consumer-project checklists, read-only MCP tools, and specialized UI workflows from expanding the shared validation boundary.
+
 ## [1.4.0] - 2026-08-04
 
 - Limit every hand-written class, including record classes and allowed partial aggregates, to 1500 physical lines.

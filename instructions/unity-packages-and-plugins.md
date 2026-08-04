@@ -6,12 +6,13 @@
 - 用户当前明确要求和消费项目根 `AGENTS.md` 决定是否授权修改外部仓库、测试、提交、推送、发布和消费项目 pin。本文件定义技术闭环，不自行授予这些权限。
 - 涉及 Unity MCP plugin/server、route、schema、响应或 MCP 验证时，还必须读取 `.agents/shared-rules/instructions/unity-mcp.md`；需要 Unity 操作时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
 
-## 归属与权威源码
+## 归属、权威源码与唯一兼容例外
 
 - 先用仓库 remote、manifest URL、安装文档、本地 checkout、公开契约和实际 pin 证明 package/plugin 的 owner、权威源码与目标 revision；不得仅凭命名猜用户控制权，也不得把无上游权限的第三方依赖当成可自动发布项目。
 - 持久修复在独立权威仓库完成并推送，再由消费项目的 `Packages/manifest.json` 与 `Packages/packages-lock.json` 同步固定远端 revision。不得把 `Library/PackageCache`、生成物、缓存、静默 embedded override 或消费项目内副本作为最终权威。
-- 修改前重新检查消费项目 manifest/lock、真正解析的 package source、目标 Unity 版本及 package manifest 声明的兼容范围。跨仓库执行 Git 操作前确认当前 repo root，避免在消费项目或错误 checkout 提交上游源码。
-- Package 代码兼容其 manifest 声明的全部 Unity 版本。API 差异使用版本条件、窄适配层或等价实现，让各版本只编译适用分支；不得用 warning suppression 代替兼容实现。
+- 修改前重新检查消费项目 manifest/lock、真正解析的 package source 与目标 Unity 版本。只有命中下述唯一常设例外时，才继续审查 package manifest、README/Documentation、CI 矩阵和受控消费项目共同证明的 Unity 支持范围；没有权威证据的版本不得猜测为受支持。跨仓库执行 Git 操作前确认当前 repo root，避免在消费项目或错误 checkout 提交上游源码。
+- 唯一常设兼容例外是：由用户维护并作为通用能力面向多个 Unity 项目复用的 package/plugin/Editor extension，包括符合该归属的 Unity MCP package，必须兼容其权威声明支持的 Unity 版本。Unity API、编译器或 Editor 行为差异使用版本条件、窄适配层或等价实现，让各受支持版本只编译和执行适用分支；不得用 warning suppression 代替版本兼容实现。
+- 上述例外只覆盖 Unity 版本差异，不覆盖旧 plugin API、route、schema、响应、配置、序列化数据、工作流、server/protocol、package revision 或历史行为。项目专属代码、只服务单一项目的 package/tool、第三方依赖及其他兼容性仍执行共享代码质量细则的默认关闭规则，除非用户在当前请求中明确点名兼容范围。
 
 ## 已确认缺陷的闭环
 

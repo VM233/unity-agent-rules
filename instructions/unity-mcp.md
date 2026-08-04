@@ -67,7 +67,7 @@
 - 只为一次资产物化所需的项目编排可以临时存在，但必须在同一任务完成后删除；只有真正反复发生且拥有独立产品语义的工作流才可保留为 project tool。工具按目标对象、权限、事务和证据产品拆分，禁止把旧 builder 的方法逐个改名成 route，或在工具参数/代码常量中复制已提交 Asset 的玩法配置。
 - 合并 MCP 工具前生成完整 route-to-handler 清单，逐项比较目标对象、权限 owner、前置条件、生命周期、副作用、证据产品、schema、调用方和测试。只有契约相同，差异仅为 alias、传输形态、固定参数或立即/确认完成变体时才合并；Editor UI/运行时 UI、场景实例/Prefab Asset、读取证据/修改等不同所有权域必须分开。
 - 合并后只保留一个按职责命名的 canonical route，并同步删除旧 route、handler、profile、说明、schema、文档、调用方和重复测试；禁止兼容 alias/wrapper。验证公开 `_meta/tools` 包含全部 canonical route 且不含已删 route，定向测试覆盖保留的参数化变体，再按 L1-L4 决定回归范围，最后 pin 消费项目并实测 canonical route。单 route 合并/删除本身不触发 full suite。
-- 修改 Unity MCP plugin 时，不保留旧工具名、请求 alias、schema、响应形态、工作流或 plugin/server 版本兼容；同步更新受控调用方并删除兼容代码。只保留 package manifest 声明的受支持 Unity 版本之间的兼容。
+- 修改 Unity MCP plugin 时，不保留旧工具名、请求 alias、schema、响应形态、工作流或 plugin/server 版本兼容；同步更新受控调用方并删除兼容代码。只有该 Unity package 符合共享 package/plugin 细则中“用户维护的通用 Unity 插件”唯一常设例外时，才保留其权威声明支持的 Unity 版本差异实现；不得把 Unity 版本例外扩大为 MCP API、server、protocol 或数据兼容。
 
 ## Queue、Job 与 reload
 

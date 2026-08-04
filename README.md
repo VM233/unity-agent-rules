@@ -55,6 +55,8 @@ git ls-tree HEAD .agents/shared-rules
 
 共享代码质量基线禁止新增或扩写手写 `partial` 类型。既有手写 `partial` 必须先按聚合类型审查并提取当前受影响链上的真实职责；单文件行数或组织门禁不能通过拆成多个 `partial` 文件满足。仅编译器、代码生成器或框架硬契约可构成例外。
 
+共享兼容性基线默认只实现当前权威契约。除非用户在当前请求中明确点名，否则不保留旧 API、schema、数据、行为、版本或兼容层。唯一常设例外是用户维护并跨 Unity 项目复用的通用 package/plugin/Editor extension 对其权威声明支持的 Unity 版本做版本兼容；该例外不扩展到插件 API、route、server/protocol 或历史数据兼容。
+
 ## 发布共享规则版本
 
 在本仓库完成修改后执行：

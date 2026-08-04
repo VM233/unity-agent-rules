@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0] - 2026-08-04
+
+- Make compatibility opt-in per current user request and require the current authoritative contract by default.
+- Define the only standing exception as Unity-version compatibility for user-maintained reusable Unity packages, plugins, and Editor extensions across their declared support range.
+- Prevent the Unity-version exception from preserving legacy plugin APIs, routes, schemas, responses, revisions, protocols, data, or behavior.
+
 ## [1.2.0] - 2026-08-03
 
 - Prohibit creating or expanding hand-written partial types and treating file movement as responsibility separation.

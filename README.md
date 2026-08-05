@@ -63,9 +63,15 @@ git ls-tree HEAD .agents/shared-rules
 
 共享兼容性基线默认只实现当前权威契约。除非用户在当前请求中明确点名，否则不保留旧 API、schema、数据、行为、版本或兼容层。唯一常设例外是用户维护并跨 Unity 项目复用的通用 package/plugin/Editor extension 对其权威声明支持的 Unity 版本做版本兼容；该例外不扩展到插件 API、route、server/protocol 或历史数据兼容。
 
-共享缺陷治理禁止“发现首个失败后立即修改下一层”。单个非法场景应直接暴露契约违例，但同一 build 上其他独立且已授权的场景仍须完成；在整轮证据汇总前冻结可执行实现、诊断和测试语义。多状态或时序缺陷还必须区分 candidate、实例、分支、事务与全局结论的证据作用域，证明哪个 producer/迁移制造非法组合并从源头消除；不得新增 guard、fallback 或冗余状态。
+共享缺陷治理禁止“发现首个失败后立即修改下一层”。单个非法场景应在首个非法状态结束，但同一 build 上其他独立且已授权的场景仍须完成；在整轮证据汇总前冻结可执行实现、诊断和测试语义。各场景只产出失败边界，不得直接命名根因；完整矩阵完成后统一审查 owner、producer、状态迁移与 publication/adoption/CAS，再进行一次 coherent 修复。
+
+多状态或时序缺陷必须证明 predecessor/current/successor 产品及 absent、planning、ready/scheduled、pending、adopted/active、retired/cancelled 的可达性、唯一 writer、revision/context、deadline、取消与退出迁移。Comparator、排序、tie-breaker、优先级、阈值、horizon、budget、candidate/beam 数、cadence、延迟，以及新增 cursor/flag/mode/cache/pending/type，默认都不是因果修复；运行更久、失败更晚、异常换位置或访问更多候选只说明失败边界移动。被反例否决的实验必须先从生产 diff 撤回，不得与下一假设叠加。
+
+有限或声称穷尽的搜索中，排序只拥有性能与确定性，不能拥有安全或活性。若 sibling 顺序改变最终成败，先修复进度保留、deadline/runway、publication gate 或错误的失败作用域。把原子计算改成跨 tick、异步、分帧、增量或可恢复事务，会新增正确性生命周期；必须重开完整状态证明，并在用户已授权范围内先重跑受影响正确性矩阵，不能以性能改善替代契约证据或扩大验证权限。
 
 ## 发布共享规则版本
+
+用户明确要求新增、纠正、优化、删除或沉淀共享规则时，该请求已经授权完成整个规则迁移事务：提交并推送本仓库、创建并推送语义化版本 tag、更新所有可发现消费项目的 gitlink 与必要本地 overlay，并分别提交推送这些迁移文件。无需再次请求“是否提交/推送”；但不得暂存消费项目的其他脏改，也不得借此运行 Unity 验证、发布产品内容或创建 PR。
 
 在本仓库完成修改后执行：
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.8.0] - 2026-08-05
+
+- Reject symptom-displacement changes such as reordering, priority, threshold, horizon, budget, cadence and failure-boundary movement unless they are proven authoritative product contracts.
+- Require complete predecessor/current/successor reachability and transition proofs for planning, publication, pending, adoption, cancellation, revision and deadline state before claiming a root cause.
+- Make finite-search ordering a performance concern rather than a correctness owner, and require disproved experimental state and branches to be removed before testing another hypothesis.
+- Treat incremental, cross-tick, resumable or asynchronous performance changes as correctness lifecycle changes that must reopen the affected runtime matrix.
+- Keep one frozen build across all independent authorized scenarios, record per-scenario failure boundaries and unify attribution before one coherent repair.
+- Treat an explicit shared-rule change request as scoped authorization to commit, tag and push the rule repository and migrate only the rule overlays and gitlinks of every consumer project.
+
 ## [1.7.0] - 2026-08-04
 
 - Ban fail-close behavior, defensive code, fallback paths, retry-based recovery and guard-driven state during implementation and code review.

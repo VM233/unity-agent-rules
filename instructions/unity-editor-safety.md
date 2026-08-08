@@ -14,15 +14,19 @@
 - 读取、搜索、diff、Git 操作，以及修改 `AGENTS.md`、`.agents/`、普通文档、`Packages`、`ProjectSettings`、`UserSettings`、`Temp`、构建输出或独立 package/plugin 仓库时，不得仅为编辑安全查询 Editor 状态，也不得因此触发 Unity/MCP、刷新、编译或 Domain Reload。
 - Unity Editor 专用按钮、菜单、Inspector/Odin、Toolbar、Tooltip、验证消息、日志和异常文本统一使用英文；本地化资源、目标语言预览及本地化流程本身可以使用对应语言。
 
-## 小改动默认不验证
+## 代码改动强制编译，其他小改动默认不验证
 
-- 消费项目的局部小改完成静态检查后直接交付。除非用户在当前请求中明确点名某项验证，否则不得主动启动 Unity 或运行任何验证。文件位于 `Assets`、使用 Unity/Odin Attribute、触及 UXML/USS/UI Prefab、问题曾在运行时出现、当前已有可复现场景、Editor 正在运行或暂停、编译成本很低，均不构成验证授权或升级理由；“修复”“实现”“提交”“推送”也不包含验证授权。
+- 修改 Unity 项目、package 或 plugin 中进入编译的代码或编译契约后，必须在最后一次代码写入后执行一次当前项目的权威编译，并读取该次编译的完整结果。代码修改请求本身已授权这项最窄编译动作，包括为触发该次编译所必需的 refresh/import、Domain Reload 和编译输出读取；不授权 Play Mode、EditMode/PlayMode test、Player/Content Build、运行时、视觉、截图或输入自动化。
+- 编译失败属于当前实现未完成，必须一次收集完整相关错误族，修正权威源码后重新编译，直到 error 为零。每次结果同时检查 warning 以及独立的 `obsolete`/`deprecated` 警告并如实报告；不得用 suppression、忽略日志或只检查最早一条错误冒充通过。编译成功只证明编译契约，不证明运行时、序列化、视觉或产品行为。
+- 纯文档、规则、注释、非代码资源、Git、Packages pin、ProjectSettings、UserSettings、构建输出或独立仓库的非编译输入不因此触发 Unity。若代码改动无法访问权威编译环境，必须明确标记编译阻塞或未验证，不能把静态检查写成已完成编译。
+
+- 消费项目不含代码或编译契约变化的局部小改完成静态检查后直接交付。除上述强制编译外，除非用户在当前请求中明确点名某项验证，否则不得主动启动 Unity 或运行任何验证。文件位于 `Assets`、使用 Unity/Odin Attribute、触及 UXML/USS/UI Prefab、问题曾在运行时出现、当前已有可复现场景或 Editor 正在运行/暂停，均不构成其他验证授权或升级理由；“修复”“实现”“提交”“推送”只包含代码改动的最窄编译门禁，不包含其他验证授权。
 - 小改动必须能由源码和目标 diff 静态穷尽影响，不建立或重组业务运行时状态、数据产品、交互模型或跨对象所有权，不改变字段/方法数据契约、序列化对象图、引用/GUID、Scene/Prefab 拓扑、已有可见布局/样式/交互、Package 或 Build 行为。单个既有 UI Modifier/组件只读取既有权威状态，局部调整刷新触发方式、刷新频率、显示、隐藏或启用条件，且不新增状态 producer、状态写入、输入语义、数据契约或可见表现时，仍属于小改；从已有事件回调改为仅在面板打开期间轮询刷新也不得据此升级。
 - 典型小改包括：文档、规则、注释；Inspector/Odin 展示或选择元数据；把一一对应字面量替换为已有常量/preset；给既有入口增加无额外业务逻辑的薄 Editor 按钮；复用已有权威状态对单个既有 UI 区域做局部显示、隐藏、启用或刷新接线，且显示时表现不变。
-- 小改动只允许读取源码、搜索引用、检查聚焦 diff、`git diff --check` 和 worktree 状态，以及任务细则明确要求的写入前安全动作。不得主动调用 Unity MCP、`AssetDatabase.Refresh`、导入/编译、Domain Reload、Console/`Editor.log`、测试、构建、Play Mode、UI Builder/Game View、截图、像素或视觉检查；消费项目专项不得把固定审查清单、只读 MCP 或“静态工具”重新解释成例外。
+- 小改动只允许读取源码、搜索引用、检查聚焦 diff、`git diff --check` 和 worktree 状态，以及任务细则明确要求的写入前安全动作。代码改动额外执行上述最窄 refresh/import、Domain Reload、编译及其 Console/`Editor.log` 结果读取；除此之外不得主动调用 Unity MCP、测试、构建、Play Mode、UI Builder/Game View、截图、像素或视觉检查，消费项目专项也不得把固定审查清单、只读 MCP 或“静态工具”重新解释成例外。
 - 只有静态检查证明改动越过上述边界，且当前用户请求明确授权了对应验证时，才执行与实际风险匹配的最小验证。不得以“保险起见”、运行时缺陷、历史验收阶梯、完成闭环或准备提交推送为由继续升级；验证未获授权时完成允许的实现与静态审查，并准确列出未验证项。
-- 仅在 Player Build、Addressables/AssetBundle Content Build 或其他打包后运行环境中才能复现或最终确认的 UI 改动，无论是否属于小改，默认都只做静态实现与审查并交由用户验证。除非用户在当前请求中逐项明确要求，不得执行 Unity 编译、Player/Content Build、Build And Run、Use Existing Build、启动已打包 Player、Play Mode/UI Builder 替代验证、截图、日志检查、输入自动化或其他复现/测试；不得因为 Editor 无法证明打包后行为就自行补测。
-- 用户明确要求验证时，只获得当前请求逐项列出的验证授权；不得据此扩大到无关测试、完整回归、运行时、视觉、构建或打包后检查。此前由用户或 Agent 进入、暂停或保留的 Editor/Player 状态不是授权。
+- 仅在 Player Build、Addressables/AssetBundle Content Build 或其他打包后运行环境中才能复现或最终确认的 UI 改动，无论是否属于小改，默认都只做静态实现与审查并交由用户验证；其中若修改代码，仍只执行上述强制编译。除非用户在当前请求中逐项明确要求，不得执行 Player/Content Build、Build And Run、Use Existing Build、启动已打包 Player、Play Mode/UI Builder 替代验证、截图、运行日志检查、输入自动化或其他复现/测试；不得因为 Editor 无法证明打包后行为就自行补测。
+- 用户明确要求验证时，只获得当前请求逐项列出的验证授权；强制编译不把授权扩大到无关测试、完整回归、运行时、视觉、构建或打包后检查。此前由用户或 Agent 进入、暂停或保留的 Editor/Player 状态不是这些额外验证的授权。
 - 每一项验证必须能追溯到本轮实际修改的 owner、契约、生命周期、数据产品、直接 consumer，或已有证据支持的相邻回归；同属一个功能、Prefab、场景或测试阶梯不构成相关性。项目专项中的固定清单必须按受影响契约条件化，未触及且无相邻风险证据的类别应跳过并说明原因，不能冒充已通过。
 - 一项运行时失败只阻断依赖其有效前置状态的后续验证。单个场景在首个非法状态停止后，必须冻结本轮可执行实现、诊断与测试语义；在修改代码、刷新或重新编译前，继续用同一构建完成其余相互独立且处于本轮范围内的场景，并汇总完整缺陷族证据。严禁看到第一个失败就立刻修改下一层、让不同场景实际运行在不同 build 上，或把最早失败边界冒充完整根因；也不得强行继续非法状态或借机运行范围外类别。
 - 冻结 build 的每个场景必须保存“失败边界”而非预设“因果结论”：至少包含最后合法状态、首个非法状态、producer/transaction 阶段、publication/pending/adoption/CAS 转换、revision/context、执行产品余量及直接 Console 错误。完成范围内独立矩阵前不得修改生产代码、诊断判据或测试参数；矩阵完成后也必须先统一所有权和状态迁移归因，不能按场景逐个修补。

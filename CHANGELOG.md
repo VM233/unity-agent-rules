@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.9.0] - 2026-08-08
+
+- Require one authoritative Unity compilation after every code or compilation-contract change and treat compile errors as unfinished implementation.
+- Separate the mandatory compile gate from Play Mode, tests, builds, runtime, visual and packaged-player validation permissions.
+- Reconcile the small-change and packaged-UI rules so they no longer prohibit the mandatory compile gate while retaining all other explicit-authorization boundaries.
+
 ## [1.8.0] - 2026-08-05
 
 - Reject symptom-displacement changes such as reordering, priority, threshold, horizon, budget, cadence and failure-boundary movement unless they are proven authoritative product contracts.

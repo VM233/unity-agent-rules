@@ -13,7 +13,7 @@ git commit -m "Add shared Unity agent rules"
 在项目根 `AGENTS.md` 中使用项目内相对路径进行路由：
 
 ```markdown
-- 任何修改在决定验证范围前：读取 `.agents/shared-rules/instructions/unity-editor-safety.md` 的“小改动默认不验证”；纯文档、规则、Git、Packages 或独立仓库任务不得因此查询 Unity。
+- 任何修改在决定验证范围前：读取 `.agents/shared-rules/instructions/unity-editor-safety.md` 的“代码改动强制编译，其他小改动默认不验证”；纯文档、规则、Git、Packages 或独立仓库任务不得因此查询 Unity。
 - 新增、修改、重构或审查代码、工具和脚本：读取 `.agents/shared-rules/instructions/code-quality.md`。
 - 写入 Unity `Assets`、使用 Editor、刷新/编译、Play Mode、测试、构建或视觉证据：读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
 - 修改 Prefab、组件职责、配置所有权或 Unity/Odin 序列化：读取 `.agents/shared-rules/instructions/unity-prefabs-and-serialization.md`。
@@ -53,7 +53,7 @@ git commit -m "Update shared Unity agent rules"
 git ls-tree HEAD .agents/shared-rules
 ```
 
-共享验证权限基线以 `instructions/unity-editor-safety.md` 为准。“修复”“实现”“提交”“推送”不包含验证授权；局部小改，以及只能在 Player/Addressables/AssetBundle 等打包后环境确认的 UI 改动，默认只做源码、引用、聚焦 diff 与 worktree 静态审查并交由用户验证。只有用户在当前请求中逐项明确要求，才能执行对应的 Unity/MCP、编译、构建、Play Mode、视觉或打包后检查；消费项目不得用固定清单、只读 MCP 或项目专项流程扩大这项权限。
+共享验证权限基线以 `instructions/unity-editor-safety.md` 为准。修改 Unity 项目、package 或 plugin 的代码或编译契约后，代码修改请求本身授权且要求一次最窄权威编译，并在修复错误后重新编译到 error 为零；这不授权 Play Mode、测试、Player/Content Build、运行时、视觉或打包后检查。不含代码变化的局部小改，以及只能在打包后环境确认的 UI 行为，默认只做静态审查并交由用户验证。消费项目不得用固定清单、只读 MCP 或项目专项流程扩大编译以外的验证权限。
 
 共享代码质量基线禁止新增或扩写手写 `partial` 类型。既有手写 `partial` 必须先按聚合类型审查并提取当前受影响链上的真实职责；单文件行数或组织门禁不能通过拆成多个 `partial` 文件满足。仅编译器、代码生成器或框架硬契约可构成例外。
 

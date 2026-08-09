@@ -36,10 +36,18 @@
 
 ## 工具发现与公开面
 
-- 只使用命名明确、typed schema 可见的一等工具。具体工具缺失、过期或无法表达操作时，将其视为公开能力缺陷并修复权威工具或报告阻点；不得改用 `unity_advanced_tool`、CLI、直接文件操作或另一 route 完成同一能力。
+- 只使用命名明确、typed schema 可见的一等工具。具体工具缺失、过期或无法表达操作时，将其视为公开能力缺陷并修复权威工具或报告阻点；不得改用 `unity_advanced_tool`、通用执行器、直接 HTTP、CLI、直接文件操作、Computer Use、鼠标、键盘、Editor 菜单或另一 route 完成同一能力。
 - 工具名、typed input schema、关键前置条件、副作用和成功判据必须在调用时直接可发现；不得要求 Agent 猜 route、枚举整个实现或读源码后才能正确调用。
 - 大型工具目录采用分层懒发现：无参数只返回类别与数量，类别查询返回名称、brief、参数名与分页信息，search 返回小集合，单工具查询才返回完整 schema；只有显式 `includeSchemas` 才批量返回 schema。不得为寻找一个工具把完整 registry/schema 倾倒进上下文。
 - 元数据清单必须有 limit/pagination 并翻页到底后才能宣称完整；不得把第一页、default smoke 或 `npm test` 基线误报成完整工具审计或逐工具回归。
+
+## 能力缺陷与宿主边界
+
+- 当前任务所需的一等工具未注册、版本或 schema 过期、懒激活声称成功但宿主没有公开 direct typed tool、权威状态缺少安全操作所需的判别字段，或标准 MCP 客户端与当前宿主得到不同公开面时，已经构成 MCP 能力、安装或宿主集成缺陷证据。消费项目根规则一旦授权维护该 plugin/server，就必须立即进入其权威源码与发布闭环；业务动作能通过 UI、脚本或其他通道完成，不代表 MCP 缺陷已修复。
+- 发现上述缺陷后停止受影响的项目动作和证据采集。只读诊断可以定位 owner，但不得借 Computer Use、鼠标、键盘、Editor 菜单、通用执行器、advanced route、直接 HTTP、CLI、项目脚本或文件改写代替缺失能力，也不得把绕行得到的结果写成原任务或 MCP 验收通过。
+- 归因必须按同一条实际生效链逐项读回：权威源码与已发布 revision、宿主配置的 `command`/`args`/`cwd`、安装目录、活动进程执行路径与版本、server bootstrap/catalog、search/get 激活、`tools/list_changed`、当前宿主 tool registry、direct typed invocation、Unity route/handler 及其公开 schema。配置指向新版、独立客户端通过、激活返回成功或 Unity route 单独可用，都不能替代其余链路。
+- 独立标准 MCP 客户端用于区分 server/plugin 与当前宿主，不是当前宿主的替代验收。若标准客户端能够直接调用而当前宿主仍缺工具或旧 schema，结论是宿主加载、注册、安装或 reconnect 链仍未闭合；完成权威安装迁移后只能使用宿主正式 reload/reconnect/restart，并在目标宿主重新完成 direct typed invocation。宿主没有正式重连能力时，准确报告需要用户重启的外部阻点，不得把标准客户端结果写成目标宿主已修复。
+- 用于 Editor 写入安全、Play Mode 前置条件或运行证据的状态工具，必须直接返回 play、pause 与 transition 的权威判别事实；不得从 Toolbar 外观、窗口内容、标签缺失、对象是否更新或其他 UI 现象推断。缺少其中任一必要事实属于 route/schema/transport 缺陷，应修复权威 producer 与公开 typed contract，不能用鼠标观察或默认值补足。
 
 ## Plugin 源码测试分级
 

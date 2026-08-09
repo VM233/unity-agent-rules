@@ -67,6 +67,8 @@ git ls-tree HEAD .agents/shared-rules
 
 共享安装迁移基线要求每个 package/plugin/MCP 逻辑入口只留下一个当前权威 checkout 或安装目录。已获授权的安装、升级、切换 revision、迁移或重装必须在创建新路径前盘点旧路径、临时目录、配置和活动进程，在新 revision 生效后于同一事务精确删除已确认被替代且可安全恢复的旧副本，并读回文件系统与引用；不得用版本后缀、备份目录或兼容性长期保留旧安装。若活动 MCP 进程仍从旧路径执行，只能先使用宿主正式 Restart/reconnect，不能强杀进程或直接删除其依赖目录。
 
+共享 MCP 能力缺陷基线禁止用 Computer Use、鼠标、键盘、Editor 菜单、通用执行器、advanced route、直接 HTTP、CLI、项目脚本或文件改写代替缺失、过期或未在当前宿主注册的一等 typed tool。归因必须闭合权威 revision、安装与活动进程、catalog/激活、`tools/list_changed`、宿主 registry、direct typed invocation 和 Unity route/schema；独立标准客户端通过只能隔离 server/plugin，不能证明目标宿主已经加载新版。若目标宿主缺少正式 reconnect，必须报告需要用户重启的阻点，不能把绕行结果写成修复完成。Editor 状态工具还必须直接提供 play、pause 和 transition 的权威判别事实，不能从 UI 推断。
+
 共享缺陷治理禁止“发现首个失败后立即修改下一层”。单个非法场景应在首个非法状态结束，但同一 build 上其他独立且已授权的场景仍须完成；在整轮证据汇总前冻结可执行实现、诊断和测试语义。各场景只产出失败边界，不得直接命名根因；完整矩阵完成后统一审查 owner、producer、状态迁移与 publication/adoption/CAS，再进行一次 coherent 修复。
 
 多状态或时序缺陷必须证明 predecessor/current/successor 产品及 absent、planning、ready/scheduled、pending、adopted/active、retired/cancelled 的可达性、唯一 writer、revision/context、deadline、取消与退出迁移。Comparator、排序、tie-breaker、优先级、阈值、horizon、budget、candidate/beam 数、cadence、延迟，以及新增 cursor/flag/mode/cache/pending/type，默认都不是因果修复；运行更久、失败更晚、异常换位置或访问更多候选只说明失败边界移动。被反例否决的实验必须先从生产 diff 撤回，不得与下一假设叠加。

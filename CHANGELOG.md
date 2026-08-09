@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0] - 2026-08-09
+
+- Treat missing, stale or host-unregistered first-class MCP tools and incomplete authoritative Editor state as capability defects that must enter the authorized plugin repair flow.
+- Prohibit Computer Use, mouse, keyboard, Editor-menu, generic-executor, direct-HTTP, CLI, project-script and file-operation substitutes for an affected MCP capability.
+- Require end-to-end evidence from the published revision and active process through catalog activation, `tools/list_changed`, host registration and direct typed invocation.
+- Define an independent standard MCP client as an isolation boundary rather than target-host acceptance, requiring formal reconnect/restart and target-host readback before completion.
+
 ## [1.10.1] - 2026-08-09
 
 - Clarify that a clean detached submodule at an exact published gitlink is the expected consumer state.

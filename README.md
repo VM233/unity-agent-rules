@@ -47,6 +47,8 @@ git add .agents/shared-rules
 git commit -m "Update shared Unity agent rules"
 ```
 
+消费项目用精确 gitlink 固定版本时，submodule 处于 clean detached HEAD 是正常状态。只有在 submodule 内直接编辑共享规则时才必须先附着权威分支；不得把未提交的 detached 工作树当成已发布规则。
+
 所有消费项目应固定到同一个 tag 或 commit。核对当前 gitlink：
 
 ```powershell

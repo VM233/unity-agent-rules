@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.10.1] - 2026-08-09
+
+- Clarify that a clean detached submodule at an exact published gitlink is the expected consumer state.
+- Prohibit only dirty submodules and uncommitted shared-rule edits left on detached HEAD, reconciling the maintainer contract with the documented consumer update command.
+
 ## [1.10.0] - 2026-08-09
 
 - Require authorized package, plugin and MCP migrations to inventory authoritative, temporary and superseded paths before creating a replacement, then retain only one current installation per logical entry.

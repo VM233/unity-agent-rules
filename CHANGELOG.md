@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.10.0] - 2026-08-09
+
+- Require authorized package, plugin and MCP migrations to inventory authoritative, temporary and superseded paths before creating a replacement, then retain only one current installation per logical entry.
+- Require exact-path safety checks, dirty/untracked ownership review, deletion readback and configuration/process/package-resolution proof when removing obsolete installations, checkouts and cache snapshots.
+- Reconcile mandatory legacy cleanup with MCP process safety by requiring a host-provided Restart/reconnect before deleting any directory still used by an active stdio server.
+
 ## [1.9.0] - 2026-08-08
 
 - Require one authoritative Unity compilation after every code or compilation-contract change and treat compile errors as unfinished implementation.

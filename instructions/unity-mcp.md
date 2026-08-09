@@ -63,6 +63,7 @@
 - `unity_execute_code` 自动导入基础命名空间。项目中反复使用的扩展方法命名空间统一配置在 `Project Settings > Unity MCP > Execute Code > Additional Namespaces`；只有一次性依赖才通过请求的 `usings` 传入，不得在每次调用重复维护同一列表。
 - 直接修改 Unity MCP plugin/server 时，在各自权威 checkout 工作，不把 package 转成消费项目 embedded package，不修改 `Library/PackageCache`。发布后让消费项目从远端 revision 重新解析，并用公开正式路径验证；plugin 源码开发所需测试不得反向套用于单纯 pin 更新。
 - MCP 宿主启动的 stdio server 进程属于当前宿主连接；不得用 `Stop-Process`、`taskkill`、`kill` 或按 PID 年龄猜测并终止，也不得假定下一次工具调用会自动拉起。修改 server 后用独立 MCP stdio 测试客户端启动临时进程验证；让当前宿主加载新版只能使用宿主提供的 reload/reconnect，或明确告知用户重启宿主。若已出现 `Transport closed`，先审计本任务的进程操作和宿主日志，区分代理误杀、server 自身退出与 Unity bridge 故障。
+- 安装或迁移 MCP server 时同时执行 package/plugin 细则的“安装、升级与遗留目录清理”。当前生效版本必须由宿主配置中的 `command`/`args`/`cwd` 与活动进程执行路径共同证明；配置文件已经指向新目录但旧进程仍在执行，不等于切换或清理完成。先使用宿主正式 Restart/reconnect 让所有受影响连接采用新路径，确认旧进程退出后再精确删除被替代目录，并读回配置、进程和文件系统；禁止靠新增版本目录后保留旧目录完成升级。
 - 当前任务暴露出 route/schema、状态查询、取消/清理、幂等、持久 Job、结构化响应或证据产品的已确认能力缺口时，不得在项目代码、Editor builder、菜单生成器、一次性迁移脚本、本地状态文件或 Agent 操作中新增或保留绕路。按当前项目根规则的授权边界，在对应 plugin checkout 修公开契约与实现、补与风险等级匹配的回归、发布并更新消费项目 pin，再用唯一公开工具完成原任务。
 - 只为一次资产物化所需的项目编排可以临时存在，但必须在同一任务完成后删除；只有真正反复发生且拥有独立产品语义的工作流才可保留为 project tool。工具按目标对象、权限、事务和证据产品拆分，禁止把旧 builder 的方法逐个改名成 route，或在工具参数/代码常量中复制已提交 Asset 的玩法配置。
 - 合并 MCP 工具前生成完整 route-to-handler 清单，逐项比较目标对象、权限 owner、前置条件、生命周期、副作用、证据产品、schema、调用方和测试。只有契约相同，差异仅为 alias、传输形态、固定参数或立即/确认完成变体时才合并；Editor UI/运行时 UI、场景实例/Prefab Asset、读取证据/修改等不同所有权域必须分开。

@@ -71,6 +71,8 @@ git ls-tree HEAD .agents/shared-rules
 
 共享缺陷治理禁止“发现首个失败后立即修改下一层”。单个非法场景应在首个非法状态结束，但同一 build 上其他独立且已授权的场景仍须完成；在整轮证据汇总前冻结可执行实现、诊断和测试语义。各场景只产出失败边界，不得直接命名根因；完整矩阵完成后统一审查 owner、producer、状态迁移与 publication/adoption/CAS，再进行一次 coherent 修复。
 
+已经取得具体输入、暂停帧、不可变产品或精确事务记录时，首个诊断动作必须让这一条 exact witness 沿相同生产函数逐阶段回放，形成可关联的结构化输入、输出、revision/context 与首个 rejection；完成前不得先做全 candidate/全链枚举或参数实验。单 witness 只负责定位失败边界，不能替代同一冻结 build 的独立场景、完整状态矩阵、owner/传播链闭合和竞争解释排除。
+
 多状态或时序缺陷必须证明 predecessor/current/successor 产品及 absent、planning、ready/scheduled、pending、adopted/active、retired/cancelled 的可达性、唯一 writer、revision/context、deadline、取消与退出迁移。Comparator、排序、tie-breaker、优先级、阈值、horizon、budget、candidate/beam 数、cadence、延迟，以及新增 cursor/flag/mode/cache/pending/type，默认都不是因果修复；运行更久、失败更晚、异常换位置或访问更多候选只说明失败边界移动。被反例否决的实验必须先从生产 diff 撤回，不得与下一假设叠加。
 
 有限或声称穷尽的搜索中，排序只拥有性能与确定性，不能拥有安全或活性。若 sibling 顺序改变最终成败，先修复进度保留、deadline/runway、publication gate 或错误的失败作用域。把原子计算改成跨 tick、异步、分帧、增量或可恢复事务，会新增正确性生命周期；必须重开完整状态证明，并在用户已授权范围内先重跑受影响正确性矩阵，不能以性能改善替代契约证据或扩大验证权限。

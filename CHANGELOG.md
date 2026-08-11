@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.0] - 2026-08-11
+
+- Require an already known exact witness to be replayed through the same production pipeline before broad candidate, route or call-chain investigation, with structured per-stage inputs, outputs and the first rejection boundary.
+- Clarify that exact-witness-first controls diagnostic ordering only and does not replace frozen-build scenario collection, complete owner/state matrices, propagation proof or competing-explanation elimination.
+- Prohibit diagnostic reimplementation, fabricated inputs, parameter/ranking experiments and unbounded enumeration before the concrete witness path is exhausted.
+
 ## [1.11.0] - 2026-08-09
 
 - Treat missing, stale or host-unregistered first-class MCP tools and incomplete authoritative Editor state as capability defects that must enter the authorized plugin repair flow.

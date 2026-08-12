@@ -3,13 +3,15 @@
 ## 共享范围与权限边界
 
 - 修改 Unity package/plugin、独立源码仓库、manifest/lockfile、Git revision、package metadata、发布内容或远程更新流程时必须读取本文件。
-- 用户当前明确要求和消费项目根 `AGENTS.md` 决定是否授权修改外部仓库、测试、提交、推送、发布和消费项目 pin。本文件定义技术闭环，不自行授予这些权限。
+- 普通消费项目的业务实现、修复、编译通过或完整闭环，不自动授权提交、推送或产品发布；消费项目根 `AGENTS.md` 与用户当前要求继续决定这些项目业务改动的发布权限。
+- 一旦权威证据确认 package/plugin/Editor extension 由用户维护，且当前任务已经要求或按适用规则进入其权威内容修改，该修改本身即构成窄范围自动发布授权。无论原因是功能、修复、重构、文档、配置、metadata 或发布内容，都必须在同一任务按风险完成验证与文档/版本审阅，提交并推送权威仓库当前分支，执行该仓库既有的 tag、registry 或其他正式发布机制，并更新、提交、推送所有受本次发布影响且可控的消费端 pin/lock/安装配置；不得等待用户再次说 `push` 或确认发布。
+- 上述自动授权只覆盖该 package/plugin 的权威发布及消费项目中与该发布直接相关的 pin/lock/安装配置，不授权提交消费项目其他业务改动、发布消费产品、创建 PR、修改无关仓库、扩大验证范围或新增仓库原本不存在的发布渠道。源码、凭据、上游控制、远端推进、重叠脏改或更高安全边界无法安全闭合时，报告精确阻点。
 - 涉及 Unity MCP plugin/server、route、schema、响应或 MCP 验证时，还必须读取 `.agents/shared-rules/instructions/unity-mcp.md`；需要 Unity 操作时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
 
 ## 归属、权威源码与唯一兼容例外
 
-- 先用仓库 remote、manifest URL、安装文档、本地 checkout、公开契约和实际 pin 证明 package/plugin 的 owner、权威源码与目标 revision；不得仅凭命名猜用户控制权，也不得把无上游权限的第三方依赖当成可自动发布项目。
-- 持久修复在独立权威仓库完成并推送，再由消费项目的 `Packages/manifest.json` 与 `Packages/packages-lock.json` 同步固定远端 revision。不得把 `Library/PackageCache`、生成物、缓存、静默 embedded override 或消费项目内副本作为最终权威。
+- 用户当前对所有权的明确声明，或仓库 remote、manifest URL、安装文档、本地 checkout、公开契约和实际 pin 的一致证据，用于证明 package/plugin 的 owner、权威源码与目标 revision；不得仅凭命名猜用户控制权，也不得把无上游权限的第三方依赖当成可自动发布项目。
+- package/plugin 的持久改动在独立权威仓库完成并推送，再由消费项目的 `Packages/manifest.json` 与 `Packages/packages-lock.json` 同步固定远端 revision。不得把 `Library/PackageCache`、生成物、缓存、静默 embedded override 或消费项目内副本作为最终权威。
 - 修改前重新检查消费项目 manifest/lock、真正解析的 package source 与目标 Unity 版本。只有命中下述唯一常设例外时，才继续审查 package manifest、README/Documentation、CI 矩阵和受控消费项目共同证明的 Unity 支持范围；没有权威证据的版本不得猜测为受支持。跨仓库执行 Git 操作前确认当前 repo root，避免在消费项目或错误 checkout 提交上游源码。
 - 唯一常设兼容例外是：由用户维护并作为通用能力面向多个 Unity 项目复用的 package/plugin/Editor extension，包括符合该归属的 Unity MCP package，必须兼容其权威声明支持的 Unity 版本。Unity API、编译器或 Editor 行为差异使用版本条件或等价实现，让各受支持版本只编译和执行该版本的唯一权威分支；这不是运行时 fallback，不得先试新 API 再退旧 API，也不得为版本差异复制运行时状态。不得用 warning suppression 代替版本兼容实现。
 - 上述例外只覆盖 Unity 版本差异，不覆盖旧 plugin API、route、schema、响应、配置、序列化数据、工作流、server/protocol、package revision 或历史行为。项目专属代码、只服务单一项目的 package/tool、第三方依赖及其他兼容性仍执行共享代码质量细则的默认关闭规则，除非用户在当前请求中明确点名兼容范围。
@@ -43,4 +45,4 @@
 - 修改用户发布 package/plugin 的源码、配置、metadata 或发布内容时，在同一任务审阅并维护 README、`Documentation~`、CHANGELOG、安装/配置/使用/迁移说明、示例和 package metadata；若无需修改，保持文件不变但交付时说明已检查。
 - 文档维护不仅是追加说明：删除、合并或改写过时、重复、失真或可能误导的内容。注册表、manifest、生成 metadata 或 schema 已提供权威信息时，文档说明权威来源/生成方式，不再手工维护易漂移的完整副本。
 - 任务使用 `update_plan` 时，把文档一致性审阅列为实现和主要技术验证之后、最终发布之前的独立步骤；后续验证改变公开契约时，发布前再次同步文档。
-- 发布前确认上游工作树只含本次改动、版本与 CHANGELOG 一致、远端 commit/tag 可达；随后让所有受控消费项目固定到同一发布 revision。仅更新一个消费项目不构成共享迁移完成。
+- 发布前确认上游工作树只含本次改动、版本与 CHANGELOG 一致，且仓库既有发布机制要求的 commit/tag/registry 产物可达；不得为了形式统一给只有 Git revision 发布方式的仓库凭空增加 tag 或 registry。随后让所有受本次发布影响且可控的消费项目固定到同一发布 revision；遗漏已确认受影响的消费项目不构成发布闭环。

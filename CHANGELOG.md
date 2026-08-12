@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.13.0] - 2026-08-12
+
+- Separate ordinary consumer-project publication permission from user-maintained package/plugin publication permission.
+- Make every authorized modification to a user-maintained package/plugin automatically complete its established release flow and affected consumer pin updates, without a second push request.
+- Limit that standing authorization to the package release and directly related consumer pin/lock/install changes, excluding unrelated project changes, product releases, PRs and invented release channels.
+
 ## [1.12.0] - 2026-08-11
 
 - Require an already known exact witness to be replayed through the same production pipeline before broad candidate, route or call-chain investigation, with structured per-stage inputs, outputs and the first rejection boundary.

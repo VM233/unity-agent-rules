@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.14.0] - 2026-08-13
+
+- Treat a UI semantic rename as one atomic migration across UXML/Prefab identifiers, selectors, query paths, dedicated visual-asset filenames, internal Texture/Sprite/Object names and every consumer reference.
+- Require full state-asset families to migrate together while preserving Unity GUID/local-file-ID identity, and prohibit reference swapping, reimported GUIDs, stale aliases or old/new naming tracks.
+- Preserve accurately named neutral canonical assets shared by unrelated UI consumers, while requiring misleading shared business names to be migrated only after auditing every consumer.
+
 ## [1.13.0] - 2026-08-12
 
 - Separate ordinary consumer-project publication permission from user-maintained package/plugin publication permission.

@@ -16,6 +16,7 @@ git commit -m "Add shared Unity agent rules"
 - 任何修改在决定验证范围前：读取 `.agents/shared-rules/instructions/unity-editor-safety.md` 的“代码改动强制编译，其他小改动默认不验证”；纯文档、规则、Git、Packages 或独立仓库任务不得因此查询 Unity。
 - 新增、修改、重构或审查代码、工具和脚本：读取 `.agents/shared-rules/instructions/code-quality.md`。
 - 写入 Unity `Assets`、使用 Editor、刷新/编译、Play Mode、测试、构建或视觉证据：读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
+- 新增、重命名、移动或删除 UI 名称、查询路径或对应视觉素材：读取 `.agents/shared-rules/instructions/unity-ui-naming-and-assets.md`。
 - 修改 Prefab、组件职责、配置所有权或 Unity/Odin 序列化：读取 `.agents/shared-rules/instructions/unity-prefabs-and-serialization.md`。
 - 修改 Unity package/plugin、manifest/lock、Git revision 或发布内容：读取 `.agents/shared-rules/instructions/unity-packages-and-plugins.md`。
 - 修改 Unity Localization、玩家可见文案、描述变量或富文本：读取 `.agents/shared-rules/instructions/unity-localization.md`。
@@ -66,6 +67,8 @@ git ls-tree HEAD .agents/shared-rules
 写代码、实现功能、修复、重构和审查时完全摒弃 fail-close、防御性代码与 fallback。每项能力只保留一个由权威 producer 保证、consumer 直接执行的路径；契约违例直接暴露并回到上游 owner 修正，随后删除 guard、备用分支及其字段、测试和序列化状态。可推导、重复或只服务 guard/重试/恢复的状态一律删除。
 
 共享兼容性基线默认只实现当前权威契约。除非用户在当前请求中明确点名，否则不保留旧 API、schema、数据、行为、版本或兼容层。唯一常设例外是用户维护并跨 Unity 项目复用的通用 package/plugin/Editor extension 对其权威声明支持的 Unity 版本做版本兼容；该例外不扩展到插件 API、route、server/protocol 或历史数据兼容。
+
+共享 UI 命名基线把 UI 语义改名视为完整资源迁移：UXML/Prefab 名称、selector、查询路径、专用视觉素材文件名与内部 Texture/Sprite/Object 名必须在同一任务同步更新，并保留 GUID、local file ID 和全部引用。只有名称本来就准确且由多个无关 consumer 复用的中性 canonical 素材可以保持不变；不得以共享或引用仍可用为由保留误导性的旧业务名。
 
 共享安装迁移基线要求每个 package/plugin/MCP 逻辑入口只留下一个当前权威 checkout 或安装目录。已获授权的安装、升级、切换 revision、迁移或重装必须在创建新路径前盘点旧路径、临时目录、配置和活动进程，在新 revision 生效后于同一事务精确删除已确认被替代且可安全恢复的旧副本，并读回文件系统与引用；不得用版本后缀、备份目录或兼容性长期保留旧安装。若活动 MCP 进程仍从旧路径执行，只能先使用宿主正式 Restart/reconnect，不能强杀进程或直接删除其依赖目录。
 

@@ -16,6 +16,12 @@
 - 唯一常设兼容例外是：由用户维护并作为通用能力面向多个 Unity 项目复用的 package/plugin/Editor extension，包括符合该归属的 Unity MCP package，必须兼容其权威声明支持的 Unity 版本。Unity API、编译器或 Editor 行为差异使用版本条件或等价实现，让各受支持版本只编译和执行该版本的唯一权威分支；这不是运行时 fallback，不得先试新 API 再退旧 API，也不得为版本差异复制运行时状态。不得用 warning suppression 代替版本兼容实现。
 - 上述例外只覆盖 Unity 版本差异，不覆盖旧 plugin API、route、schema、响应、配置、序列化数据、工作流、server/protocol、package revision 或历史行为。项目专属代码、只服务单一项目的 package/tool、第三方依赖及其他兼容性仍执行共享代码质量细则的默认关闭规则，除非用户在当前请求中明确点名兼容范围。
 
+## 禁止本地依赖
+
+- Unity package 依赖声明（包括 package/plugin 与以 Unity package 交付的 MCP 扩展）及其消费项目永久禁止写入或提交任何本地文件系统依赖；该禁止同样适用于“临时开发”、“本地验证”和未提交工作树。`Packages/manifest.json`、`Packages/packages-lock.json`、`package.json`、UPM registry/安装依赖配置、README/Documentation 中的 UPM 依赖示例均不得出现 `file:`、`source: local`、绝对或相对文件系统路径、embedded package/override、符号链接或 junction 依赖。
+- package/plugin 只在独立权威仓库中开发，先按本文件发布远程版本，再让消费项目依赖 registry 版本或带完整不可变 commit SHA 的远程 Git URL；不得使用本地 checkout 作为依赖边界。manifest 与 lock 必须读回为同一远程 revision 和非 `local` source。
+- 每次修改、发布或更新 package/plugin 或 Unity MCP package 前后，必须静态扫描权威仓库及全部可控消费项目的 package metadata、manifest/lock、UPM 安装配置和文档依赖示例。任何本地依赖命中都说明发布/更新未完成；必须先迁移到已发布远程 revision 并删除本地路径与中间状态，不得以本机可解析或尚未提交为由保留。
+
 ## 安装、升级与遗留目录清理
 
 - 安装、升级、切换 revision、迁移或重装是否包含删除权限，仍由用户当前要求和消费项目根 `AGENTS.md` 决定。已获授权的迁移开始前必须枚举会被替换或由本轮创建的源码 checkout、解压安装目录、版本目录、临时 clone/worktree、生成物、精确 cache snapshot、宿主 `command`/`args`/`cwd` 与实际运行路径，并明确唯一权威源码、安装路径和 revision；若无权清理将产生的并行目录，必须在创建它之前报告阻点，不得先制造遗留再交付。

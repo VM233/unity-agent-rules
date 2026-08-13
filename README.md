@@ -60,6 +60,8 @@ git ls-tree HEAD .agents/shared-rules
 
 共享发布权限基线区分消费项目业务内容与用户维护的独立 package/plugin。消费项目业务改动默认不因实现完成而自动提交、推送或发布；但当前任务一旦修改已证明由用户维护的 package/plugin/Editor extension，就必须自动完成其既有发布流程，并只把受影响消费项目的 pin/lock/安装配置随该发布提交推送，不等待二次确认，也不带入消费项目其他业务改动。
 
+共享依赖基线永久禁止 Unity package/plugin 和以 Unity package 交付的 MCP 扩展及其消费项目使用任何本地文件系统依赖，包括 `file:`、`source: local`、绝对/相对路径、embedded override、符号链接和 junction，即使只用于临时开发或本地验证也不例外。权威包必须先发布，消费项目再固定 registry 版本或带完整 commit SHA 的远程 Git URL；每次包修改、发布或更新前后都要扫描全部可控仓库的 metadata、manifest/lock、UPM 安装配置和文档依赖示例，本地依赖未清零就不得交付或发布。
+
 共享代码质量基线禁止新增或扩写手写 `partial` 类型。既有手写 `partial` 必须先按聚合类型审查并提取当前受影响链上的真实职责；单文件行数或组织门禁不能通过拆成多个 `partial` 文件满足。仅编译器、代码生成器或框架硬契约可构成例外。
 
 每个手写 C# 文件只允许一个顶层类型；属于唯一顶层 owner 的 nested class/enum/struct/interface 等可以保留。每个手写 class（含 `record class`）完整声明不得超过 1500 行，嵌套类型计入外层 class，总体职责已经分裂时必须在达到上限前提取。

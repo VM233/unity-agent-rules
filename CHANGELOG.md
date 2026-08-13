@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.0] - 2026-08-13
+
+- Prohibit every local filesystem dependency for Unity packages, plugins, Unity MCP packages and their consumers, including temporary development pins, `file:`, `source: local`, embedded overrides, symlinks and junctions.
+- Require consumers to use a registry version or a remote Git URL pinned to a full immutable commit SHA after the authoritative package has been published.
+- Require pre- and post-change scans of package metadata, manifest/lock files, UPM installation configuration and dependency examples across every controlled consumer, with any local dependency blocking completion.
+
 ## [1.14.0] - 2026-08-13
 
 - Treat a UI semantic rename as one atomic migration across UXML/Prefab identifiers, selectors, query paths, dedicated visual-asset filenames, internal Texture/Sprite/Object names and every consumer reference.

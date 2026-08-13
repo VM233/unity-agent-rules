@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.16.0] - 2026-08-13
+
+- Treat insufficient precision, missing fields and uncorrelated diagnostic stages as observability defects that must be repaired at the authoritative evidence producer instead of left as manual guesswork or scattered logs.
+- Require continuous geometry, probability, search and optimization work to define equations, exact feasible domains, shared visualizations, objectives and algorithmic cost before production implementation.
+- Make confirmed Bugs in the currently authorized system the highest-priority implementation work, while preserving owner evidence, safety and validation permission boundaries.
+
 ## [1.15.0] - 2026-08-13
 
 - Prohibit every local filesystem dependency for Unity packages, plugins, Unity MCP packages and their consumers, including temporary development pins, `file:`, `source: local`, embedded overrides, symlinks and junctions.

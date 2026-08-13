@@ -68,6 +68,10 @@ git ls-tree HEAD .agents/shared-rules
 
 写代码、实现功能、修复、重构和审查时完全摒弃 fail-close、防御性代码与 fallback。每项能力只保留一个由权威 producer 保证、consumer 直接执行的路径；契约违例直接暴露并回到上游 owner 修正，随后删除 guard、备用分支及其字段、测试和序列化状态。可推导、重复或只服务 guard/重试/恢复的状态一律删除。
 
+共享缺陷治理把“证据不够”视为观测契约缺陷，而不是可以遗留的备注。Console 可提供带稳定事务 ID 的舍入摘要；权威结构化 trace 必须保存 round-trip 数值、单位、坐标系、revision/context、阶段和首个 rejection，并由报告、工具与可视化共同消费。当前范围内一旦有权威证据确认真实 Bug，应先闭合并修复该 Bug，再恢复依赖它的后续工作。
+
+连续几何、概率、搜索和优化必须先完成变量、方程/不等式、事件边界、可行域、同源可视化、目标函数以及算法完备性与复杂度预算，再进入生产。任何 probe、Gizmo 或 solver 在写入和运行前都要列出循环维度、冻结输入上界、昂贵调用、分配和主线程预算；明显的笛卡尔积或无界搜索不能留给运行实验发现。
+
 共享兼容性基线默认只实现当前权威契约。除非用户在当前请求中明确点名，否则不保留旧 API、schema、数据、行为、版本或兼容层。唯一常设例外是用户维护并跨 Unity 项目复用的通用 package/plugin/Editor extension 对其权威声明支持的 Unity 版本做版本兼容；该例外不扩展到插件 API、route、server/protocol 或历史数据兼容。
 
 共享 UI 命名基线把 UI 语义改名视为完整资源迁移：UXML/Prefab 名称、selector、查询路径、专用视觉素材文件名与内部 Texture/Sprite/Object 名必须在同一任务同步更新，并保留 GUID、local file ID 和全部引用。只有名称本来就准确且由多个无关 consumer 复用的中性 canonical 素材可以保持不变；不得以共享或引用仍可用为由保留误导性的旧业务名。

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.17.0] - 2026-08-13
+
+- Require content and behavior variants that preserve ownership, lifecycle and processing semantics to reuse the existing authoritative pipeline instead of adding per-asset, per-prefab or per-consumer components and side paths.
+- Permit specialization only for evidenced semantic, ownership, lifecycle, state, permission, data, interaction, rendering or failure-contract differences, with shared processing reconverging after the true decision boundary.
+- Require demonstrably unused components and their dedicated fields, references, nodes, assets and tests to be removed from the current affected chain, while distinguishing concrete future contracts from speculative reuse and preserving task-scope, user-data and public-contract boundaries.
+
 ## [1.16.0] - 2026-08-13
 
 - Treat insufficient precision, missing fields and uncorrelated diagnostic stages as observability defects that must be repaired at the authoritative evidence producer instead of left as manual guesswork or scattered logs.

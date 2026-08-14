@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.18.0] - 2026-08-15
+
+- Make a numeric `Static Cost Ledger` a hard pre-write gate for multi-axis loops, exhaustive search, event/geometry enumeration, full scans and per-item expensive owner calls in production, probes, tests, Gizmos and Editor tools.
+- Require the ledger to expose real nesting products, frozen-input maxima, total expensive-call counts, peak allocation/lifetime, thread and synchronization ownership, main-thread occupancy, cache invalidation, budget source and an explicit pass/fail result; unknown or over-budget terms now block implementation, compilation and runtime experiments.
+- Invalidate the ledger whenever implementation loops, nesting, domains, threads, caches or expensive calls change, and prohibit compilation success, average timing, expected early exit, asynchronous execution or user experiments from substituting for static proof.
+
 ## [1.17.0] - 2026-08-13
 
 - Require content and behavior variants that preserve ownership, lifecycle and processing semantics to reuse the existing authoritative pipeline instead of adding per-asset, per-prefab or per-consumer components and side paths.

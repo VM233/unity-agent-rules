@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.20.0] - 2026-08-15
+
+- Require explicitly authorized, runtime-replaced UI Builder previews to use deterministic, varied samples covering every current finite semantic class, serialized setting, template/container structure, USS selector, layout style, state asset and meaningful combined state.
+- Require preview samples to be updated in the same task whenever their runtime generation chain or represented visual contract changes, with a searchable marker naming the preview purpose and clearing owner.
+- Clarify that this contract does not authorize production mocks and that runtime owners must clear and rebuild previews without consuming them as data, configuration, defaults or fallback.
+
 ## [1.19.0] - 2026-08-15
 
 - Require authoring-controlled integration identifiers that may vary by instance, host, template, skin or Variant to be serialized by the behavior owner or its explicit configuration and supplied by the corresponding Prefab or Asset.

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.19.0] - 2026-08-15
+
+- Require authoring-controlled integration identifiers that may vary by instance, host, template, skin or Variant to be serialized by the behavior owner or its explicit configuration and supplied by the corresponding Prefab or Asset.
+- Prohibit hiding those identifiers in constants, static values, method literals or global settings, while retaining constants for truly internal, instance-invariant or framework-fixed identifiers.
+- Require migrations to remove the former literal or constant so configuration and code cannot remain competing authorities.
+
 ## [1.18.0] - 2026-08-15
 
 - Make a numeric `Static Cost Ledger` a hard pre-write gate for multi-axis loops, exhaustive search, event/geometry enumeration, full scans and per-item expensive owner calls in production, probes, tests, Gizmos and Editor tools.

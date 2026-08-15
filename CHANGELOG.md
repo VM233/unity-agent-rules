@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.21.0] - 2026-08-16
+
+- Make the actual consumer UI and its nearest player-facing copy family the vocabulary authority for names, descriptions, tooltips, controls, prompts and status text.
+- Prohibit undisplayed internal properties, fields, derived ratios, conversion products, intermediate state, serialization identifiers and algorithm stages from leaking into player-facing copy.
+- Require copy without an established term to describe observable results through existing UI concepts, and require a complete localized UI consumer contract before introducing a new product term.
+
 ## [1.20.0] - 2026-08-15
 
 - Require explicitly authorized, runtime-replaced UI Builder previews to use deterministic, varied samples covering every current finite semantic class, serialized setting, template/container structure, USS selector, layout style, state asset and meaningful combined state.

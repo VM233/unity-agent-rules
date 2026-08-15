@@ -80,6 +80,8 @@ git ls-tree HEAD .agents/shared-rules
 
 共享 UI 命名基线把 UI 语义改名视为完整资源迁移：UXML/Prefab 名称、selector、查询路径、专用视觉素材文件名与内部 Texture/Sprite/Object 名必须在同一任务同步更新，并保留 GUID、local file ID 和全部引用。只有名称本来就准确且由多个无关 consumer 复用的中性 canonical 素材可以保持不变；不得以共享或引用仍可用为由保留误导性的旧业务名。
 
+共享玩家文案的词汇权威来自实际 consumer UI 和最近的玩家文案家族。名称、描述、Tooltip、按钮、提示和状态文本优先复用界面已经显示的产品术语；未直接展示的内部 Property、字段、派生比例、转换结果、中间状态、序列化 ID 或算法阶段不得进入玩家文案。没有既有术语时，使用 UI 已有的上位概念描述玩家可观察结果；真正的新产品概念必须先建立统一名称、交互语义、全部 Locale 和实际 consumer。
+
 项目已明确授权且由运行时 owner 无条件清空重建的 `runtime-replaced` UI Builder 预览，必须以固定、可复现而多样的样本覆盖当前有限 semantic class、序列化配置、template/container、USS selector、布局样式、状态素材及有意义的组合状态；修改运行时生成链或任一表现环节时同步维护预览。该契约不自行授权生产 mock，预览也不得成为业务数据、配置来源、默认内容或 fallback。
 
 共享安装迁移基线要求每个 package/plugin/MCP 逻辑入口只留下一个当前权威 checkout 或安装目录。已获授权的安装、升级、切换 revision、迁移或重装必须在创建新路径前盘点旧路径、临时目录、配置和活动进程，在新 revision 生效后于同一事务精确删除已确认被替代且可安全恢复的旧副本，并读回文件系统与引用；不得用版本后缀、备份目录或兼容性长期保留旧安装。若活动 MCP 进程仍从旧路径执行，只能先使用宿主正式 Restart/reconnect，不能强杀进程或直接删除其依赖目录。

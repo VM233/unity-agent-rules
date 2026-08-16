@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.24.0] - 2026-08-16
+
+- Permanently prohibit comma-separated selector lists in USS, including groups whose declarations are identical.
+- Require normal, pseudo-state and combined-state selectors to use independent blocks rather than grouped selectors for deduplication.
+- Require every touched legacy grouped block to be fully split and all added or modified USS to pass a zero-selector-list static check before delivery.
+
 ## [1.23.0] - 2026-08-16
 
 - Require generated UI Toolkit parts to be skinned from their actual runtime hierarchy, pseudo-state owner and current engine-theme winning selector rather than inferred outer-control states.

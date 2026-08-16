@@ -83,6 +83,8 @@ git ls-tree HEAD .agents/shared-rules
 
 共享 UI Toolkit 状态基线要求先确认控件的实际生成层级、伪状态 owner 和引擎主题 winning selector。复用 checkmark、箭头等生成部件时，状态 selector 必须落到真实持有状态的生成元素，并以足够的 specificity 与加载顺序覆盖主题对同一属性的改写；不得只在外层控件写伪状态或堆叠猜测性的状态组合。
 
+共享 USS 结构基线永久禁止逗号分隔的 selector list；普通态、伪状态和组合状态即使声明完全相同，也必须分别拥有独立 selector block。触及已有 grouped block 时必须当场全部拆分，并在交付前确认本轮新增或修改的 USS 中不存在 selector list。
+
 共享玩家文案的词汇权威来自实际 consumer UI 和最近的玩家文案家族。名称、描述、Tooltip、按钮、提示和状态文本优先复用界面已经显示的产品术语；未直接展示的内部 Property、字段、派生比例、转换结果、中间状态、序列化 ID 或算法阶段不得进入玩家文案。没有既有术语时，使用 UI 已有的上位概念描述玩家可观察结果；真正的新产品概念必须先建立统一名称、交互语义、全部 Locale 和实际 consumer。
 
 项目已明确授权且由运行时 owner 无条件清空重建的 `runtime-replaced` UI Builder 预览，必须以固定、可复现而多样的样本覆盖当前有限 semantic class、序列化配置、template/container、USS selector、布局样式、状态素材及有意义的组合状态；修改运行时生成链或任一表现环节时同步维护预览。该契约不自行授权生产 mock，预览也不得成为业务数据、配置来源、默认内容或 fallback。

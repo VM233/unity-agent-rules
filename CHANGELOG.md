@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.25.0] - 2026-08-17
+
+- Prohibit two or more independently assignable ordinary simple-class selectors from repeating the same bundle of two or more property/value declarations.
+- Require one semantic shared class to own the common declarations and be assigned to every affected UXML or runtime consumer, while pseudo-state and relational selectors remain independent contracts.
+- Require first-class USS auditors to report this violation as an unsuppressible error with related selectors, repeated declarations, `passed=false`, and a separate `errorCount`.
+
 ## [1.24.0] - 2026-08-16
 
 - Permanently prohibit comma-separated selector lists in USS, including groups whose declarations are identical.

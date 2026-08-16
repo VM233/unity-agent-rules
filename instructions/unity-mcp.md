@@ -8,6 +8,7 @@
 - 使用或修改 Unity MCP、增改工具 route/schema、设计响应或工具元数据、诊断 MCP 故障或清理现存 workaround/fallback，以及发现工具名、description、typed schema、默认值、错误/状态文案、示例或恢复引导可能误导调用时，必须读取本文件。
 - 上级指令、用户当前明确要求和当前项目根 `AGENTS.md` 始终优先。本文件只统一 MCP 的技术契约与工作方法，不自行授予测试、Unity 运行时/视觉验证、提交、推送、发布或破坏性操作权限，也不得绕过 `.agents/shared-rules/instructions/unity-editor-safety.md` 的“代码改动强制编译，其他小改动默认不验证”及其他明确禁止。
 - 同一任务同时命中 Unity 开发、package/plugin 或其他专项细则时必须全部读取并同时满足。专项规则可按项目事实收紧本文件，但不得在项目侧复制或改写通用 MCP 契约；若真实条款仍无法同时满足，在相关写入或外部操作前列出冲突并请求用户决定。
+- 当前已获授权的任务若只能通过一个尚缺失、过期或有缺陷的一等 MCP 能力完成，且权威证据已经证明对应 plugin/server 由用户维护，则本文件“能力缺陷与宿主边界”对进入权威源码修复的要求，与 package/plugin 细则的自动发布条款共同构成同一项窄范围实现授权：直接完成最小权威修复、风险匹配的聚焦验证、仓库既有发布流程、受影响消费项目 pin/lock 更新及宿主正式激活，不得仅因跨仓库、需要发布或一般性的实现/发布权限分离而再次询问用户。该明确组合条款优先于本文件上述“不自行授予发布权限”和一般冲突询问措辞，但不授权消费项目业务提交、产品发布、PR、第三方或未证明归属的仓库、破坏性清理、breaking/product change，也不扩大原任务的 Play Mode、运行时、视觉或构建验证范围；命中这些未授权边界时仍须报告精确阻点。
 - 修改 plugin 源码、server 源码、package metadata 或消费项目固定的 Git revision 时，还必须读取 `.agents/shared-rules/instructions/unity-packages-and-plugins.md`，并同时读取消费项目提供的 package/plugin 本地 overlay。
 
 ## 权威所有权
@@ -43,7 +44,7 @@
 
 ## 能力缺陷与宿主边界
 
-- 当前任务所需的一等工具未注册、版本或 schema 过期、懒激活声称成功但宿主没有公开 direct typed tool、权威状态缺少安全操作所需的判别字段，或标准 MCP 客户端与当前宿主得到不同公开面时，已经构成 MCP 能力、安装或宿主集成缺陷证据。消费项目根规则一旦授权维护该 plugin/server，就必须立即进入其权威源码与发布闭环；业务动作能通过 UI、脚本或其他通道完成，不代表 MCP 缺陷已修复。
+- 当前任务所需的一等工具未注册、版本或 schema 过期、懒激活声称成功但宿主没有公开 direct typed tool、权威状态缺少安全操作所需的判别字段，或标准 MCP 客户端与当前宿主得到不同公开面时，已经构成 MCP 能力、安装或宿主集成缺陷证据。对应 plugin/server 已由权威证据证明为用户维护时，当前任务对该能力的实际依赖即命中本文件开头的窄范围实现授权，必须立即进入其权威源码与发布闭环，不再等待项目 overlay 重复授权或用户二次确认；业务动作能通过 UI、脚本或其他通道完成，不代表 MCP 缺陷已修复。
 - 发现上述缺陷后停止受影响的项目动作和证据采集。只读诊断可以定位 owner，但不得借 Computer Use、鼠标、键盘、Editor 菜单、通用执行器、advanced route、直接 HTTP、CLI、项目脚本或文件改写代替缺失能力，也不得把绕行得到的结果写成原任务或 MCP 验收通过。
 - 归因必须按同一条实际生效链逐项读回：权威源码与已发布 revision、宿主配置的 `command`/`args`/`cwd`、安装目录、活动进程执行路径与版本、server bootstrap/catalog、search/get 激活、`tools/list_changed`、当前宿主 tool registry、direct typed invocation、Unity route/handler 及其公开 schema。配置指向新版、独立客户端通过、激活返回成功或 Unity route 单独可用，都不能替代其余链路。
 - 独立标准 MCP 客户端用于区分 server/plugin 与当前宿主，不是当前宿主的替代验收。若标准客户端能够直接调用而当前宿主仍缺工具或旧 schema，结论是宿主加载、注册、安装或 reconnect 链仍未闭合；完成权威安装迁移后只能使用宿主正式 reload/reconnect/restart，并在目标宿主重新完成 direct typed invocation。宿主没有正式重连能力时，准确报告需要用户重启的外部阻点，不得把标准客户端结果写成目标宿主已修复。

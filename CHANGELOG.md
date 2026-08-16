@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.22.0] - 2026-08-16
+
+- Make a current authorized task's proven dependency on a missing or defective first-class capability in a user-maintained MCP plugin/server sufficient to enter the authoritative repair flow without a second authorization request.
+- Define authoritative repair, risk-matched focused verification, the existing release mechanism, direct consumer pin/lock updates and formal host activation as one narrowly authorized implementation transaction.
+- Give this explicit MCP/package composition precedence over general implementation-versus-publication separation while retaining all boundaries for consumer business commits, product releases, PRs, third-party repositories, destructive cleanup, breaking changes and runtime or visual validation.
+
 ## [1.21.0] - 2026-08-16
 
 - Make the actual consumer UI and its nearest player-facing copy family the vocabulary authority for names, descriptions, tooltips, controls, prompts and status text.

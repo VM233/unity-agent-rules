@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.23.0] - 2026-08-16
+
+- Require generated UI Toolkit parts to be skinned from their actual runtime hierarchy, pseudo-state owner and current engine-theme winning selector rather than inferred outer-control states.
+- Require state overrides for reused checkmarks, arrows and similar parts to cover only evidenced theme branches with sufficient specificity and stylesheet order, including meaningful combined states when they rewrite the same property.
+- Require disproved selectors to be removed before correction and keep reusable state skins in the control or variant USS while project-specific assets remain local.
+
 ## [1.22.0] - 2026-08-16
 
 - Make a current authorized task's proven dependency on a missing or defective first-class capability in a user-maintained MCP plugin/server sufficient to enter the authoritative repair flow without a second authorization request.

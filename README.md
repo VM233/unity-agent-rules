@@ -16,6 +16,7 @@ git commit -m "Add shared Unity agent rules"
 - 任何修改在决定验证范围前：读取 `.agents/shared-rules/instructions/unity-editor-safety.md` 的“代码改动强制编译，其他小改动默认不验证”；纯文档、规则、Git、Packages 或独立仓库任务不得因此查询 Unity。
 - 新增、修改、重构或审查代码、工具和脚本：读取 `.agents/shared-rules/instructions/code-quality.md`。
 - 写入 Unity `Assets`、使用 Editor、刷新/编译、Play Mode、测试、构建或视觉证据：读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
+- 修改 UI Toolkit/UXML/USS、自定义 `VisualElement`、生成子元素蒙皮或伪状态级联：读取 `.agents/shared-rules/instructions/unity-ui-toolkit.md`。
 - 新增、重命名、移动或删除 UI 名称、查询路径或对应视觉素材：读取 `.agents/shared-rules/instructions/unity-ui-naming-and-assets.md`。
 - 修改 Prefab、组件职责、配置所有权或 Unity/Odin 序列化：读取 `.agents/shared-rules/instructions/unity-prefabs-and-serialization.md`。
 - 修改 Unity package/plugin、manifest/lock、Git revision 或发布内容：读取 `.agents/shared-rules/instructions/unity-packages-and-plugins.md`。
@@ -79,6 +80,8 @@ git ls-tree HEAD .agents/shared-rules
 共享兼容性基线默认只实现当前权威契约。除非用户在当前请求中明确点名，否则不保留旧 API、schema、数据、行为、版本或兼容层。唯一常设例外是用户维护并跨 Unity 项目复用的通用 package/plugin/Editor extension 对其权威声明支持的 Unity 版本做版本兼容；该例外不扩展到插件 API、route、server/protocol 或历史数据兼容。
 
 共享 UI 命名基线把 UI 语义改名视为完整资源迁移：UXML/Prefab 名称、selector、查询路径、专用视觉素材文件名与内部 Texture/Sprite/Object 名必须在同一任务同步更新，并保留 GUID、local file ID 和全部引用。只有名称本来就准确且由多个无关 consumer 复用的中性 canonical 素材可以保持不变；不得以共享或引用仍可用为由保留误导性的旧业务名。
+
+共享 UI Toolkit 状态基线要求先确认控件的实际生成层级、伪状态 owner 和引擎主题 winning selector。复用 checkmark、箭头等生成部件时，状态 selector 必须落到真实持有状态的生成元素，并以足够的 specificity 与加载顺序覆盖主题对同一属性的改写；不得只在外层控件写伪状态或堆叠猜测性的状态组合。
 
 共享玩家文案的词汇权威来自实际 consumer UI 和最近的玩家文案家族。名称、描述、Tooltip、按钮、提示和状态文本优先复用界面已经显示的产品术语；未直接展示的内部 Property、字段、派生比例、转换结果、中间状态、序列化 ID 或算法阶段不得进入玩家文案。没有既有术语时，使用 UI 已有的上位概念描述玩家可观察结果；真正的新产品概念必须先建立统一名称、交互语义、全部 Locale 和实际 consumer。
 

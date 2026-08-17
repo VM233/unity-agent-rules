@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.28.0] - 2026-08-17
+
+- Treat the subject, ownership, object type and scope already established by the actual consumer UI as omittable player-copy context.
+- Require descriptions to state only new effects, conditions, targets, ranges, durations and exceptions, retaining an explicit subject only when omission would create ambiguity or change scope.
+- Require every Locale to preserve equivalent information necessity instead of reintroducing redundant UI context through literal translation.
+
 ## [1.27.0] - 2026-08-17
 
 - Make `IGameItem.IsDestroyed` the sole authority for whether a GameItem still exists, has returned to its pool, or remains safe to reference as a GameItem.

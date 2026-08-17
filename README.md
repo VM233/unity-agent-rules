@@ -72,6 +72,8 @@ git ls-tree HEAD .agents/shared-rules
 
 写代码、实现功能、修复、重构和审查时完全摒弃 fail-close、防御性代码与 fallback。每项能力只保留一个由权威 producer 保证、consumer 直接执行的路径；契约违例直接暴露并回到上游 owner 修正，随后删除 guard、备用分支及其字段、测试和序列化状态。可推导、重复或只服务 guard/重试/恢复的状态一律删除。
 
+GameItem 存续统一直接消费 `IGameItem.IsDestroyed`：判断 GameItem 是否仍存在、已经归还对象池或还能继续作为 GameItem 引用时只检查 `IsDestroyed`，不得用 `GameObject.activeSelf`、`activeInHierarchy`、组件启用状态、层级或渲染/碰撞状态代理其生命周期。`IsInGame`、Owner、容器成员和阵营等独立领域资格仅在对应产品契约需要时另行读取各自权威 owner。
+
 由 Prefab、Scene、UXML、USS、Asset 或 Inspector authoring 决定，且可能按实例、宿主、模板、皮肤或 Variant 变化的接线标识，必须序列化在实际行为 owner 的组件或显式专用配置上，由 Prefab/Asset 提供当前值；不得硬编码为常量、静态值、方法字面量或全局设置。只有类型内部自行创建和消费、对所有实例不可变且不属于外部接线面，或由框架/公开类型契约固定的标识才可使用常量，迁移后不得保留字段与旧常量双权威。
 
 共享复用基线要求不改变 owner、生命周期和处理语义的新情况直接进入既有权威链，禁止按单个 Asset、Prefab、consumer 或内容另建专用组件、Prefab、renderer、updater、serializer 或旁路。只有可证明的领域语义、owner、生命周期、状态、权限、数据形态、交互/渲染或失败契约差异才能建立特判，并在差异结束后重新汇入公共处理。当前受影响链内经 consumer、序列化、继承、扩展契约和独立职责审计确认完全无用的组件及其专用字段、引用、节点、Asset 和测试必须直接删除；“以后也许会用”不构成保留理由，具体未来契约必须能指出 owner、consumer 或 activation 边界。该删除义务不扩大到当前未授权的无关系统，也不越过用户数据和公开契约边界。

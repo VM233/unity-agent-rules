@@ -14,6 +14,7 @@
 - 配置所有权必须与行为所有权一致。由某个组件、策略或配置对象独占消费并决定行为的权重、比例、阈值、标签和策略列表，应由该 owner 或其显式引用的专用配置持有；全局设置只保存真正跨实例、跨变体统一的不变量。
 - 由 Prefab、Scene、UXML、USS、Asset 或 Inspector authoring 决定，并可能随实例、宿主、模板、皮肤或 Variant 改变的接线标识，例如 UXML/USS `name`、class、`VisualElementPath`、bind/event ID 或 Animator/Shader parameter，必须由实际消费行为的组件或其显式专用配置序列化持有，并由对应 Prefab/Asset 写入当前值；不得藏在 `const`/`static`、方法字面量或全局设置中。只有类型自身创建并消费、对全部实例不可变且不属于外部接线面，或由框架/公开类型契约固定的内部标识才可定义为常量。迁移后删除旧常量和字面量，不得保留字段与常量双权威。
 - 判断资格、权限、存在性、状态或策略时，直接消费权威 owner 有意暴露的契约。不得用无关 tag、命名、目录、层级、容器成员、全局设置、UI 状态、生命周期信号或偶然副作用代理该事实。
+- 判断 `IGameItem` 是否仍然存在、是否已经归还对象池或是否还能作为 GameItem 引用时，唯一权威是其 `IsDestroyed` 契约；只检查 `IsDestroyed`，不得读取 `GameObject.activeSelf`、`GameObject.activeInHierarchy`、`Component.enabled`、层级归属、Renderer 或 Collider 状态代理 GameItem 生命周期。`IsInGame`、Owner、容器成员、阵营等独立领域资格只在 consumer 的产品契约确实需要时分别消费其权威 owner，不能替代或重复推断 `IsDestroyed`。
 - 一个类型、组件或方法保持单一功能级职责与一致抽象层级。独立状态、权限、生命周期、策略、失败模式或变化原因应形成职责命名的协作者；只拆文件、region、转发方法或薄 wrapper 不构成职责分离。
 - 依赖通过明确引用、参数、接口或权威数据产品表达。不得新增隐藏全局查找、无 owner 的 singleton/service locator、静态可变状态、跨层偷取内部状态或依赖调用顺序的隐式耦合。
 

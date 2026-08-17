@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.27.0] - 2026-08-17
+
+- Make `IGameItem.IsDestroyed` the sole authority for whether a GameItem still exists, has returned to its pool, or remains safe to reference as a GameItem.
+- Prohibit using `GameObject.activeSelf`, `activeInHierarchy`, component enablement, hierarchy, rendering or collision state as GameItem lifecycle proxies.
+- Keep independent domain qualifications such as `IsInGame`, ownership, container membership and faction scoped to their own authoritative contracts.
+
 ## [1.26.0] - 2026-08-17
 
 - Prohibit creating, recommending or switching to extra branches, worktrees or PR workflows unless the current user explicitly requests them.

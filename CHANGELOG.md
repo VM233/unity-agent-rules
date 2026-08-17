@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.26.0] - 2026-08-17
+
+- Prohibit creating, recommending or switching to extra branches, worktrees or PR workflows unless the current user explicitly requests them.
+- Clarify that dirty worktrees, isolation, commits, pushes, review convenience, branch prefixes and PR-capable tools never grant branch-creation authority.
+- Allow consumer projects to tighten the shared baseline to a single branch such as `main`, requiring existing work to be preserved and merged before extra branches are removed.
+
 ## [1.25.0] - 2026-08-17
 
 - Prohibit two or more independently assignable ordinary simple-class selectors from repeating the same bundle of two or more property/value declarations.

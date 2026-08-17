@@ -21,6 +21,7 @@ git commit -m "Add shared Unity agent rules"
 - 修改 Prefab、组件职责、配置所有权或 Unity/Odin 序列化：读取 `.agents/shared-rules/instructions/unity-prefabs-and-serialization.md`。
 - 修改 Unity package/plugin、manifest/lock、Git revision 或发布内容：读取 `.agents/shared-rules/instructions/unity-packages-and-plugins.md`。
 - 修改 Unity Localization、玩家可见文案、描述变量或富文本：读取 `.agents/shared-rules/instructions/unity-localization.md`。
+- Git 分支、worktree、提交、推送或 PR：读取 `.agents/shared-rules/instructions/git-workflow.md`。
 - 使用或修改 Unity MCP、设计响应/工具元数据、增改 route/schema：必须完整读取 `.agents/shared-rules/instructions/unity-mcp.md`。
 - 若任务命中的共享文件不存在或不可读，先执行 `git submodule update --init --recursive`；读取成功前不得继续相关任务。
 ```
@@ -60,6 +61,8 @@ git ls-tree HEAD .agents/shared-rules
 共享验证权限基线以 `instructions/unity-editor-safety.md` 为准。修改 Unity 项目、package 或 plugin 的代码或编译契约后，代码修改请求本身授权且要求一次最窄权威编译，并在修复错误后重新编译到 error 为零；这不授权 Play Mode、测试、Player/Content Build、运行时、视觉或打包后检查。不含代码变化的局部小改，以及只能在打包后环境确认的 UI 行为，默认只做静态审查并交由用户验证。消费项目不得用固定清单、只读 MCP 或项目专项流程扩大编译以外的验证权限。
 
 共享发布权限基线区分消费项目业务内容与用户维护的独立 package/plugin。消费项目业务改动默认不因实现完成而自动提交、推送或发布；但当前任务一旦修改已证明由用户维护的 package/plugin/Editor extension，就必须自动完成其既有发布流程，并只把受影响消费项目的 pin/lock/安装配置随该发布提交推送，不等待二次确认，也不带入消费项目其他业务改动。
+
+共享 Git 基线禁止把脏工作树、隔离改动、提交、推送、审查便利、分支名前缀或 PR 工具能力解释为创建、建议或切换额外分支/worktree 的授权。除非用户当前明确要求，只使用已经检出的分支；消费项目可以进一步规定只允许 `main`，此时必须按其规则保全并归并现有工作后清理额外分支。
 
 共享依赖基线永久禁止 Unity package/plugin 和以 Unity package 交付的 MCP 扩展及其消费项目使用任何本地文件系统依赖，包括 `file:`、`source: local`、绝对/相对路径、embedded override、符号链接和 junction，即使只用于临时开发或本地验证也不例外。权威包必须先发布，消费项目再固定 registry 版本或带完整 commit SHA 的远程 Git URL；每次包修改、发布或更新前后都要扫描全部可控仓库的 metadata、manifest/lock、UPM 安装配置和文档依赖示例，本地依赖未清零就不得交付或发布。
 

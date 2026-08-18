@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.29.0] - 2026-08-19
+
+- Require every SmartFormat Locale to resolve exact, case-sensitive root selectors through the actual selected description path and complete representative typed formatting during static authoring review.
+- Require test scenarios to derive minimal causal stimuli and matched controls from production triggers, properties, timers and consumers rather than names, prose, templates or convenient participants.
+- Require sustained effects to receive repeated stimuli across meaningful time windows, while prohibiting unrelated default actors unless an explicit isolated lifecycle anchor is required.
+
 ## [1.28.0] - 2026-08-17
 
 - Treat the subject, ownership, object type and scope already established by the actual consumer UI as omittable player-copy context.

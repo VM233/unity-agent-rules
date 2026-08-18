@@ -96,6 +96,10 @@ GameItem 存续统一直接消费 `IGameItem.IsDestroyed`：判断 GameItem 是�
 
 共享玩家文案把 consumer 已经唯一明确的主体、归属、对象类型和作用范围视为可省略上下文。描述只保留新增效果、条件、目标、范围、持续时间和例外，不得重复“该能力的拥有者”“此物品”“该角色”等 UI 已知前缀；只有省略会产生歧义或改变实际范围时才明确主体。所有 Locale 保持等价的信息必要性，不得因逐字翻译把冗余上下文补回来。
 
+共享 SmartFormat 基线要求逐 Locale 解析并实际格式化当前 consumer 选择的描述条目。每个 root selector 必须按大小写、连字符和成员链精确对应同一 description type 路径上的真实变量 producer；非空文本、Smart metadata、Shared Data key 或全 Prefab 中存在同名字段都不能替代参数链证明。静态 typed-probe 格式化属于 authoring 审查，不自行授权 Play Mode 或真实 UI 生成。
+
+共享测试场景基线要求从生产触发器、Property、timer、效果 consumer 与可观察结果反推最小因果刺激，并提供除被测机制外匹配的对照。持续或周期效果必须跨有意义时间窗重复刺激；可直接注入权威事件时不得保留会自主制造第二刺激或遮蔽结果的默认参与者，生命周期硬要求的锚点则必须显式建模并隔离无关行为。
+
 项目已明确授权且由运行时 owner 无条件清空重建的 `runtime-replaced` UI Builder 预览，必须以固定、可复现而多样的样本覆盖当前有限 semantic class、序列化配置、template/container、USS selector、布局样式、状态素材及有意义的组合状态；修改运行时生成链或任一表现环节时同步维护预览。该契约不自行授权生产 mock，预览也不得成为业务数据、配置来源、默认内容或 fallback。
 
 共享安装迁移基线要求每个 package/plugin/MCP 逻辑入口只留下一个当前权威 checkout 或安装目录。已获授权的安装、升级、切换 revision、迁移或重装必须在创建新路径前盘点旧路径、临时目录、配置和活动进程，在新 revision 生效后于同一事务精确删除已确认被替代且可安全恢复的旧副本，并读回文件系统与引用；不得用版本后缀、备份目录或兼容性长期保留旧安装。若活动 MCP 进程仍从旧路径执行，只能先使用宿主正式 Restart/reconnect，不能强杀进程或直接删除其依赖目录。

@@ -106,6 +106,8 @@ GameItem 存续统一直接消费 `IGameItem.IsDestroyed`：判断 GameItem 是�
 
 共享 MCP 能力缺陷基线禁止用 Computer Use、鼠标、键盘、Editor 菜单、通用执行器、advanced route、直接 HTTP、CLI、项目脚本或文件改写代替缺失、过期或未在当前宿主注册的一等 typed tool。归因必须闭合权威 revision、安装与活动进程、catalog/激活、`tools/list_changed`、宿主 registry、direct typed invocation 和 Unity route/schema；独立标准客户端通过只能隔离 server/plugin，不能证明目标宿主已经加载新版。若目标宿主缺少正式 reconnect，必须报告需要用户重启的阻点，不能把绕行结果写成修复完成。Editor 状态工具还必须直接提供 play、pause 和 transition 的权威判别事实，不能从 UI 推断。
 
+Unity MCP 的 workspace/connection/catalog 身份只允许使用按平台规范化的绝对 `projectPath`。`projectName`、Unity product name、仓库名、文件夹名、端口和显示标题只作展示诊断；同名 checkout 是合法常态。路径正确却因名称或手动选择规则失败时，必须立即修权威 binding contract 并完成发布、pin 与正式激活，禁止靠改 `expectedProjectName`、`unity_select_instance`、端口、cwd 或全局配置绕过。
+
 当前已授权任务确实依赖用户维护 MCP 缺失或有缺陷的一等能力时，能力缺陷规则与 package/plugin 自动发布规则组成一个明确的窄范围实现事务：直接修权威源码、做风险匹配的聚焦验证、执行既有发布流程、更新直接消费 pin/lock 并通过宿主正式路径激活，不因跨仓库或一般发布权限分离再次询问用户。该优先级不授权消费项目其他业务提交、产品发布、PR、第三方仓库、破坏性清理、breaking/product change，也不扩展 Play Mode、运行时、视觉或构建验证。
 
 共享缺陷治理禁止“发现首个失败后立即修改下一层”。单个非法场景应在首个非法状态结束，但同一 build 上其他独立且已授权的场景仍须完成；在整轮证据汇总前冻结可执行实现、诊断和测试语义。各场景只产出失败边界，不得直接命名根因；完整矩阵完成后统一审查 owner、producer、状态迁移与 publication/adoption/CAS，再进行一次 coherent 修复。

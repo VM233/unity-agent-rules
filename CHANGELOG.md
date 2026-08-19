@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.30.0] - 2026-08-19
+
+- Make normalized absolute `projectPath` the sole Unity MCP workspace,
+  connection and catalog identity; project/product/repository/folder names,
+  ports and display titles are diagnostic metadata only.
+- Treat same-name checkouts as valid and prohibit names from instance matching,
+  admission, reload adoption, request contracts, or test oracles.
+- Require an immediately closed authoritative repair and publication transaction
+  when a correct path is rejected, explicitly banning manual instance selection,
+  expected-name edits, port/cwd changes and global-config changes as fixes.
+
 ## [1.29.0] - 2026-08-19
 
 - Require every SmartFormat Locale to resolve exact, case-sensitive root selectors through the actual selected description path and complete representative typed formatting during static authoring review.

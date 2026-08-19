@@ -14,6 +14,7 @@
 ## 权威所有权
 
 - 先定位产生错误或冗余的最窄权威 owner，再修 producer/contract，不得在上下游重复补偿。Node `unity-mcp-server` 负责 MCP protocol、stdio 结果封装、实例发现与绑定、工具表与懒发现、queue polling、reload recovery 及 server metadata；`VMUnityMCP` 负责 Unity HTTP bridge、Unity route/handler、Unity 侧公开响应契约、共享传输压缩及 Unity metadata；`VMFramework-MCP` 负责框架概念；项目 project tool 只负责项目专属编排和声明的 output schema。
+- Unity project binding 的唯一身份是按宿主平台规则规范化后的绝对 `projectPath`。`projectName`、`Application.productName`、仓库名、workspace 文件夹名、端口和显示标题都只能作为展示或诊断事实；多个 checkout/worktree 使用相同 `projectName` 是合法常态。任何实例选择、connection/catalog identity、请求 header/schema、admission/rejection、reload adoption 或测试 oracle 都不得以名称参与匹配，也不得从 workspace 文件夹推导 `expectedProjectName`。
 - Unity 结果中的语义字段重复应在 VMUnityMCP 的共享传输边界统一处理；MCP JSON 是否缩进、工具发现层级和 host 侧日志裁剪属于 Node server。一个冗余只能有一个 owner，禁止 plugin 与 server 各删一遍或由每个 handler 各自维护同一压缩规则。
 - 稳定、跨项目且可定义 typed schema 的能力进入通用 MCP；只属于某项目的 Wrapper、Prefab、配置、业务生命周期或验收事实留在项目 tool/专项细则。不得把项目事实硬编码进通用 plugin，也不得用项目脚本长期代替通用能力缺口。
 
@@ -45,6 +46,7 @@
 ## 能力缺陷与宿主边界
 
 - 当前任务所需的一等工具未注册、版本或 schema 过期、懒激活声称成功但宿主没有公开 direct typed tool、权威状态缺少安全操作所需的判别字段，或标准 MCP 客户端与当前宿主得到不同公开面时，已经构成 MCP 能力、安装或宿主集成缺陷证据。对应 plugin/server 已由权威证据证明为用户维护时，当前任务对该能力的实际依赖即命中本文件开头的窄范围实现授权，必须立即进入其权威源码与发布闭环，不再等待项目 overlay 重复授权或用户二次确认；业务动作能通过 UI、脚本或其他通道完成，不代表 MCP 缺陷已修复。
+- 当已规范化 `projectPath` 正确却因名称、固定端口、旧 cwd、手动实例选择或重复显示名而绑定失败，视为已确认的一等 binding contract 缺陷，必须在本轮立刻修复 Node/plugin 的权威 producer、回归、发布、消费 pin 与正式宿主激活。修改 `expectedProjectName`、调用 `unity_select_instance`、换端口/cwd、只改全局配置或让用户重开到“碰巧正确”的实例都只是 workaround；不得用它们继续原任务、宣称恢复，或把修复推迟到以后。
 - 发现上述缺陷后停止受影响的项目动作和证据采集。只读诊断可以定位 owner，但不得借 Computer Use、鼠标、键盘、Editor 菜单、通用执行器、advanced route、直接 HTTP、CLI、项目脚本或文件改写代替缺失能力，也不得把绕行得到的结果写成原任务或 MCP 验收通过。
 - 归因必须按同一条实际生效链逐项读回：权威源码与已发布 revision、宿主配置的 `command`/`args`/`cwd`、安装目录、活动进程执行路径与版本、server bootstrap/catalog、search/get 激活、`tools/list_changed`、当前宿主 tool registry、direct typed invocation、Unity route/handler 及其公开 schema。配置指向新版、独立客户端通过、激活返回成功或 Unity route 单独可用，都不能替代其余链路。
 - 独立标准 MCP 客户端用于区分 server/plugin 与当前宿主，不是当前宿主的替代验收。若标准客户端能够直接调用而当前宿主仍缺工具或旧 schema，结论是宿主加载、注册、安装或 reconnect 链仍未闭合；完成权威安装迁移后只能使用宿主正式 reload/reconnect/restart，并在目标宿主重新完成 direct typed invocation。宿主没有正式重连能力时，准确报告需要用户重启的外部阻点，不得把标准客户端结果写成目标宿主已修复。

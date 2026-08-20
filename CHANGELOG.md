@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.0.1] - 2026-08-20
+
+- Correct Unity CLI invocation guidance so `--project-path` is placed after the
+  official subcommand that declares it instead of being treated as a global
+  option.
+- Distinguish global options, official subcommand options, and registered Editor
+  command arguments after `--`, with one complete path-bound invocation shape.
+
 ## [4.0.0] - 2026-08-20
 
 - Require completed CLI migrations to delete the retired repositories, offline

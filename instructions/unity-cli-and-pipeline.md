@@ -16,9 +16,9 @@
 
 ## 项目绑定与调用语法
 
-- 每次调用都使用按平台规范化的绝对项目根路径。优先设置 `UNITY_PROJECT_PATH`，也可使用官方 `--project-path`；项目名、Unity product name、仓库名、目录 basename、端口和窗口标题只作展示。同名 checkout 是合法常态。
+- 每次调用都使用按平台规范化的绝对项目根路径。可设置 `UNITY_PROJECT_PATH`，也可把 `--project-path <absolute-path>` 放在实际声明它的官方子命令之后，例如 `unity status --project-path <absolute-path>` 或 `unity command --project-path <absolute-path> ...`；它不是可放在 `unity` 与子命令之间的全局参数。项目名、Unity product name、仓库名、目录 basename、端口和窗口标题只作展示。同名 checkout 是合法常态。
 - 路径正确却因名称、最近连接或手动选择失败，必须修官方/VM Pipeline 的 path binding owner；禁止改项目名、猜端口、切 cwd、选择同名实例或写全局例外绕过。
-- 官方 CLI 全局参数位于 `command` 前，具体命令参数位于命令后的 `--` 之后。参数名严格使用 catalog 公布的拼写，例如 `--arguments_json` 与 `--expected_project_path`，不得由 C# 字段名或示例猜测。
+- 官方 CLI 参数分三层：真正的全局参数位于首个子命令前；`status`、`command`、`list` 等官方子命令自己的 option 位于该子命令后、位置参数前；已注册 Editor command 的参数才位于独立的 `--` 后。完整形态例如 `unity --json command --project-path <absolute-path> vm_automation_call -- --arguments_json <json> --expected_project_path <absolute-path>`。参数名严格使用当前 `--help` 或 catalog 公布的拼写，不得由 C# 字段名、过期示例或其他命令的 option 推测。
 - 非交互自动化可设置 `UNITY_NO_CONSENT_PROMPT=1`，但不得替用户记录 analytics opt-in/opt-out。不得把首次同意提示的选择混入项目配置。
 - 变更性 Automation command 必须传精确 `expected_project_path`；dangerous contract 还必须传 contract 声明的显式确认参数。绑定、确认和参数错误在进入 Unity 副作用前失败。
 

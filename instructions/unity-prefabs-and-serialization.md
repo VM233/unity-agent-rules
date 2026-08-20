@@ -19,7 +19,7 @@
 - 易迭代的距离、速度、时长、权重、概率、阈值、数量和策略应序列化在实际行为 owner 的 Prefab/配置上，并允许同类 Variant 在需要时独立覆写；常量和全局设置只表达真实不变量。
 - 跨组件协作通过语义事件、窄接口、属性或权威数据产品完成；consumer 不得搜索、强转或订阅具体 producer 的内部实现，也不得根据目录、名称、层级或其他职责域状态推断资格。
 - 已提交 Prefab、配置和本地化 Asset 是生产数据权威。只为初始化、迁移、修复或批量物化而创建的一次性 builder/upsert/菜单代码，必须在同一任务完成迁移、按授权读回并删除；不得保留可用代码常量整体重建或覆盖生产 Asset 的双重权威。
-- 真正稳定、可复用且可定义 typed schema 的通用 Unity/框架操作进入对应 MCP；反复发生且拥有独立产品语义的项目编排可成为 project tool。工具不得复制已提交 Asset 中的玩法配置，也不得按旧 builder 方法机械拆 route。
+- 真正稳定、可复用且可定义 typed schema 的通用 Unity/框架操作进入对应 Automation catalog 与 Pipeline command；反复发生且拥有独立产品语义的项目编排可成为 project tool。工具不得复制已提交 Asset 中的玩法配置，也不得按旧 builder 方法机械拆 command。
 
 ## 序列化契约
 

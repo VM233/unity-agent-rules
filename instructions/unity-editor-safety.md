@@ -4,14 +4,14 @@
 
 - 写入 Unity 项目的 `Assets`、通过 Unity/Editor 工具修改对象、处理 Scene/Prefab/Asset、刷新或编译、查询 Console、进入 Play Mode、运行测试/构建或产出视觉证据时必须读取本文件。
 - 用户当前明确要求和消费项目根 `AGENTS.md` 决定允许的验证、运行时、视觉、构建和发布范围。本文件规定安全前置与证据标准，不把“应验证”解释为新增授权。
-- 同时修改代码、Prefab/序列化、Localization、Package/Plugin、MCP 或 UI Toolkit 时，还必须读取对应共享和项目专项细则。
+- 同时修改代码、Prefab/序列化、Localization、Package/Plugin、CLI/Pipeline 或 UI Toolkit 时，还必须读取对应共享和项目专项细则。
 - 本文件中的停止操作、等待用户决定和证据无结论属于外部工具授权与证据真实性边界，不是生产实现的 fail-close、防御性代码或 fallback；不得把这些操作规则复制成产品代码的备用路径。生产代码统一执行 `code-quality.md` 的直接契约基线。
 
 ## Editor 状态与写入批次
 
 - 只有准备写入项目 `Assets` 内的资源或代码，或通过 Unity/Editor 工具修改其中对象时，才执行写入前 Editor/Play Mode 状态确认。一个连续 `Assets` 写入批次只在首次写入前确认一次；若正在 Play Mode 或状态切换中，先退出并等待稳定。
 - 同一批次内不得按文件或补丁重复查询。只有实际进入/退出 Play Mode、切换 Unity 实例或项目、重启 Editor，或中断使先前状态失效后，才在下一次 `Assets` 写入前重新确认。
-- 读取、搜索、diff、Git 操作，以及修改 `AGENTS.md`、`.agents/`、普通文档、`Packages`、`ProjectSettings`、`UserSettings`、`Temp`、构建输出或独立 package/plugin 仓库时，不得仅为编辑安全查询 Editor 状态，也不得因此触发 Unity/MCP、刷新、编译或 Domain Reload。
+- 读取、搜索、diff、Git 操作，以及修改 `AGENTS.md`、`.agents/`、普通文档、`Packages`、`ProjectSettings`、`UserSettings`、`Temp`、构建输出或独立 package/plugin 仓库时，不得仅为编辑安全查询 Editor 状态，也不得因此触发 Unity CLI/Pipeline、刷新、编译或 Domain Reload。
 - Unity Editor 专用按钮、菜单、Inspector/Odin、Toolbar、Tooltip、验证消息、日志和异常文本统一使用英文；本地化资源、目标语言预览及本地化流程本身可以使用对应语言。
 
 ## 代码改动强制编译，其他小改动默认不验证
@@ -23,7 +23,7 @@
 - 消费项目不含代码或编译契约变化的局部小改完成静态检查后直接交付。除上述强制编译外，除非用户在当前请求中明确点名某项验证，否则不得主动启动 Unity 或运行任何验证。文件位于 `Assets`、使用 Unity/Odin Attribute、触及 UXML/USS/UI Prefab、问题曾在运行时出现、当前已有可复现场景或 Editor 正在运行/暂停，均不构成其他验证授权或升级理由；“修复”“实现”“提交”“推送”只包含代码改动的最窄编译门禁，不包含其他验证授权。
 - 小改动必须能由源码和目标 diff 静态穷尽影响，不建立或重组业务运行时状态、数据产品、交互模型或跨对象所有权，不改变字段/方法数据契约、序列化对象图、引用/GUID、Scene/Prefab 拓扑、已有可见布局/样式/交互、Package 或 Build 行为。单个既有 UI Modifier/组件只读取既有权威状态，局部调整刷新触发方式、刷新频率、显示、隐藏或启用条件，且不新增状态 producer、状态写入、输入语义、数据契约或可见表现时，仍属于小改；从已有事件回调改为仅在面板打开期间轮询刷新也不得据此升级。
 - 典型小改包括：文档、规则、注释；Inspector/Odin 展示或选择元数据；把一一对应字面量替换为已有常量/preset；给既有入口增加无额外业务逻辑的薄 Editor 按钮；复用已有权威状态对单个既有 UI 区域做局部显示、隐藏、启用或刷新接线，且显示时表现不变。
-- 小改动只允许读取源码、搜索引用、检查聚焦 diff、`git diff --check` 和 worktree 状态，以及任务细则明确要求的写入前安全动作。代码改动额外执行上述最窄 refresh/import、Domain Reload、编译及其 Console/`Editor.log` 结果读取；除此之外不得主动调用 Unity MCP、测试、构建、Play Mode、UI Builder/Game View、截图、像素或视觉检查，消费项目专项也不得把固定审查清单、只读 MCP 或“静态工具”重新解释成例外。
+- 小改动只允许读取源码、搜索引用、检查聚焦 diff、`git diff --check` 和 worktree 状态，以及任务细则明确要求的写入前安全动作。代码改动额外执行上述最窄 refresh/import、Domain Reload、编译及其 Console/`Editor.log` 结果读取；除此之外不得主动调用 Unity CLI/Pipeline command、测试、构建、Play Mode、UI Builder/Game View、截图、像素或视觉检查，消费项目专项也不得把固定审查清单、只读 Automation command 或“静态工具”重新解释成例外。
 - 只有静态检查证明改动越过上述边界，且当前用户请求明确授权了对应验证时，才执行与实际风险匹配的最小验证。不得以“保险起见”、运行时缺陷、历史验收阶梯、完成闭环或准备提交推送为由继续升级；验证未获授权时完成允许的实现与静态审查，并准确列出未验证项。
 - 仅在 Player Build、Addressables/AssetBundle Content Build 或其他打包后运行环境中才能复现或最终确认的 UI 改动，无论是否属于小改，默认都只做静态实现与审查并交由用户验证；其中若修改代码，仍只执行上述强制编译。除非用户在当前请求中逐项明确要求，不得执行 Player/Content Build、Build And Run、Use Existing Build、启动已打包 Player、Play Mode/UI Builder 替代验证、截图、运行日志检查、输入自动化或其他复现/测试；不得因为 Editor 无法证明打包后行为就自行补测。
 - 用户明确要求验证时，只获得当前请求逐项列出的验证授权；强制编译不把授权扩大到无关测试、完整回归、运行时、视觉、构建或打包后检查。此前由用户或 Agent 进入、暂停或保留的 Editor/Player 状态不是这些额外验证的授权。
@@ -41,8 +41,8 @@
 
 ## Safe Mode
 
-- Unity 处于 Safe Mode 时，不先操控 Editor UI、点击退出按钮、进入 Play Mode、恢复依赖项目程序集的 MCP，或用自动化隐藏错误。Safe Mode 已证明正常运行时路径不可用。
-- 直接读取当前 `Editor.log`、编译输出和权威源码，一次收集完整相关错误族，按共享 owner/契约成批修复并等待重新编译。项目 MCP 程序集无法加载时使用进程标题和日志取证；编译恢复到正常 Editor 后再 reconnect/reload MCP。
+- Unity 处于 Safe Mode 时，不先操控 Editor UI、点击退出按钮、进入 Play Mode、恢复依赖项目程序集的 Automation catalog，或用自动化隐藏错误。Safe Mode 已证明正常运行时路径不可用。
+- 直接读取当前 `Editor.log`、编译输出和权威源码，一次收集完整相关错误族，按共享 owner/契约成批修复并等待重新编译。项目 Automation 程序集无法加载时使用进程标题和日志取证；编译恢复到正常 Editor 后再通过官方 Unity CLI 重新发现 catalog。
 - Safe Mode 不改变小改动规则：纯文档、规则、Git、Packages 或独立仓库工作不得仅因 Editor 处于 Safe Mode 就查询或操作 Unity。
 
 ## 验证证据与副作用
@@ -50,5 +50,5 @@
 - 诊断、测试、探针、截图、预览、报告或自动化只有在所需源状态真实存在，且产物确实证明目标条件时才能宣称成功。前置状态不可用时将该项标记为无结论并停止，不得用默认对象、旧帧、空白图、占位文件、伪造指标或乐观响应推进流程。
 - 工具返回 success、文件可写出或图片可解码，不等于证据有效。空白/纯黑/过期/被遮挡、误拍 Edit Mode、缺失主体或时序未稳定的产物均无结论；修复生产路径并重新取得有效证据后才能下结论。
 - 运行时或视觉验证前记录 worktree 状态，退出 Play Mode 后再比较。只清理由检查点证明为本轮新增的缓存、序列化副作用和临时产物，保留所有既有用户改动。
-- 临时 `Debug.LogError`、探针和截图必须有独特可搜索标识、范围最小并在交付前删除；真正跨任务复用的诊断能力应进入通用 MCP 或项目 project tool，不得把一次性诊断长期留在生产链。
+- 临时 `Debug.LogError`、探针和截图必须有独特可搜索标识、范围最小并在交付前删除；真正跨任务复用的诊断能力应进入通用 Automation catalog 或项目 project tool，不得把一次性诊断长期留在生产链。
 - 查询编译结果时同时检查 error、warning 和独立的 `obsolete`/`deprecated` 警告；不得以 error 为零宣称编译干净，也不得用 warning suppression 代替修复。

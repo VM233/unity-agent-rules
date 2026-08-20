@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.0] - 2026-08-20
+
+- Replace the Unity MCP operating contract with the official Unity CLI and
+  `com.unity.pipeline` transport, a five-command VM facade, bounded Automation
+  catalog discovery, exact absolute-path binding and persistent Job lifecycle.
+- Require complete route-ledger migration, removal of the old server, package,
+  configuration, process and compatibility surfaces, and keep RuntimeOnly
+  commands isolated from the Editor catalog.
+- Update package, Editor-safety, Prefab/serialization and consumer-routing rules
+  to use Pipeline/Automation ownership while preserving the existing compile,
+  publication, dependency and no-fallback boundaries.
+
 ## [1.30.0] - 2026-08-19
 
 - Make normalized absolute `projectPath` the sole Unity MCP workspace,

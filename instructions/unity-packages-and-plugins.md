@@ -5,23 +5,23 @@
 - 修改 Unity package/plugin、独立源码仓库、manifest/lockfile、Git revision、package metadata、发布内容或远程更新流程时必须读取本文件。
 - 普通消费项目的业务实现、修复、编译通过或完整闭环，不自动授权提交、推送或产品发布；消费项目根 `AGENTS.md` 与用户当前要求继续决定这些项目业务改动的发布权限。
 - 一旦权威证据确认 package/plugin/Editor extension 由用户维护，且当前任务已经要求或按适用规则进入其权威内容修改，该修改本身即构成窄范围自动发布授权。无论原因是功能、修复、重构、文档、配置、metadata 或发布内容，都必须在同一任务按风险完成验证与文档/版本审阅，提交并推送权威仓库当前分支，执行该仓库既有的 tag、registry 或其他正式发布机制，并更新、提交、推送所有受本次发布影响且可控的消费端 pin/lock/安装配置；不得等待用户再次说 `push` 或确认发布。
-- 共享 MCP 细则确认“当前已授权任务实际依赖用户维护 plugin/server 所缺失或有缺陷的一等能力”时，已经属于上条所说的“按适用规则进入权威内容修改”；不得再用一般的实现/验证/发布权限分离、跨仓库边界或消费项目未重复写入授权为由暂停请求。此组合只授权共享 MCP 细则列出的最小修复、聚焦验证、既有发布、直接消费 pin/lock 与正式激活链，其他权限仍由下条边界约束。
+- 共享 CLI/Pipeline 细则确认“当前已授权任务实际依赖用户维护 package 所缺失或有缺陷的一等能力”时，已经属于上条所说的“按适用规则进入权威内容修改”；不得再用一般的实现/验证/发布权限分离、跨仓库边界或消费项目未重复写入授权为由暂停请求。此组合只授权共享 CLI/Pipeline 细则列出的最小修复、聚焦验证、既有发布、直接消费 pin/lock 与正式 adoption 链，其他权限仍由下条边界约束。
 - 上述自动授权只覆盖该 package/plugin 的权威发布及消费项目中与该发布直接相关的 pin/lock/安装配置，不授权提交消费项目其他业务改动、发布消费产品、创建 PR、修改无关仓库、扩大验证范围或新增仓库原本不存在的发布渠道。源码、凭据、上游控制、远端推进、重叠脏改或更高安全边界无法安全闭合时，报告精确阻点。
-- 涉及 Unity MCP plugin/server、route、schema、响应或 MCP 验证时，还必须读取 `.agents/shared-rules/instructions/unity-mcp.md`；需要 Unity 操作时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
+- 涉及官方 Unity CLI、Pipeline/Automation package、route、schema、响应或命令验收时，还必须读取 `.agents/shared-rules/instructions/unity-cli-and-pipeline.md`；需要 Unity 操作时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
 
 ## 归属、权威源码与唯一兼容例外
 
 - 用户当前对所有权的明确声明，或仓库 remote、manifest URL、安装文档、本地 checkout、公开契约和实际 pin 的一致证据，用于证明 package/plugin 的 owner、权威源码与目标 revision；不得仅凭命名猜用户控制权，也不得把无上游权限的第三方依赖当成可自动发布项目。
 - package/plugin 的持久改动在独立权威仓库完成并推送，再由消费项目的 `Packages/manifest.json` 与 `Packages/packages-lock.json` 同步固定远端 revision。不得把 `Library/PackageCache`、生成物、缓存、静默 embedded override 或消费项目内副本作为最终权威。
 - 修改前重新检查消费项目 manifest/lock、真正解析的 package source 与目标 Unity 版本。只有命中下述唯一常设例外时，才继续审查 package manifest、README/Documentation、CI 矩阵和受控消费项目共同证明的 Unity 支持范围；没有权威证据的版本不得猜测为受支持。跨仓库执行 Git 操作前确认当前 repo root，避免在消费项目或错误 checkout 提交上游源码。
-- 唯一常设兼容例外是：由用户维护并作为通用能力面向多个 Unity 项目复用的 package/plugin/Editor extension，包括符合该归属的 Unity MCP package，必须兼容其权威声明支持的 Unity 版本。Unity API、编译器或 Editor 行为差异使用版本条件或等价实现，让各受支持版本只编译和执行该版本的唯一权威分支；这不是运行时 fallback，不得先试新 API 再退旧 API，也不得为版本差异复制运行时状态。不得用 warning suppression 代替版本兼容实现。
+- 唯一常设兼容例外是：由用户维护并作为通用能力面向多个 Unity 项目复用的 package/plugin/Editor extension，包括符合该归属的 Pipeline/Automation package，必须兼容其权威声明支持的 Unity 版本。Unity API、编译器或 Editor 行为差异使用版本条件或等价实现，让各受支持版本只编译和执行该版本的唯一权威分支；这不是运行时 fallback，不得先试新 API 再退旧 API，也不得为版本差异复制运行时状态。不得用 warning suppression 代替版本兼容实现。
 - 上述例外只覆盖 Unity 版本差异，不覆盖旧 plugin API、route、schema、响应、配置、序列化数据、工作流、server/protocol、package revision 或历史行为。项目专属代码、只服务单一项目的 package/tool、第三方依赖及其他兼容性仍执行共享代码质量细则的默认关闭规则，除非用户在当前请求中明确点名兼容范围。
 
 ## 禁止本地依赖
 
-- Unity package 依赖声明（包括 package/plugin 与以 Unity package 交付的 MCP 扩展）及其消费项目永久禁止写入或提交任何本地文件系统依赖；该禁止同样适用于“临时开发”、“本地验证”和未提交工作树。`Packages/manifest.json`、`Packages/packages-lock.json`、`package.json`、UPM registry/安装依赖配置、README/Documentation 中的 UPM 依赖示例均不得出现 `file:`、`source: local`、绝对或相对文件系统路径、embedded package/override、符号链接或 junction 依赖。
+- Unity package 依赖声明（包括 package/plugin 与以 Unity package 交付的 Pipeline/Automation 扩展）及其消费项目永久禁止写入或提交任何本地文件系统依赖；该禁止同样适用于“临时开发”、“本地验证”和未提交工作树。`Packages/manifest.json`、`Packages/packages-lock.json`、`package.json`、UPM registry/安装依赖配置、README/Documentation 中的 UPM 依赖示例均不得出现 `file:`、`source: local`、绝对或相对文件系统路径、embedded package/override、符号链接或 junction 依赖。
 - package/plugin 只在独立权威仓库中开发，先按本文件发布远程版本，再让消费项目依赖 registry 版本或带完整不可变 commit SHA 的远程 Git URL；不得使用本地 checkout 作为依赖边界。manifest 与 lock 必须读回为同一远程 revision 和非 `local` source。
-- 每次修改、发布或更新 package/plugin 或 Unity MCP package 前后，必须静态扫描权威仓库及全部可控消费项目的 package metadata、manifest/lock、UPM 安装配置和文档依赖示例。任何本地依赖命中都说明发布/更新未完成；必须先迁移到已发布远程 revision 并删除本地路径与中间状态，不得以本机可解析或尚未提交为由保留。
+- 每次修改、发布或更新 package/plugin 或 Unity Pipeline/Automation package 前后，必须静态扫描权威仓库及全部可控消费项目的 package metadata、manifest/lock、UPM 安装配置和文档依赖示例。任何本地依赖命中都说明发布/更新未完成；必须先迁移到已发布远程 revision 并删除本地路径与中间状态，不得以本机可解析或尚未提交为由保留。
 
 ## 安装、升级与遗留目录清理
 

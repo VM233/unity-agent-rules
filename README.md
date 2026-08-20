@@ -22,7 +22,7 @@ git commit -m "Add shared Unity agent rules"
 - 修改 Unity package/plugin、manifest/lock、Git revision 或发布内容：读取 `.agents/shared-rules/instructions/unity-packages-and-plugins.md`。
 - 修改 Unity Localization、玩家可见文案、描述变量或富文本：读取 `.agents/shared-rules/instructions/unity-localization.md`。
 - Git 分支、worktree、提交、推送或 PR：读取 `.agents/shared-rules/instructions/git-workflow.md`。
-- 使用或修改 Unity MCP、设计响应/工具元数据、增改 route/schema：必须完整读取 `.agents/shared-rules/instructions/unity-mcp.md`。
+- 使用或修改官方 Unity CLI、Pipeline、Automation catalog、命令响应/元数据或 route/schema：必须完整读取 `.agents/shared-rules/instructions/unity-cli-and-pipeline.md`。
 - 若任务命中的共享文件不存在或不可读，先执行 `git submodule update --init --recursive`；读取成功前不得继续相关任务。
 ```
 
@@ -58,13 +58,13 @@ git commit -m "Update shared Unity agent rules"
 git ls-tree HEAD .agents/shared-rules
 ```
 
-共享验证权限基线以 `instructions/unity-editor-safety.md` 为准。修改 Unity 项目、package 或 plugin 的代码或编译契约后，代码修改请求本身授权且要求一次最窄权威编译，并在修复错误后重新编译到 error 为零；这不授权 Play Mode、测试、Player/Content Build、运行时、视觉或打包后检查。不含代码变化的局部小改，以及只能在打包后环境确认的 UI 行为，默认只做静态审查并交由用户验证。消费项目不得用固定清单、只读 MCP 或项目专项流程扩大编译以外的验证权限。
+共享验证权限基线以 `instructions/unity-editor-safety.md` 为准。修改 Unity 项目、package 或 plugin 的代码或编译契约后，代码修改请求本身授权且要求一次最窄权威编译，并在修复错误后重新编译到 error 为零；这不授权 Play Mode、测试、Player/Content Build、运行时、视觉或打包后检查。不含代码变化的局部小改，以及只能在打包后环境确认的 UI 行为，默认只做静态审查并交由用户验证。消费项目不得用固定清单、只读 Automation command 或项目专项流程扩大编译以外的验证权限。
 
 共享发布权限基线区分消费项目业务内容与用户维护的独立 package/plugin。消费项目业务改动默认不因实现完成而自动提交、推送或发布；但当前任务一旦修改已证明由用户维护的 package/plugin/Editor extension，就必须自动完成其既有发布流程，并只把受影响消费项目的 pin/lock/安装配置随该发布提交推送，不等待二次确认，也不带入消费项目其他业务改动。
 
 共享 Git 基线禁止把脏工作树、隔离改动、提交、推送、审查便利、分支名前缀或 PR 工具能力解释为创建、建议或切换额外分支/worktree 的授权。除非用户当前明确要求，只使用已经检出的分支；消费项目可以进一步规定只允许 `main`，此时必须按其规则保全并归并现有工作后清理额外分支。
 
-共享依赖基线永久禁止 Unity package/plugin 和以 Unity package 交付的 MCP 扩展及其消费项目使用任何本地文件系统依赖，包括 `file:`、`source: local`、绝对/相对路径、embedded override、符号链接和 junction，即使只用于临时开发或本地验证也不例外。权威包必须先发布，消费项目再固定 registry 版本或带完整 commit SHA 的远程 Git URL；每次包修改、发布或更新前后都要扫描全部可控仓库的 metadata、manifest/lock、UPM 安装配置和文档依赖示例，本地依赖未清零就不得交付或发布。
+共享依赖基线永久禁止 Unity package/plugin 和以 Unity package 交付的 Pipeline/Automation 扩展及其消费项目使用任何本地文件系统依赖，包括 `file:`、`source: local`、绝对/相对路径、embedded override、符号链接和 junction，即使只用于临时开发或本地验证也不例外。权威包必须先发布，消费项目再固定 registry 版本或带完整 commit SHA 的远程 Git URL；每次包修改、发布或更新前后都要扫描全部可控仓库的 metadata、manifest/lock、UPM 安装配置和文档依赖示例，本地依赖未清零就不得交付或发布。
 
 共享代码质量基线禁止新增或扩写手写 `partial` 类型。既有手写 `partial` 必须先按聚合类型审查并提取当前受影响链上的真实职责；单文件行数或组织门禁不能通过拆成多个 `partial` 文件满足。仅编译器、代码生成器或框架硬契约可构成例外。
 
@@ -102,13 +102,13 @@ GameItem 存续统一直接消费 `IGameItem.IsDestroyed`：判断 GameItem 是�
 
 项目已明确授权且由运行时 owner 无条件清空重建的 `runtime-replaced` UI Builder 预览，必须以固定、可复现而多样的样本覆盖当前有限 semantic class、序列化配置、template/container、USS selector、布局样式、状态素材及有意义的组合状态；修改运行时生成链或任一表现环节时同步维护预览。该契约不自行授权生产 mock，预览也不得成为业务数据、配置来源、默认内容或 fallback。
 
-共享安装迁移基线要求每个 package/plugin/MCP 逻辑入口只留下一个当前权威 checkout 或安装目录。已获授权的安装、升级、切换 revision、迁移或重装必须在创建新路径前盘点旧路径、临时目录、配置和活动进程，在新 revision 生效后于同一事务精确删除已确认被替代且可安全恢复的旧副本，并读回文件系统与引用；不得用版本后缀、备份目录或兼容性长期保留旧安装。若活动 MCP 进程仍从旧路径执行，只能先使用宿主正式 Restart/reconnect，不能强杀进程或直接删除其依赖目录。
+共享安装迁移基线要求每个 package/plugin/CLI/Pipeline 逻辑入口只留下一个当前权威 checkout 或安装目录。已获授权的安装、升级、切换 revision、迁移或重装必须在创建新路径前盘点旧路径、临时目录、配置和活动进程，在新 revision 生效后于同一事务精确删除已确认被替代且可安全恢复的旧副本，并读回文件系统与引用；不得用版本后缀、备份目录或兼容性长期保留旧安装。活动官方 CLI 或 Pipeline server 仍从旧路径执行时，只能使用官方停止/重连流程，不能强杀进程或直接删除其依赖目录。
 
-共享 MCP 能力缺陷基线禁止用 Computer Use、鼠标、键盘、Editor 菜单、通用执行器、advanced route、直接 HTTP、CLI、项目脚本或文件改写代替缺失、过期或未在当前宿主注册的一等 typed tool。归因必须闭合权威 revision、安装与活动进程、catalog/激活、`tools/list_changed`、宿主 registry、direct typed invocation 和 Unity route/schema；独立标准客户端通过只能隔离 server/plugin，不能证明目标宿主已经加载新版。若目标宿主缺少正式 reconnect，必须报告需要用户重启的阻点，不能把绕行结果写成修复完成。Editor 状态工具还必须直接提供 play、pause 和 transition 的权威判别事实，不能从 UI 推断。
+共享 CLI/Pipeline 能力缺陷基线禁止用 Computer Use、鼠标、键盘、Editor 菜单、旧传输、直接 HTTP、通用 execute-code、项目脚本或文件改写代替缺失、过期或未注册的一等 typed contract。归因必须闭合权威 revision、immutable pin、UPM adoption、官方 `unity status`、bounded catalog、精确 contract 和正式调用；Editor 状态命令还必须直接提供 play、pause 和 transition 的权威事实，不能从 UI 推断。
 
-Unity MCP 的 workspace/connection/catalog 身份只允许使用按平台规范化的绝对 `projectPath`。`projectName`、Unity product name、仓库名、文件夹名、端口和显示标题只作展示诊断；同名 checkout 是合法常态。路径正确却因名称或手动选择规则失败时，必须立即修权威 binding contract 并完成发布、pin 与正式激活，禁止靠改 `expectedProjectName`、`unity_select_instance`、端口、cwd 或全局配置绕过。
+Unity CLI/Pipeline 的 workspace、connection 与 catalog 身份只允许使用按平台规范化的绝对 `projectPath`。`projectName`、Unity product name、仓库名、文件夹名、端口和显示标题只作展示诊断；同名 checkout 是合法常态。路径正确却因名称、最近实例或手动选择规则失败时，必须立即修权威 binding contract 并完成发布、pin 与正式 adoption，禁止靠改项目名、猜端口、切 cwd 或全局例外绕过。
 
-当前已授权任务确实依赖用户维护 MCP 缺失或有缺陷的一等能力时，能力缺陷规则与 package/plugin 自动发布规则组成一个明确的窄范围实现事务：直接修权威源码、做风险匹配的聚焦验证、执行既有发布流程、更新直接消费 pin/lock 并通过宿主正式路径激活，不因跨仓库或一般发布权限分离再次询问用户。该优先级不授权消费项目其他业务提交、产品发布、PR、第三方仓库、破坏性清理、breaking/product change，也不扩展 Play Mode、运行时、视觉或构建验证。
+当前已授权任务确实依赖用户维护 CLI/Pipeline package 缺失或有缺陷的一等能力时，能力缺陷规则与 package/plugin 自动发布规则组成一个明确的窄范围实现事务：直接修权威源码、做风险匹配的聚焦验证、执行既有发布流程、更新直接消费 pin/lock 并通过官方 CLI 完成 adoption，不因跨仓库或一般发布权限分离再次询问用户。该优先级不授权消费项目其他业务提交、产品发布、PR、第三方仓库、破坏性清理、breaking/product change，也不扩展 Play Mode、运行时、视觉或构建验证。
 
 共享缺陷治理禁止“发现首个失败后立即修改下一层”。单个非法场景应在首个非法状态结束，但同一 build 上其他独立且已授权的场景仍须完成；在整轮证据汇总前冻结可执行实现、诊断和测试语义。各场景只产出失败边界，不得直接命名根因；完整矩阵完成后统一审查 owner、producer、状态迁移与 publication/adoption/CAS，再进行一次 coherent 修复。
 

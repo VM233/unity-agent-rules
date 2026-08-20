@@ -41,7 +41,7 @@ git submodule update --init --recursive
 - Unity 代码或编译契约变化必须完成一次权威编译并处理全部 error；Play Mode、测试、构建、运行时、视觉和输入仍需用户当前明确授权。其他改动默认静态审查。
 - 每个手写 C# 文件一个顶层类型，手写 class 不超过 1500 行，禁止新增或扩写手写 `partial`；生成器或框架硬契约例外必须可证明。
 - Unity package 只从 registry 或完整远端 Git SHA 消费，永久禁止 `file:`、本地路径、embedded override、symlink 和 junction。用户维护 package 被修改时按既有流程发布，并同步直接消费 pin/lock。
-- 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；VM facade 只暴露五个顶层命令，通过 bounded catalog discovery 获取项目能力，不保留 MCP/HTTP/脚本旁路。
+- 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；VM facade 只暴露五个顶层命令，通过 bounded catalog discovery 获取项目能力，不保留第二 server、HTTP 或脚本旁路。
 - 兼容性默认关闭；唯一常设例外是用户维护的跨项目通用 package/plugin 对其声明支持的 Unity 版本进行编译期兼容。
 - 未经用户当前明确要求，不创建额外分支、worktree 或 PR；保留其他 dirty/untracked 内容，只暂存当前授权范围。
 

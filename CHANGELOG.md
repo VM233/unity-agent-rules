@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.0.0] - 2026-08-20
+
+- Require completed CLI migrations to delete the retired repositories, offline
+  cutover ledgers, active configuration, compatibility surfaces, and discoverable
+  legacy names instead of retaining them as historical evidence.
+- Remove the retired transport name from all current shared instructions,
+  documentation, and changelog entries.
+
 ## [3.0.0] - 2026-08-20
 
 - Remove the minimal-change mandate from implementation rules: authorized work
@@ -13,7 +21,7 @@
 
 ## [2.0.0] - 2026-08-20
 
-- Replace the Unity MCP operating contract with the official Unity CLI and
+- Replace the retired Unity tool-transport contract with the official Unity CLI and
   `com.unity.pipeline` transport, a five-command VM facade, bounded Automation
   catalog discovery, exact absolute-path binding and persistent Job lifecycle.
 - Require complete route-ledger migration, removal of the old server, package,
@@ -25,7 +33,7 @@
 
 ## [1.30.0] - 2026-08-19
 
-- Make normalized absolute `projectPath` the sole Unity MCP workspace,
+- Make normalized absolute `projectPath` the sole Unity automation workspace,
   connection and catalog identity; project/product/repository/folder names,
   ports and display titles are diagnostic metadata only.
 - Treat same-name checkouts as valid and prohibit names from instance matching,
@@ -78,9 +86,9 @@
 
 ## [1.22.0] - 2026-08-16
 
-- Make a current authorized task's proven dependency on a missing or defective first-class capability in a user-maintained MCP plugin/server sufficient to enter the authoritative repair flow without a second authorization request.
+- Make a current authorized task's proven dependency on a missing or defective first-class capability in a user-maintained Unity automation package sufficient to enter the authoritative repair flow without a second authorization request.
 - Define authoritative repair, risk-matched focused verification, the existing release mechanism, direct consumer pin/lock updates and formal host activation as one narrowly authorized implementation transaction.
-- Give this explicit MCP/package composition precedence over general implementation-versus-publication separation while retaining all boundaries for consumer business commits, product releases, PRs, third-party repositories, destructive cleanup, breaking changes and runtime or visual validation.
+- Give this explicit CLI/package composition precedence over general implementation-versus-publication separation while retaining all boundaries for consumer business commits, product releases, PRs, third-party repositories, destructive cleanup, breaking changes and runtime or visual validation.
 
 ## [1.21.0] - 2026-08-16
 
@@ -120,7 +128,7 @@
 
 ## [1.15.0] - 2026-08-13
 
-- Prohibit every local filesystem dependency for Unity packages, plugins, Unity MCP packages and their consumers, including temporary development pins, `file:`, `source: local`, embedded overrides, symlinks and junctions.
+- Prohibit every local filesystem dependency for Unity packages, plugins, Unity automation packages and their consumers, including temporary development pins, `file:`, `source: local`, embedded overrides, symlinks and junctions.
 - Require consumers to use a registry version or a remote Git URL pinned to a full immutable commit SHA after the authoritative package has been published.
 - Require pre- and post-change scans of package metadata, manifest/lock files, UPM installation configuration and dependency examples across every controlled consumer, with any local dependency blocking completion.
 
@@ -144,10 +152,10 @@
 
 ## [1.11.0] - 2026-08-09
 
-- Treat missing, stale or host-unregistered first-class MCP tools and incomplete authoritative Editor state as capability defects that must enter the authorized plugin repair flow.
-- Prohibit Computer Use, mouse, keyboard, Editor-menu, generic-executor, direct-HTTP, CLI, project-script and file-operation substitutes for an affected MCP capability.
+- Treat missing, stale or host-unregistered first-class Unity automation tools and incomplete authoritative Editor state as capability defects that must enter the authorized plugin repair flow.
+- Prohibit Computer Use, mouse, keyboard, Editor-menu, generic-executor, direct-HTTP, alternate-CLI, project-script and file-operation substitutes for an affected Pipeline capability.
 - Require end-to-end evidence from the published revision and active process through catalog activation, `tools/list_changed`, host registration and direct typed invocation.
-- Define an independent standard MCP client as an isolation boundary rather than target-host acceptance, requiring formal reconnect/restart and target-host readback before completion.
+- Define an independent protocol client as an isolation boundary rather than target-host acceptance, requiring formal reconnect/restart and target-host readback before completion.
 
 ## [1.10.1] - 2026-08-09
 
@@ -156,9 +164,9 @@
 
 ## [1.10.0] - 2026-08-09
 
-- Require authorized package, plugin and MCP migrations to inventory authoritative, temporary and superseded paths before creating a replacement, then retain only one current installation per logical entry.
+- Require authorized package, plugin and transport migrations to inventory authoritative, temporary and superseded paths before creating a replacement, then retain only one current installation per logical entry.
 - Require exact-path safety checks, dirty/untracked ownership review, deletion readback and configuration/process/package-resolution proof when removing obsolete installations, checkouts and cache snapshots.
-- Reconcile mandatory legacy cleanup with MCP process safety by requiring a host-provided Restart/reconnect before deleting any directory still used by an active stdio server.
+- Reconcile mandatory legacy cleanup with process safety by requiring a host-provided Restart/reconnect before deleting any directory still used by an active stdio server.
 
 ## [1.9.0] - 2026-08-08
 
@@ -180,7 +188,7 @@
 - Ban fail-close behavior, defensive code, fallback paths, retry-based recovery and guard-driven state during implementation and code review.
 - Require contract violations to surface at the originating owner while upstream producers are fixed and downstream defensive branches are removed.
 - Delete derivable, duplicated and recovery-only state, and keep each supported Unity version on one compile-time authoritative implementation.
-- Remove fallback permissions from Unity MCP, localization preview, package/plugin repair and operational rule wording.
+- Remove fallback permissions from Unity tooling, localization preview, package/plugin repair and operational rule wording.
 - Replace runtime clamp, `OnValidate` correction and consumer-side serialized-value guards with one authoritative authoring contract.
 
 ## [1.6.0] - 2026-08-04
@@ -195,7 +203,7 @@
 - Make local UI refresh, visibility, and enablement wiring static-only small changes when they only read existing authoritative state and preserve visible behavior.
 - Require explicit, itemized validation authorization in the current request; fixes, implementation, commits, pushes, runtime symptoms, and existing Editor state do not grant it.
 - Leave UI behavior that can only be confirmed after Player or content packaging to user validation by default, without Agent compilation, builds, Play Mode substitutes, screenshots, logs, or input automation.
-- Prevent consumer-project checklists, read-only MCP tools, and specialized UI workflows from expanding the shared validation boundary.
+- Prevent consumer-project checklists, read-only automation tools, and specialized UI workflows from expanding the shared validation boundary.
 
 ## [1.4.0] - 2026-08-04
 
@@ -233,5 +241,5 @@
 
 ## [1.0.0] - 2026-08-03
 
-- Publish the shared Unity MCP instruction contract for BattleIdle and MarbleBattlers.
-- Define submodule-based consumption, project-local routing, conflict boundaries, compact response rules, and risk-tiered MCP regression policy.
+- Publish the shared Unity automation instruction contract for BattleIdle and MarbleBattlers.
+- Define submodule-based consumption, project-local routing, conflict boundaries, compact response rules, and risk-tiered CLI regression policy.

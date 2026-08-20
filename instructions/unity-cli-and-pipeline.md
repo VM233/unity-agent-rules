@@ -2,13 +2,13 @@
 
 ## 适用范围与优先级
 
-- 使用或修改官方 Unity CLI、`com.unity.pipeline`、VM Unity Pipeline、Automation catalog、命令 schema、project tool、持久 Job、RuntimeOnly command，诊断连接/绑定/发现/执行故障，或清理旧 MCP workaround 时，必须完整读取本文件。
+- 使用或修改官方 Unity CLI、`com.unity.pipeline`、VM Unity Pipeline、Automation catalog、命令 schema、project tool、持久 Job、RuntimeOnly command，诊断连接/绑定/发现/执行故障，或清理旧传输 workaround 时，必须完整读取本文件。
 - 上级指令、用户当前明确要求、消费项目根 `AGENTS.md` 和共享 `unity-editor-safety.md` 的权限边界始终优先。本文件不自行授权 Play Mode、测试、构建、视觉验证、消费项目业务提交或产品发布。
 - 同时修改 package/plugin、Unity 代码、Prefab/序列化或项目工具时，必须一并读取对应规则；更具体规则只能收紧，不能重新授权 fallback、双轨传输或越权验证。
 
 ## 唯一传输与职责边界
 
-- Unity Technologies 官方 Unity CLI 是唯一进程边界、实例发现与项目绑定入口；`com.unity.pipeline` 是唯一 Editor 命令传输。不得新增或保留 MCP server、HTTP bridge、stdio adapter、第二端口协议、直接 socket/HTTP 调用或项目脚本传输作为兼容路径。
+- Unity Technologies 官方 Unity CLI 是唯一进程边界、实例发现与项目绑定入口；`com.unity.pipeline` 是唯一 Editor 命令传输。不得新增或保留第二 server、HTTP bridge、stdio adapter、第二端口协议、直接 socket/HTTP 调用或项目脚本传输作为兼容路径。
 - `VMUnityPipeline` 只拥有五个稳定顶层命令：`vm_catalog_status`、`vm_catalog_list`、`vm_catalog_get`、`vm_editor_state`、`vm_automation_call`。不得把数百个 Automation route 注册成同量顶层 CLI command。
 - `VMUnityAutomation` 拥有通用 Unity command 的 typed contract、handler、统一 schema/error/effect/lifecycle 元数据、请求身份、持久 Job 与执行生命周期；`VMFramework-Pipeline` 只拥有 VMFramework 领域 project tool；消费项目 project tool 只拥有项目专属编排与 output schema。
 - RuntimeOnly command 由运行时 Pipeline manager 与项目运行时 service 拥有。Editor catalog 与 Runtime catalog 分离，运行时能力不得污染 Editor 顶层命令表，也不得借运行时入口绕过 Editor 写入和验证权限。
@@ -47,9 +47,9 @@
 ## 缺陷、迁移与禁止 fallback
 
 - CLI command 未注册、catalog/schema 过期、命令描述会稳定误导、绑定错误、Job 假完成、RuntimeOnly 泄漏到 Editor，或官方 CLI 与实际 package revision 不一致，都是一等能力缺陷；立即停止依赖该非法前置状态的动作，修权威 owner 并完成发布/pin/adoption。
-- 不得用 Computer Use、鼠标、键盘、Editor 菜单、直接 HTTP、旧 MCP route、通用 execute-code、项目临时脚本或文件改写替代缺失/有缺陷的一等 CLI contract。只读源码与日志可以归因，不能冒充正式能力验收。
-- 从 MCP 迁移到 CLI 时必须建立完整旧 route 决策台账，逐项选择 `custom_cli`、`merge_into` 或 `delete_redundant`，并验证新 catalog、consumer rewrite 与零消费者证明。完成后删除旧 package、server、配置、进程入口、route/schema、文档示例与兼容 alias；不得长期双轨。
-- 旧 MCP 仓库和 changelog 可作为历史证据保留，但不得继续被消费项目 manifest、宿主配置、Agent 规则、当前 README 安装说明或活动进程引用。
+- 不得用 Computer Use、鼠标、键盘、Editor 菜单、直接 HTTP、退役 route、通用 execute-code、项目临时脚本或文件改写替代缺失/有缺陷的一等 CLI contract。只读源码与日志可以归因，不能冒充正式能力验收。
+- 从旧自建传输迁移到 CLI 时必须建立完整旧 route 决策台账，逐项选择 `custom_cli`、`merge_into` 或 `delete_redundant`，并验证新 catalog、consumer rewrite 与零消费者证明。完成后删除旧 package、server、配置、进程入口、route/schema、文档示例与兼容 alias；不得长期双轨。
+- 完成迁移后必须删除旧传输仓库、离线迁移台账及当前 changelog/README/Agent 规则中的旧名称；不得用历史证据名义保留活动或可发现的旧实现表面。
 - 任何 CLI/Pipeline 问题都必须在下一次进度更新和最终交付中明确报告；在权威修复、发布和 adoption 前，相关证据标记为失败或无结论，不能换通道后宣称完成。
 
 ## 验收
@@ -57,4 +57,4 @@
 - 先用 `unity status` 证明唯一实例与绝对项目路径，再用五命令 facade 做 bounded discovery；确认顶层命令数量没有因 Automation catalog 膨胀。
 - 对 catalog 验证总 contract 数、package owner 分布、invalid contract 列表、revision 与分页上限；只拉取少量样本及本轮直接依赖 contract 的完整 schema。
 - 代码或编译契约改动必须按 `unity-editor-safety.md` 通过最后一次官方 package resolve/refresh/clean compile，error 为零并单独检查 warning/obsolete。Play Mode、测试、构建与视觉证据仍需用户当前明确授权。
-- 验收后扫描 manifest/lock、package metadata、项目/用户配置、宿主配置、活动进程、README 与 Agent 规则，确认旧 MCP package/server/route/config 为零，且所有依赖均为 registry 版本或完整远端 Git SHA。
+- 验收后扫描 manifest/lock、package metadata、项目/用户配置、宿主配置、活动进程、README 与 Agent 规则，确认旧 package/server/route/config 为零，且所有依赖均为 registry 版本或完整远端 Git SHA。

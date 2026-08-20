@@ -12,7 +12,7 @@
 - `VMUnityPipeline` 只拥有五个稳定顶层命令：`vm_catalog_status`、`vm_catalog_list`、`vm_catalog_get`、`vm_editor_state`、`vm_automation_call`。不得把数百个 Automation route 注册成同量顶层 CLI command。
 - `VMUnityAutomation` 拥有通用 Unity command 的 typed contract、handler、统一 schema/error/effect/lifecycle 元数据、请求身份、持久 Job 与执行生命周期；`VMFramework-Pipeline` 只拥有 VMFramework 领域 project tool；消费项目 project tool 只拥有项目专属编排与 output schema。
 - RuntimeOnly command 由运行时 Pipeline manager 与项目运行时 service 拥有。Editor catalog 与 Runtime catalog 分离，运行时能力不得污染 Editor 顶层命令表，也不得借运行时入口绕过 Editor 写入和验证权限。
-- 先定位错误或冗余的最窄 owner，再修 producer/contract。一个 schema、错误映射、压缩、绑定或生命周期只能有一个 owner，禁止在 facade、Automation、framework 与项目层重复补偿。
+- 定位错误或冗余的权威 owner，并修正其 producer/contract。一个 schema、错误映射、压缩、绑定或生命周期只能有一个 owner，禁止在 facade、Automation、framework 与项目层重复补偿。
 
 ## 项目绑定与调用语法
 
@@ -41,8 +41,8 @@
 
 - VM Pipeline、Automation 和 framework package 只在各自权威仓库修改；不得编辑 `Library/PackageCache`，不得嵌入消费项目，也不得使用 `file:`、本地路径、symlink 或 junction。
 - package 修改后先在权威仓库更新版本、CHANGELOG 和文档，提交并推送不可变 revision；再让所有直接消费 package 更新最低兼容版本，最后让消费项目以完整远端 SHA 更新 manifest/lock。
-- 当前任务依赖且已证实属于用户维护 package 的 CLI/Pipeline 缺陷，自动进入最小权威修复、风险匹配验证、既有发布、直接消费 pin/lock 和正式 adoption 闭环，不等待二次发布授权；该例外不授权消费项目无关业务提交、产品发布、PR、第三方仓库或额外运行时/视觉验证。
-- 更新已发布且有可信验证记录的 revision 时，不重复 package 全套测试。默认验证远端 revision、manifest/lock/registered package 一致、消费项目最窄权威编译，以及当前请求直接依赖的一个正式命令路径。
+- 当前任务依赖且已证实属于用户维护 package 的 CLI/Pipeline 缺陷，自动进入权威修复、风险匹配验证、既有发布、直接消费 pin/lock 和正式 adoption 闭环，不等待二次发布授权；该例外不授权消费项目无关业务提交、产品发布、PR、第三方仓库或额外运行时/视觉验证。
+- 更新已发布且有可信验证记录的 revision 时，不重复 package 全套测试。默认验证远端 revision、manifest/lock/registered package 一致、消费项目权威编译，以及当前请求直接依赖的正式命令路径。
 
 ## 缺陷、迁移与禁止 fallback
 

@@ -4,8 +4,8 @@
 
 - 修改 Unity package/plugin、独立源码仓库、manifest/lockfile、Git revision、package metadata、发布内容或远程更新流程时必须读取本文件。
 - 普通消费项目的业务实现、修复、编译通过或完整闭环，不自动授权提交、推送或产品发布；消费项目根 `AGENTS.md` 与用户当前要求继续决定这些项目业务改动的发布权限。
-- 一旦权威证据确认 package/plugin/Editor extension 由用户维护，且当前任务已经要求或按适用规则进入其权威内容修改，该修改本身即构成窄范围自动发布授权。无论原因是功能、修复、重构、文档、配置、metadata 或发布内容，都必须在同一任务按风险完成验证与文档/版本审阅，提交并推送权威仓库当前分支，执行该仓库既有的 tag、registry 或其他正式发布机制，并更新、提交、推送所有受本次发布影响且可控的消费端 pin/lock/安装配置；不得等待用户再次说 `push` 或确认发布。
-- 共享 CLI/Pipeline 细则确认“当前已授权任务实际依赖用户维护 package 所缺失或有缺陷的一等能力”时，已经属于上条所说的“按适用规则进入权威内容修改”；不得再用一般的实现/验证/发布权限分离、跨仓库边界或消费项目未重复写入授权为由暂停请求。此组合只授权共享 CLI/Pipeline 细则列出的最小修复、聚焦验证、既有发布、直接消费 pin/lock 与正式 adoption 链，其他权限仍由下条边界约束。
+- 一旦权威证据确认 package/plugin/Editor extension 由用户维护，且当前任务已经要求或按适用规则进入其权威内容修改，该修改本身即构成限定的自动发布授权。无论原因是功能、修复、重构、文档、配置、metadata 或发布内容，都必须在同一任务按风险完成验证与文档/版本审阅，提交并推送权威仓库当前分支，执行该仓库既有的 tag、registry 或其他正式发布机制，并更新、提交、推送所有受本次发布影响且可控的消费端 pin/lock/安装配置；不得等待用户再次说 `push` 或确认发布。
+- 共享 CLI/Pipeline 细则确认“当前已授权任务实际依赖用户维护 package 所缺失或有缺陷的一等能力”时，已经属于上条所说的“按适用规则进入权威内容修改”；不得再用一般的实现/验证/发布权限分离、跨仓库边界或消费项目未重复写入授权为由暂停请求。此组合只授权共享 CLI/Pipeline 细则列出的权威修复、聚焦验证、既有发布、直接消费 pin/lock 与正式 adoption 链，其他权限仍由下条边界约束。
 - 上述自动授权只覆盖该 package/plugin 的权威发布及消费项目中与该发布直接相关的 pin/lock/安装配置，不授权提交消费项目其他业务改动、发布消费产品、创建 PR、修改无关仓库、扩大验证范围或新增仓库原本不存在的发布渠道。源码、凭据、上游控制、远端推进、重叠脏改或更高安全边界无法安全闭合时，报告精确阻点。
 - 涉及官方 Unity CLI、Pipeline/Automation package、route、schema、响应或命令验收时，还必须读取 `.agents/shared-rules/instructions/unity-cli-and-pipeline.md`；需要 Unity 操作时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
 
@@ -34,7 +34,7 @@
 
 - 功能异常、假成功、契约违例被 guard/default/重试掩盖、存在 fallback/workaround，以及会稳定诱导错误调用的工具名、description、typed schema、默认值、状态/错误文案、示例、README、安装、配置、使用和迁移说明，都属于需要归因的问题；当前任务表面仍能推进不构成豁免。
 - 触发修复前必须有错误日志、最小复现、公开响应与实现不一致、源码与文档/schema 矛盾或其他权威证据。先区分调用者误用、消费项目错误、宿主/传输问题和 plugin 自身缺陷，不得未经归属就盲改上游。
-- 一旦项目规则授权且确认属于可维护 plugin，停止使用并删除 workaround/fallback，统一审计同类入口、handler、共享 schema/序列化/错误映射、调用方、测试和文档生成链，在最窄权威 producer/contract 修复报告实例与已确认同源实例。
+- 一旦项目规则授权且确认属于可维护 plugin，停止使用并删除 workaround/fallback，统一审计同类入口、handler、共享 schema/序列化/错误映射、调用方、测试和文档生成链，在权威 producer/contract 修复报告实例与已确认同源实例。
 - 能由 typed schema、权威 producer 或结构化错误契约消除的误用必须修代码契约，不能只补文档，也不得为取证或继续任务写入临时绕行。只读诊断可以收集证据，但不能进入产品、工具、项目状态或交付物。
 - 完整闭环按适用范围覆盖：根因实现、风险匹配的聚焦回归、公开 schema/metadata/错误语义、文档与示例、版本/CHANGELOG、上游 commit/push、消费项目 manifest/lock pin、UPM 重新解析、reload/reconnect，以及通过正式公开接口重跑原失败路径。
 - 只有源码、仓库访问、凭据、上游控制、安全边界、用户权限或未经授权的 breaking/product change 构成明确阻点时，才可保留未闭环项；交付时说明精确阻点和未验证范围，不实现或保留临时措施、备用路径或防御性替代。
@@ -45,7 +45,7 @@
 - 修改 package metadata、manifest 或 lockfile 时重新打开精确 package block，只做定向编辑，并核对 manifest 与 lock 指向同一 revision；不得依赖旧工具响应、旧端口或旧解析缓存。
 - 消费项目更新到新 revision 后，只验证 UPM 实际解析、导入、编译/Console 及当前任务直接依赖的集成路径；已在同一源码与依赖状态下通过的 package 测试不得在上游、发布 checkout 和消费项目重复运行。
 - 运行 Unity package test 前从测试 `.asmdef` 读取准确程序集 `name`；不得从 namespace、package ID、旧 schema 或旧 revision 推断。持续 `waiting-for-assembly` 时立即核对已解析 asmdef，不轮询到超时。
-- 测试从静态检查、必要编译、最窄 fixture/filter 和集成 smoke 逐级升级。只有共享基础设施、不可隔离的跨类别契约或现有证据证明广泛影响时才运行完整 suite；发布、改版本号或更新 pin 本身不触发全量回归。
+- 测试从静态检查、必要编译、聚焦 fixture/filter 和集成 smoke 逐级升级。只有共享基础设施、不可隔离的跨类别契约或现有证据证明广泛影响时才运行完整 suite；发布、改版本号或更新 pin 本身不触发全量回归。
 
 ## 对外文档与发布
 

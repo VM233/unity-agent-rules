@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0] - 2026-08-20
+
+- Remove the minimal-change mandate from implementation rules: authorized work
+  is governed by the user and project scope, while engineering guidance now
+  requires a coherent authoritative production chain without optimizing for
+  the fewest files or lines.
+- Consolidate duplicated ownership, fallback, defect-evidence, validation and
+  delivery clauses in the shared quality and Editor-safety instructions.
+- Shorten the repository and consumer routing guidance so root `AGENTS.md`
+  files carry project facts and routes while detailed contracts stay on demand.
+
 ## [2.0.0] - 2026-08-20
 
 - Replace the Unity MCP operating contract with the official Unity CLI and

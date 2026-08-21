@@ -41,6 +41,7 @@ git submodule update --init --recursive
 - Unity 代码或编译契约变化必须完成一次权威编译并处理全部 error；Play Mode、测试、构建、运行时、视觉和输入仍需用户当前明确授权。其他改动默认静态审查。
 - 每个手写 C# 文件一个顶层类型，手写 class 不超过 1500 行，禁止新增或扩写手写 `partial`；生成器或框架硬契约例外必须可证明。
 - Unity package 只从 registry 或完整远端 Git SHA 消费，永久禁止 `file:`、本地路径、embedded override、symlink 和 junction。用户维护 package 被修改时按既有流程发布，并同步直接消费 pin/lock。
+- VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 全局运行 `vmframework/validate-game-prefabs`；任何后续 GamePrefab 改动都使结果失效，必须重跑并取得零错误。
 - 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；调用时区分全局参数、官方子命令 option 与 `--` 后的 Editor command 参数，并通过 bounded catalog discovery 获取 VM facade 的项目能力，不保留第二 server、HTTP 或脚本旁路。
 - UI Toolkit 的布局关系由语义 owner 表达；absolute overlay 只因叠放而脱流，父级已拥有双轴居中时不得再用 `left`/`top` 手算同一中心，边缘锚定与有证据的光学偏移除外。
 - 兼容性默认关闭；唯一常设例外是用户维护的跨项目通用 package/plugin 对其声明支持的 Unity 版本进行编译期兼容。

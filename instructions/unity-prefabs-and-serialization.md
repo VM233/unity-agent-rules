@@ -28,3 +28,9 @@
 - 合法值来自 Project Settings、Prefab/配置注册表、Preset 或其他权威集合时，使用语义匹配的强类型引用或选择器 Attribute/Drawer，使 authoring producer 只能生成合法值；不得暴露裸字符串/整数后再由各 consumer 判空、校验或复制候选列表。
 - Unity/Odin 正常保存产生的字段/条目顺序、空白、缩进、默认空字段、无语义空值和不改变对象图的 managed-reference ID 变化，只做一次快速语义判断；确认不改变引用、有效值、类型、Prefab override、组件/层级或反序列化对象图后保持结果，不得为缩小 diff 反复 trim、restore、重存、格式化或重建。
 - YAML 看似合理不能证明 Unity 对象引用和序列化类型有效。只有任务实际改变对象图、引用/GUID/local file ID、字段契约或已有证据指向反序列化故障时，才在允许范围内通过 Unity 实际反序列化读回；用户未授权相应验证时准确标记未读回，不得把静态检查写成运行时证明。
+
+## GamePrefab 最终审查门
+
+- 任务只要新增、删除或修改 VMFramework GamePrefab、其 Wrapper、Prefab 引用或注册关系，就在全部写入、导入、编译及已授权读回完成后，通过官方 Unity CLI 的 bounded catalog 调用 `vmframework/validate-game-prefabs`，并保持全局默认审查范围；不得用项目专用脚本、局部 selector、Inspector 外观或启动成功替代。
+- 这一步是交付、提交或推送前最后一个 GamePrefab 内容验证；后续若再改变任何 GamePrefab 内容或引用，原结果立即失效并必须重跑。只有命令完成且 `passed=true`、`errorCount=0`、`missingPrefabCount=0` 才算通过；传输成功、返回被截断或只查看日志都不是通过证据。
+- 若消费项目尚未提供该命令，先在 `VMFramework-Pipeline` 权威 package 完成发布并采用远端不可变 revision；不得把缺失能力下沉为项目审查器或保留双轨。

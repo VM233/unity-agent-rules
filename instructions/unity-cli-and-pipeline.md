@@ -10,7 +10,7 @@
 
 - Unity Technologies 官方 Unity CLI 是唯一进程边界、实例发现与项目绑定入口；`com.unity.pipeline` 是唯一 Editor 命令传输。不得新增或保留第二 server、HTTP bridge、stdio adapter、第二端口协议、直接 socket/HTTP 调用或项目脚本传输作为兼容路径。
 - `VMUnityPipeline` 只拥有五个稳定顶层命令：`vm_catalog_status`、`vm_catalog_list`、`vm_catalog_get`、`vm_editor_state`、`vm_automation_call`。不得把数百个 Automation route 注册成同量顶层 CLI command。
-- `VMUnityAutomation` 拥有通用 Unity command 的 typed contract、handler、统一 schema/error/effect/lifecycle 元数据、请求身份、持久 Job 与执行生命周期；`VMFramework-Pipeline` 只拥有 VMFramework 领域 project tool；消费项目 project tool 只拥有项目专属编排与 output schema。
+- `VMUnityAutomation` 拥有通用 Unity command 的 typed contract、handler、统一 schema/error/effect/lifecycle 元数据、请求身份、持久 Job 与执行生命周期；`VMFramework-Pipeline` 只拥有 VMFramework 领域 project tool；消费项目 project tool 只拥有项目专属编排与 output schema。跨项目一致的 GamePrefab 契约审查（包括 `IPrefabProvider.Prefab` 空引用）属于 `VMFramework-Pipeline`，不得在消费项目复制审查器或 fallback。
 - RuntimeOnly command 由运行时 Pipeline manager 与项目运行时 service 拥有。Editor catalog 与 Runtime catalog 分离，运行时能力不得污染 Editor 顶层命令表，也不得借运行时入口绕过 Editor 写入和验证权限。
 - 定位错误或冗余的权威 owner，并修正其 producer/contract。一个 schema、错误映射、压缩、绑定或生命周期只能有一个 owner，禁止在 facade、Automation、framework 与项目层重复补偿。
 

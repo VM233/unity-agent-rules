@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.2.0] - 2026-08-21
+
+- Make the framework-owned `vmframework/validate-game-prefabs` global audit the
+  final GamePrefab content gate after writes, imports, compilation, and any
+  authorized readback, invalidating the result after every later GamePrefab edit.
+- Require `passed=true`, zero errors, and zero missing Prefab references instead
+  of accepting transport success, local filters, Inspector appearance, or logs.
+- Keep cross-project GamePrefab contract validation in `VMFramework-Pipeline`
+  and prohibit consumer-project validators or fallback copies.
+
 ## [4.1.0] - 2026-08-21
 
 - Separate an absolute overlay's stacking responsibility from its coordinate

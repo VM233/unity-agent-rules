@@ -16,6 +16,12 @@
 - 伪状态和 relational selector 表达各自的状态或结构契约，不属于上述普通 class declaration bundle；即使声明相同也继续遵守“一 selector 一 block”，不得仅为去重把状态或结构契约抽离到失去 owner 的共享 class。
 - 触及已有重复 bundle 时必须在同一任务完成共享 class 提取和全部 consumer 分配。正式 USS 审查器必须把该违例作为不可 suppression 的 error，列出全部相关 selector 与重复声明，使审查结果 `passed=false` 并单独计入 `errorCount`；warning 不满足门禁。
 
+## Absolute overlay 与居中 owner
+
+- `position: absolute` 只拥有脱离普通流、叠放与覆盖职责，不自动拥有坐标职责。固定尺寸 overlay 的最近语义父级已经用 `align-items: center` 与 `justify-content: center` 拥有双轴居中时，子元素保留真实叠放所需的 `position: absolute`，不得再把 `(父尺寸 - 子尺寸) / 2` 写成 `left`/`top` 重复表达同一中心关系。
+- 父级对齐、absolute 叠放与边缘锚定是不同契约：贴边 badge/chrome、四边覆盖、popup 定位或有测量依据的光学/接缝修正继续使用其实际 edge/offset；不得把“overlay 可以 absolute”解释成“overlay 可以手算居中坐标”，也不得为了删除重复 `left`/`top` 连带删除仍有叠放职责的 `position: absolute`。当一般 absolute-overlay 许可与本节的居中 owner 规则同时命中时，本节只收紧重复居中坐标，二者其余职责同时有效。
+- 通用 USS 审查器应只在父子尺寸与 `left`/`top` 能证明同一手算中心关系时报告，保留真实边缘锚点；有意的测量光学偏移必须提供具体理由的 suppression，不能无原因忽略。
+
 ## 生成子元素的状态与主题覆盖
 
 - 给内置或自定义控件的生成部件换肤前，先确认实际生成层级、class、伪状态 owner，以及当前引擎/运行时主题对目标属性的 winning selector；不得从外层控件类型或 UXML 层级猜测。

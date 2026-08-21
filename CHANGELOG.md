@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.1.0] - 2026-08-21
+
+- Separate an absolute overlay's stacking responsibility from its coordinate
+  ownership: keep `position: absolute` when overlap is real, but reject
+  `left`/`top` that recalculate centering already owned by the parent.
+- Define the precedence boundary explicitly so edge anchors, four-edge overlays,
+  popups, and evidenced optical offsets remain valid instead of being removed by
+  an over-broad centering cleanup.
+- Require generic USS auditing to prove matching parent/child center geometry
+  before reporting redundant overlay offsets.
+
 ## [4.0.1] - 2026-08-20
 
 - Correct Unity CLI invocation guidance so `--project-path` is placed after the

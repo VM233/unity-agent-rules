@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.2.1] - 2026-08-25
+
+- Treat an explicit push request as a remote outcome that includes the scoped
+  commit, remote synchronization, determinate conflict resolution, push, and
+  authoritative remote-ref verification needed for the requested change chain.
+- Require remote divergence and non-fast-forward rejection to be integrated on
+  the allowed checked-out branch instead of stopping at a local commit, while
+  preserving unrelated work and rerunning validation invalidated by the merge.
+- Require the remote target ref to resolve to the published local commit; local
+  tracking state, a successful command exit, or a merely local commit is not
+  publication evidence.
+
 ## [4.2.0] - 2026-08-21
 
 - Make the framework-owned `vmframework/validate-game-prefabs` global audit the

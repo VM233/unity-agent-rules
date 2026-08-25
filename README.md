@@ -46,6 +46,7 @@ git submodule update --init --recursive
 - UI Toolkit 的布局关系由语义 owner 表达；absolute overlay 只因叠放而脱流，父级已拥有双轴居中时不得再用 `left`/`top` 手算同一中心，边缘锚定与有证据的光学偏移除外。
 - 兼容性默认关闭；唯一常设例外是用户维护的跨项目通用 package/plugin 对其声明支持的 Unity 版本进行编译期兼容。
 - 未经用户当前明确要求，不创建额外分支、worktree 或 PR；保留其他 dirty/untracked 内容，只暂存当前授权范围。
+- 用户明确要求 push 时，完成边界在远端而不在本地：同步远端、语义解决可确定冲突、完成必要验证并继续推送，最后读回远端目标引用与本地发布 commit 一致；普通 push 仍不等于 `push all`。
 
 各领域完整契约以 `instructions/` 对应文件为准；README 不复制细节清单。
 

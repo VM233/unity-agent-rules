@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.2.2] - 2026-08-28
+
+- Require the final GamePrefab audit to prove exact config-object reachability
+  through the runtime `GlobalSettingCollector` provider graph, with zero
+  unregistered configs and registered/config totals equal.
+- Require bounded catalog discovery of the exact command and distinguish
+  `vm_pt_vmf_validate_game_prefabs` from its
+  `vmframework/validate-game-prefabs` route.
+- Reject old or incomplete checker responses that omit runtime registration
+  aggregates, even when their wrapper and Prefab-reference scan reports pass.
+
 ## [4.2.1] - 2026-08-25
 
 - Treat an explicit push request as a remote outcome that includes the scoped

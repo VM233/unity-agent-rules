@@ -39,7 +39,7 @@ git submodule update --init --recursive
 - 用户请求和消费项目规则决定功能、验证、Git、发布与破坏性操作权限；共享规则负责工程质量和工具安全，不要求代码改动行数或文件数最少。
 - 实现围绕唯一 owner、producer、不可变产品、生命周期和 consumer 闭合。契约违例修 producer 并直接暴露，禁止 guard、fallback、默认替代、重试和新旧双轨。
 - Unity 代码或编译契约变化必须完成一次权威编译并处理全部 error；Play Mode、测试、构建、运行时、视觉和输入仍需用户当前明确授权。其他改动默认静态审查。
-- 玩家文案写入前必须建立机制事实表与逐 Locale 术语证据表；内部 ID、英文类名和其他 Locale 只能用于定位，不能直接生成玩家术语。没有既有术语的机制使用普通语言描述可观察效果，link/Tooltip 不能代替当前描述所需的基本语义。
+- 玩家文案写入前必须建立机制事实表与逐 Locale 术语证据表；内部 ID、英文类名和其他 Locale 只能用于定位，不能直接生成玩家术语。已有注册对象且当前 UI 可达其 Tooltip/link 时，该对象独占内部机制文案，外层描述只引用它并保留自身新增的触发、目标、施加参数与例外，禁止复制内部效果；没有可引用产品或可达说明时才用普通语言描述可观察效果。
 - 每个手写 C# 文件一个顶层类型，手写 class 不超过 1500 行，禁止新增或扩写手写 `partial`；生成器或框架硬契约例外必须可证明。
 - Unity package 只从 registry 或完整远端 Git SHA 消费，永久禁止 `file:`、本地路径、embedded override、symlink 和 junction。用户维护 package 被修改时按既有流程发布，并同步直接消费 pin/lock。
 - VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。

@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.3.1] - 2026-09-03
+
+- Correct the 4.3.0 wording that encouraged outer descriptions to duplicate a
+  linked Buff or status tooltip's internal mechanics.
+- Make a registered, localized object with a consumer-accessible tooltip/link
+  the sole copy owner of its name and internal effect description.
+- Require outer Item, Ability, reward, and status text to reference that object
+  and keep only its own trigger, target, application parameters, and exceptions.
+
 ## [4.3.0] - 2026-09-02
 
 - Require a mechanics fact table and per-locale terminology evidence table

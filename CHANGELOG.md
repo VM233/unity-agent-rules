@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.3.0] - 2026-09-02
+
+- Require a mechanics fact table and per-locale terminology evidence table
+  before writing player-facing names, descriptions, or tooltips.
+- Treat internal IDs, English Prefab/class names, tests, comments, and text
+  from another locale as search aids rather than player terminology authority.
+- Prohibit invented or directly translated mechanic nouns when no localized
+  product term exists, and require observable mechanics in the sentence instead
+  of relying on links or tooltips to explain an opaque effect.
+
 ## [4.2.2] - 2026-08-28
 
 - Require the final GamePrefab audit to prove exact config-object reachability

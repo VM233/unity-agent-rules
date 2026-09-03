@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.2.0] - 2026-09-03
+
+- Separate complete mechanic/stacking contracts from player-facing information
+  selection; keep default descriptions focused on ordinary gameplay decisions.
+- Do not require hypothetical duplicate-item explanations or expose every
+  internal Count parameter; retain actual stacking behavior and boundary tests.
+- Validate the values selected by the real UI across locales without forcing
+  unused implementation variables into item descriptions.
+
 ## [5.1.0] - 2026-09-03
 
 - Prohibit terminal full stops in every Chinese player-facing description,

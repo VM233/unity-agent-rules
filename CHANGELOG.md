@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.2.1] - 2026-09-03
+
+- Distinguish complete implementation/test evidence, complete translations, and
+  concise player-facing UI copy; mechanic fact sheets are not display checklists.
+- Replace the blanket prohibition on omitted mechanics with checks for misleading
+  omissions of decision-relevant conditions and effects.
+- Keep algorithm steps and rare edge cases out of default descriptions, and use
+  existing property displays or reachable tooltips for supporting detail.
+- Require conflict audits across shared rules, consumer overlays, and validators;
+  repair the original contradictory clauses instead of adding opposite advice.
+
 ## [5.2.0] - 2026-09-03
 
 - Separate complete mechanic/stacking contracts from player-facing information

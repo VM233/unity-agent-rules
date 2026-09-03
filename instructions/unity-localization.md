@@ -38,6 +38,6 @@
 - Button、Tab、列表项、bind label、slot caption 等运行时生成文本必须响应项目既有语言变更接口/事件，不能只在创建或面板打开时赋值。
 - 从脚本迁移静态显示文本时只删除 display assignment；搜索、筛选、排序、Tooltip 或其他行为仍需的本地化查询必须保留。
 - 新建 key 前搜索相同语义条目并复用。删除或通用化旧 key 前必须全项目检查 UXML binding、脚本、Prefab、table、string-key 和运行时 consumer；确认无消费者后同步处理 Shared Data 与所有 Locale 值，不得留下孤儿或误删共享条目。
-- 含 selector/占位符的条目必须启用匹配 metadata，并从 `LocalizedString`/描述组件核对到参数 provider；每个 selector 都由权威 owner 完整供数。新增 selector、改变 table/entry 引用或重组标签语义时，只有在项目允许的范围内通过实际生成验证；未获授权时明确标记未运行。
+- 含 selector/占位符的条目必须启用匹配 metadata，并从 `LocalizedString`/描述组件核对到参数 provider；每个 selector 都由权威 owner 完整供数。新增 selector、改变 table/entry 引用或重组标签语义时，通过实际生成验证相应参数链；受用户明确限制或环境阻碍未运行时，准确说明原因与缺失证据。
 - SmartFormat selector 的 root 名称、大小写、连字符、分隔符和后续成员链必须与实际被选中的描述路径所注册的变量完全一致；Shared Data key、Locale 非空、Smart metadata 存在或“看起来同义”都不能证明参数链可格式化。审查必须从当前 consumer 选择的 table/entry 与 description type 出发，逐 Locale 解析格式串，并把每个 root 精确映射到该路径真实存在的参数 producer，禁止只扫描全 Prefab 任意同名字段或另一描述分支。
-- 项目的一等静态 authoring 审查应使用与运行时相同的变量类型或等价 typed probe 实际格式化每个受支持 Locale，以同时暴露缺失 selector、类型/成员链和 formatter 错误；该静态审查不扩大 Play Mode 权限。只有当前任务已授权运行时验证时才执行真实 UI/描述生成，并在未授权时明确报告未运行，不能用手工目测或只检查文本非空替代静态格式契约。
+- 项目的一等静态 authoring 审查应使用与运行时相同的变量类型或等价 typed probe 实际格式化每个受支持 Locale，以同时暴露缺失 selector、类型/成员链和 formatter 错误，不需要单独授权。静态格式契约不能证明实际绑定、动态供数或 UI 展示时，再按风险补足真实 UI/描述生成；简单字面值修改无需因此进入 Play Mode，也不能用手工目测或只检查文本非空替代静态格式契约。

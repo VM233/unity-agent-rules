@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.0.0] - 2026-09-03
+
+- Remove the separate opt-in requirement for task-related verification and
+  for naming individual Unity, CLI, authoring-review, or test commands.
+- Include risk-matched static checks, compilation, tests, and necessary
+  runtime, visual, input, and local-build verification in implementation,
+  repair, and content-edit requests.
+- Keep explicit user restrictions, data safety, destructive-action approval,
+  business commits, pushes, and product releases as separate boundaries.
+- Align localization, serialization, UI, CLI, quality, and package guidance;
+  keep pure rule/document updates static and avoid unrelated or blanket tests.
+
 ## [4.3.1] - 2026-09-03
 
 - Correct the 4.3.0 wording that encouraged outer descriptions to duplicate a

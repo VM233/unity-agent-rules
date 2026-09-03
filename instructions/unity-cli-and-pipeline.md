@@ -3,7 +3,7 @@
 ## 适用范围与优先级
 
 - 使用或修改官方 Unity CLI、`com.unity.pipeline`、VM Unity Pipeline、Automation catalog、命令 schema、project tool、持久 Job、RuntimeOnly command，诊断连接/绑定/发现/执行故障，或清理旧传输 workaround 时，必须完整读取本文件。
-- 上级指令、用户当前明确要求、消费项目根 `AGENTS.md` 和共享 `unity-editor-safety.md` 的权限边界始终优先。本文件不自行授权 Play Mode、测试、构建、视觉验证、消费项目业务提交或产品发布。
+- 上级指令、用户当前明确要求、消费项目根 `AGENTS.md` 和共享 `unity-editor-safety.md` 的权限边界始终优先。任务相关验证按共享 Editor 安全细则执行，不因使用 CLI 再次询问授权；消费项目业务提交与产品发布仍保持独立边界。
 - 同时修改 package/plugin、Unity 代码、Prefab/序列化或项目工具时，必须一并读取对应规则；更具体规则只能收紧，不能重新授权 fallback、双轨传输或越权验证。
 
 ## 唯一传输与职责边界
@@ -41,7 +41,7 @@
 
 - VM Pipeline、Automation 和 framework package 只在各自权威仓库修改；不得编辑 `Library/PackageCache`，不得嵌入消费项目，也不得使用 `file:`、本地路径、symlink 或 junction。
 - package 修改后先在权威仓库更新版本、CHANGELOG 和文档，提交并推送不可变 revision；再让所有直接消费 package 更新最低兼容版本，最后让消费项目以完整远端 SHA 更新 manifest/lock。
-- 当前任务依赖且已证实属于用户维护 package 的 CLI/Pipeline 缺陷，自动进入权威修复、风险匹配验证、既有发布、直接消费 pin/lock 和正式 adoption 闭环，不等待二次发布授权；该例外不授权消费项目无关业务提交、产品发布、PR、第三方仓库或额外运行时/视觉验证。
+- 当前任务依赖且已证实属于用户维护 package 的 CLI/Pipeline 缺陷，自动进入权威修复、风险匹配验证、既有发布、直接消费 pin/lock 和正式 adoption 闭环，不等待二次发布授权；该例外不授权消费项目无关业务提交、产品发布、PR、第三方仓库或与该修复无关的验证。
 - 更新已发布且有可信验证记录的 revision 时，不重复 package 全套测试。默认验证远端 revision、manifest/lock/registered package 一致、消费项目权威编译，以及当前请求直接依赖的正式命令路径。
 
 ## 缺陷、迁移与禁止 fallback
@@ -56,5 +56,5 @@
 
 - 先用 `unity status` 证明唯一实例与绝对项目路径，再用五命令 facade 做 bounded discovery；确认顶层命令数量没有因 Automation catalog 膨胀。
 - 对 catalog 验证总 contract 数、package owner 分布、invalid contract 列表、revision 与分页上限；只拉取少量样本及本轮直接依赖 contract 的完整 schema。
-- 代码或编译契约改动必须按 `unity-editor-safety.md` 通过最后一次官方 package resolve/refresh/clean compile，error 为零并单独检查 warning/obsolete。Play Mode、测试、构建与视觉证据仍需用户当前明确授权。
+- 代码或编译契约改动必须按 `unity-editor-safety.md` 通过最后一次官方 package resolve/refresh/clean compile，error 为零并单独检查 warning/obsolete。其他验证按本轮改动风险执行，不再要求用户单独点名。
 - 验收后扫描 manifest/lock、package metadata、项目/用户配置、宿主配置、活动进程、README 与 Agent 规则，确认旧 package/server/route/config 为零，且所有依赖均为 registry 版本或完整远端 Git SHA。

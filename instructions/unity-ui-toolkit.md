@@ -3,7 +3,7 @@
 ## 共享范围与权限边界
 
 - 修改 UI Toolkit/UXML/USS、自定义 `VisualElement`、生成子元素蒙皮或伪状态级联时读取本文件；项目布局、素材与控件实现细则仍由消费项目维护。
-- 本文件不新增 Unity Editor、Play Mode、视觉、输入、构建或测试权限；验证范围继续服从共享 Editor 安全细则和消费项目规则。
+- 验证范围按共享 Editor 安全细则与本轮 UI 改动风险选择；必要的 authoring 审查、运行时、视觉和输入验证直接执行，不另行要求用户点名工具或授权。
 
 ## USS selector block
 

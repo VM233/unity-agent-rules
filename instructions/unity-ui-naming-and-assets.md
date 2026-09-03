@@ -3,7 +3,7 @@
 ## 共享范围与权限边界
 
 - 新增、重命名、移动或删除 UI Toolkit/UXML 元素 `name`、USS `#Name` selector、UI Prefab/GameObject 节点、`VisualElementPath`、运行时查询目标，或与这些 UI 概念对应的 Texture、Sprite、SpriteAtlas、Material 等视觉素材时，必须读取本文件。
-- 用户当前要求和消费项目根 `AGENTS.md` 决定写入、Unity 操作与验证权限；写入 `Assets` 或使用 Unity/Editor 工具时同时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`，并继续执行消费项目的 UI、图片和资源专项细则。本文件不新增刷新、编译、Play Mode、构建、视觉检查或输入自动化权限。
+- 用户当前要求和消费项目根 `AGENTS.md` 决定写入及产品范围；写入 `Assets` 或使用 Unity/Editor 工具时同时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`，并继续执行消费项目的 UI、图片和资源专项细则。任务相关的刷新、读回及视觉验证按共享 Editor 安全细则执行，不另行要求验证授权。
 - 项目专属目录、Title Case/casing、Sprite 导入参数、像素规范、业务词汇和页面结构留在消费项目；本文件只定义跨项目的语义命名闭环。
 
 ## UI 名称与专用素材必须同步迁移
@@ -23,6 +23,6 @@
 ## 冲突与完成门禁
 
 - 消费项目可以用更具体的命名格式、目录与素材状态规则收紧本文件，但不能允许 UI 语义、专用素材文件名和内部资源名彼此失配。用户当前明确指定的产品语义优先；共享素材所有权与中性命名边界仍必须用实际 consumer 证明，不能凭文件所在目录或单一引用猜测。
-- 安全与验证权限上限高于任何“读回”“验收”要求。未获相应 Unity/视觉验证授权时，只完成允许的实现与静态检查，并明确标记未执行项；不得为了证明改名而自行启动 Unity、构建、Play Mode 或截图。
+- 用户明确限制与数据安全边界高于任何“读回”“验收”要求。正常语义迁移按实际引用、内部名和可见状态风险直接完成必要的 Unity 读回与视觉检查，不因未单独点名验证而停止；纯显示文案小改不自动升级到构建或整场 Play Mode。因明确限制或环境阻碍未执行时，报告准确范围和原因。
 - 交付前对旧、新语义做双向搜索，并逐项核对“UI 标识 -> selector/路径/查询 -> 专用素材文件 -> 内部 Object/Sprite 名 -> 序列化 consumer”。存在专用素材时，diff 必须同时体现 UI 与素材迁移；未改素材时必须能证明没有专用素材，或所引用素材是名称仍准确的中性 canonical 资源。
-- 在当前授权允许资源读回时，确认 GUID 未变、内部名与新语义一致、local file ID/引用仍解析到同一资源、全部状态素材已迁移且旧资源不存在。静态 YAML、路径替换或单个 consumer 显示正确，均不能单独证明资源迁移完成。
+- 对实际发生的资源迁移，读回确认 GUID 未变、内部名与新语义一致、local file ID/引用仍解析到同一资源、全部状态素材已迁移且旧资源不存在。静态 YAML、路径替换或单个 consumer 显示正确，均不能单独证明资源迁移完成。

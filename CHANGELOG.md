@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.1.0] - 2026-09-03
+
+- Prohibit terminal full stops in every Chinese player-facing description,
+  detail, tooltip, paragraph, list item, and composed description fragment.
+- Require checks across all Chinese tables and actual text producers and
+  consumers, including descriptions without a `Description` key suffix.
+- Preserve internal punctuation, decimal points, and other locales; repair
+  authoritative content instead of trimming incorrect text at display time.
+
 ## [5.0.0] - 2026-09-03
 
 - Remove the separate opt-in requirement for task-related verification and

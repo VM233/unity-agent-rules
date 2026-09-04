@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.2.2] - 2026-09-04
+
+- Treat an existing player description as terminology and retention evidence,
+  not as an append-only base when equipment, ability, relic, or other content
+  gains or changes mechanics.
+- Require a fresh whole-entry draft from the current mechanic and UI context,
+  followed by a merge, replacement, and deletion pass for obsolete detail.
+- Prohibit changelog-shaped copy and monotonic description growth caused by
+  implementation history rather than current player decision needs.
+
 ## [5.2.1] - 2026-09-03
 
 - Distinguish complete implementation/test evidence, complete translations, and

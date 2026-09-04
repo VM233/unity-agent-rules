@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.2.4] - 2026-09-04
+
+- Remove the MarbleBattlers-specific Toolbar battle-restart lifecycle
+  requirement from the shared Unity validation rules.
+- Keep runtime-generation, route-owner, and restart evidence requirements in
+  the owning project's overlay instead of imposing them on unrelated Unity
+  consumers.
+
 ## [5.2.3] - 2026-09-04
 
 - Require affected Toolbar, scene, and runtime tests to execute a complete

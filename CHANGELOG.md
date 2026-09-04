@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.2.3] - 2026-09-04
+
+- Require affected Toolbar, scene, and runtime tests to execute a complete
+  first-battle, restart/reset, and second-battle lifecycle when the modified
+  contract spans battle generations.
+- Require fresh second-generation owner, result, and Console evidence together
+  with teardown, mutable-state reset, receipt/subscription, and re-adoption
+  checks; a clean first run is not restart evidence.
+
 ## [5.2.2] - 2026-09-04
 
 - Treat an existing player description as terminology and retention evidence,

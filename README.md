@@ -43,7 +43,7 @@ git submodule update --init --recursive
 - 功能/测试完整、翻译完整和 UI 信息量分别审查：正文保留核心效果与关键条件，已有属性或可达 Tooltip 承载详情，算法和低频叠加留在实现/测试中；修改已有内容功能时把旧文案当作核对证据，基于当前完整机制重写整条描述，合并、替换或删除失去必要性的旧句，禁止按开发顺序在末尾累加说明。已展示的动态值仍从行为 owner 读取。发现“完整”“不得遗漏”等规则与信息取舍冲突时，改写原条款并同步消费端，不只追加“要简洁”。
 - 所有中文玩家描述、详情与 Tooltip 均不以句号收尾，覆盖段落、列表项、富文本和动态拼接的最终可见结尾；写入及交付都执行本地化规则的全范围检查，不限物品类别或 key 后缀。
 - 每个手写 C# 文件一个顶层类型，手写 class 不超过 1500 行，禁止新增或扩写手写 `partial`；生成器或框架硬契约例外必须可证明。
-- Unity package 只从 registry 或完整远端 Git SHA 消费，永久禁止 `file:`、本地路径、embedded override、symlink 和 junction。用户维护 package 被修改时按既有流程发布，并同步直接消费 pin/lock。
+- Unity package 只从 registry 或完整远端 Git SHA 消费，永久禁止 `file:`、本地路径、embedded override、symlink 和 junction。用户维护 package 被修改时按既有流程发布，并同步直接消费 pin/lock。迁移清理按实际进程占用与路径读回结果验收。
 - VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。
 - 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；调用时区分全局参数、官方子命令 option 与 `--` 后的 Editor command 参数，并通过 bounded catalog discovery 获取 VM facade 的项目能力，不保留第二 server、HTTP 或脚本旁路。
 - UI Toolkit 的布局关系由语义 owner 表达；absolute overlay 只因叠放而脱流，父级已拥有双轴居中时不得再用 `left`/`top` 手算同一中心，边缘锚定与有证据的光学偏移除外。

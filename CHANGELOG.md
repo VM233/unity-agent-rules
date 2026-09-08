@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.5] - 2026-09-09
+
+- Remove the blanket ban on terminating host processes with Stop-Process,
+  taskkill, or kill, along with the mandatory reconnect or user-restart gate.
+- Retain the existing path, active-use, and cleanup readback checks without
+  prescribing a process termination mechanism.
+
 ## [5.2.4] - 2026-09-04
 
 - Remove the MarbleBattlers-specific Toolbar battle-restart lifecycle

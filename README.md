@@ -26,7 +26,8 @@ git submodule update --init --recursive
 - 所有 Unity 修改先按 `.agents/shared-rules/instructions/unity-editor-safety.md` 分类。
 - 非平凡代码、工具和脚本：`.agents/shared-rules/instructions/code-quality.md`。
 - Prefab、组件职责和序列化：`.agents/shared-rules/instructions/unity-prefabs-and-serialization.md`。
-- UI Toolkit/UXML/USS：`.agents/shared-rules/instructions/unity-ui-toolkit.md`；名称或素材迁移再读 `.agents/shared-rules/instructions/unity-ui-naming-and-assets.md`。
+- UI Toolkit/UXML/USS：`.agents/shared-rules/instructions/unity-ui-toolkit.md`。
+- Sprite 图片导入、替换、尺寸调整、重新导入，以及 UI 名称或视觉素材迁移：`.agents/shared-rules/instructions/unity-ui-naming-and-assets.md`。
 - Localization 与玩家文案：`.agents/shared-rules/instructions/unity-localization.md`。
 - Package/plugin、manifest/lock 与发布：`.agents/shared-rules/instructions/unity-packages-and-plugins.md`。
 - 官方 Unity CLI、Pipeline、Automation catalog 与旧传输迁移：`.agents/shared-rules/instructions/unity-cli-and-pipeline.md`。
@@ -46,6 +47,7 @@ git submodule update --init --recursive
 - Unity package 只从 registry 或完整远端 Git SHA 消费，永久禁止 `file:`、本地路径、embedded override、symlink 和 junction。用户维护 package 被修改时按既有流程发布，并同步直接消费 pin/lock。迁移清理按实际进程占用与路径读回结果验收。
 - VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。
 - 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；调用时区分全局参数、官方子命令 option 与 `--` 后的 Editor command 参数，并通过 bounded catalog discovery 获取 VM facade 的项目能力，不保留第二 server、HTTP 或脚本旁路。
+- Sprite 素材导入、替换、尺寸调整和重新导入必须显式使用 Full Rect，禁止 Tight 网格，并读回实际 importer；渲染网格不能代替碰撞轮廓。
 - UI Toolkit 的布局关系由语义 owner 表达；absolute overlay 只因叠放而脱流，父级已拥有双轴居中时不得再用 `left`/`top` 手算同一中心，边缘锚定与有证据的光学偏移除外。
 - 兼容性默认关闭；唯一常设例外是用户维护的跨项目通用 package/plugin 对其声明支持的 Unity 版本进行编译期兼容。
 - 未经用户当前明确要求，不创建额外分支、worktree 或 PR；保留其他 dirty/untracked 内容，只暂存当前授权范围。

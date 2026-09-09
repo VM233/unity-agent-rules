@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.3.0] - 2026-09-09
+
+- Require explicit Full Rect meshes for every Sprite import, replacement,
+  resize, and reimport; prohibit Tight meshes inherited from existing assets,
+  presets, templates, or tool defaults.
+- Require importer readback and keep rendering meshes separate from authored
+  collision geometry, pivots, orientation, and effect attachment points.
+- Route Sprite import work directly to the shared visual asset instructions.
+
 ## [5.2.5] - 2026-09-09
 
 - Remove the blanket ban on terminating host processes with Stop-Process,

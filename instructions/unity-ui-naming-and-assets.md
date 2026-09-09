@@ -2,9 +2,15 @@
 
 ## 共享范围与权限边界
 
-- 新增、重命名、移动或删除 UI Toolkit/UXML 元素 `name`、USS `#Name` selector、UI Prefab/GameObject 节点、`VisualElementPath`、运行时查询目标，或与这些 UI 概念对应的 Texture、Sprite、SpriteAtlas、Material 等视觉素材时，必须读取本文件。
+- 导入、替换、调整尺寸或重新导入 Sprite 图片，以及新增、重命名、移动或删除 UI Toolkit/UXML 元素 `name`、USS `#Name` selector、UI Prefab/GameObject 节点、`VisualElementPath`、运行时查询目标或对应视觉素材时，必须读取本文件。
 - 用户当前要求和消费项目根 `AGENTS.md` 决定写入及产品范围；写入 `Assets` 或使用 Unity/Editor 工具时同时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`，并继续执行消费项目的 UI、图片和资源专项细则。任务相关的刷新、读回及视觉验证按共享 Editor 安全细则执行，不另行要求验证授权。
-- 项目专属目录、Title Case/casing、Sprite 导入参数、像素规范、业务词汇和页面结构留在消费项目；本文件只定义跨项目的语义命名闭环。
+- 项目专属目录、Title Case/casing、PPU、采样方式、像素规范、业务词汇和页面结构留在消费项目；Sprite 渲染网格与视觉语义命名遵循本文件。
+
+## Sprite 素材导入
+
+- 所有 Sprite 素材的新增导入、替换、尺寸调整和重新导入，都必须显式设置 Mesh Type 为 Full Rect（`SpriteMeshType.FullRect`），禁止使用 Tight 网格。单图、多 Sprite 切片、图标、武器和 UI 素材均适用，不得沿用旧 importer、Preset、模板或工具默认值中的 Tight。
+- 导入流程必须将 Full Rect 写入实际 TextureImporter，并在导入完成后读回确认 `spriteMeshType=0`。命令参数使用当前工具 schema 公布的枚举值，例如 `meshType: "FullRect"`；只修改调用参数或命令返回成功不能代替 importer 读回。
+- Full Rect 保留纹理矩形内的透明区域，避免 Tight 网格按不透明轮廓裁剪描边等效果。渲染网格与碰撞轮廓分别维护，替换或缩放图片时继续核对 GUID/local file ID、PPU、pivot、朝向、碰撞轮廓及特效挂点，不得为了切换渲染网格把碰撞箱改成整张图片的矩形。
 
 ## UI 名称与专用素材必须同步迁移
 

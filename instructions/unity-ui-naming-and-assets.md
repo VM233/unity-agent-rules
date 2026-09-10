@@ -4,10 +4,15 @@
 
 - 导入、替换、调整尺寸或重新导入 Sprite 图片，以及新增、重命名、移动或删除 UI Toolkit/UXML 元素 `name`、USS `#Name` selector、UI Prefab/GameObject 节点、`VisualElementPath`、运行时查询目标或对应视觉素材时，必须读取本文件。
 - 用户当前要求和消费项目根 `AGENTS.md` 决定写入及产品范围；写入 `Assets` 或使用 Unity/Editor 工具时同时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`，并继续执行消费项目的 UI、图片和资源专项细则。任务相关的刷新、读回及视觉验证按共享 Editor 安全细则执行，不另行要求验证授权。
-- 项目专属目录、Title Case/casing、PPU、采样方式、像素规范、业务词汇和页面结构留在消费项目；Sprite 渲染网格与视觉语义命名遵循本文件。
+- 项目专属目录、Title Case/casing、PPU 标准的具体数值与权威配置、采样方式、像素规范、业务词汇和页面结构留在消费项目；Sprite 的统一 PPU 契约、渲染网格与视觉语义命名遵循本文件。
 
 ## Sprite 素材导入
 
+- 每个项目的游戏 Sprite 必须采用一个明确的项目 PPU 标准。Agent、导入工具、Preset 和模板都不得为单张图片或某个目录自行定义 PPU，不得从图片像素尺寸、期望世界尺寸、旧 importer 或 Unity 默认值推导新标准；项目尚未声明标准时先报告缺失，不得猜值导入。
+- 新增、替换、尺寸调整、重新导入或修改 importer 前，核对项目标准及同文件夹内其他 Sprite 的实际 PPU。多数指直接同级 Sprite 中超过半数使用同一值，普通 Texture、子文件夹和本次待导入或修改的素材不参与基线统计；批量操作不得通过同时改写整批素材改变比较基线。
+- 素材 PPU 不等于项目标准、与同级多数值不一致、同级混合值没有严格多数，或同级多数值本身偏离项目标准时，必须在导入/authoring 校验边界直接报 Error 并判定失败。错误须包含素材路径、实际 PPU、项目标准、同级分布与具体冲突，不得只警告、静默改值或让目录多数覆盖项目标准。新目录和没有其他 Sprite 的目录直接使用项目标准，不得为其创建另一标准。
+- 禁止通过修改 PPU 缩放图片或补偿图片尺寸变化。显示大小由实际 Prefab/渲染表现配置负责，并核对碰撞轮廓、pivot、握持点和特效挂点。既有非标准 PPU 只在明确的标准化迁移范围内修正，保留 GUID/local file ID 与原有正确表现，不能借单次导入擅自重设项目标准。
+- 导入、重新导入、Inspector Apply 和素材移动等同源入口必须遵守同一 PPU 校验契约，并在导入后读回实际 TextureImporter。工具成功、参数已填写或视觉大小看似正确均不能替代 PPU 读回及零错误结果。
 - 所有 Sprite 素材的新增导入、替换、尺寸调整和重新导入，都必须显式设置 Mesh Type 为 Full Rect（`SpriteMeshType.FullRect`），禁止使用 Tight 网格。单图、多 Sprite 切片、图标、武器和 UI 素材均适用，不得沿用旧 importer、Preset、模板或工具默认值中的 Tight。
 - 导入流程必须将 Full Rect 写入实际 TextureImporter，并在导入完成后读回确认 `spriteMeshType=0`。命令参数使用当前工具 schema 公布的枚举值，例如 `meshType: "FullRect"`；只修改调用参数或命令返回成功不能代替 importer 读回。
 - Full Rect 保留纹理矩形内的透明区域，避免 Tight 网格按不透明轮廓裁剪描边等效果。渲染网格与碰撞轮廓分别维护，替换或缩放图片时继续核对 GUID/local file ID、PPU、pivot、朝向、碰撞轮廓及特效挂点，不得为了切换渲染网格把碰撞箱改成整张图片的矩形。

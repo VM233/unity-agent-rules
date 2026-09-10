@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.4.0] - 2026-09-10
+
+- Require one declared project PPU standard for game Sprites and prohibit
+  per-image or per-folder values, including PPU changes used for scaling.
+- Fail import validation on project-standard or direct-sibling-majority
+  conflicts, mixed folders without a strict majority, and invalid folder
+  baselines. Exclude the incoming batch from the sibling baseline.
+- Require the same contract across import, reimport, Inspector Apply, and
+  asset moves, with actionable errors and actual TextureImporter readback.
+
 ## [5.3.0] - 2026-09-09
 
 - Require explicit Full Rect meshes for every Sprite import, replacement,

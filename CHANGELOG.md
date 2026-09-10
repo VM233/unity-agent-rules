@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.5.0] - 2026-09-10
+
+- Keep ordinary main Sprite transforms at their inherited prefab defaults and
+  resize image pixels through reusable CLI tools instead of PPU or scale overrides.
+- Require an explicit owner and special presentation contract for scale exceptions.
+- Keep damage and non-damage collision geometry, runtime collider copies, grips,
+  pivots, and effect anchors aligned when restoring scale or resizing images.
+
 ## [5.4.0] - 2026-09-10
 
 - Require one declared project PPU standard for game Sprites and prohibit

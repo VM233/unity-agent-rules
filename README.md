@@ -48,6 +48,7 @@ git submodule update --init --recursive
 - VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。
 - 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；调用时区分全局参数、官方子命令 option 与 `--` 后的 Editor command 参数，并通过 bounded catalog discovery 获取 VM facade 的项目能力，不保留第二 server、HTTP 或脚本旁路。
 - 游戏 Sprite 使用消费项目声明的唯一 PPU 标准，禁止单图/目录自定义或用 PPU 缩放；偏离项目标准、同级多数或多数基线冲突必须直接报错。素材导入、替换、尺寸调整和重新导入显式使用 Full Rect，禁止 Tight 网格，并读回实际 importer；渲染网格不能代替碰撞轮廓。
+- 普通主 Sprite 保持实际 Prefab 模板的默认 Transform scale，素材大小优先通过 CLI 缩放图片；特殊表现契约才可例外。恢复默认或改变图片尺寸时，同步核对全部碰撞分区、运行时复制、握持点与特效挂点。
 - UI Toolkit 的布局关系由语义 owner 表达；absolute overlay 只因叠放而脱流，父级已拥有双轴居中时不得再用 `left`/`top` 手算同一中心，边缘锚定与有证据的光学偏移除外。
 - 兼容性默认关闭；唯一常设例外是用户维护的跨项目通用 package/plugin 对其声明支持的 Unity 版本进行编译期兼容。
 - 未经用户当前明确要求，不创建额外分支、worktree 或 PR；保留其他 dirty/untracked 内容，只暂存当前授权范围。

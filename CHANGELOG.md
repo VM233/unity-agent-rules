@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.6.0] - 2026-09-10
+
+- Warn about differing game Sprite source dimensions only when one exact size
+  occurs in strictly more than half of the project's source textures.
+- Count source images once, preserve warning severity and independent PPU errors,
+  and share the current import snapshot between import validation and CLI review.
+
 ## [5.5.0] - 2026-09-10
 
 - Keep ordinary main Sprite transforms at their inherited prefab defaults and

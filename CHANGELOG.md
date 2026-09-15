@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.7.0] - 2026-09-15
+
+- Preserve the complete source canvas, transparent margins, subject proportion,
+  and placement when resizing artwork unless the user explicitly requests a
+  composition or subject-size change.
+- Prohibit implicit alpha trimming, subject-only scaling, recentering, and
+  visual-size normalization across icons, including during reimport.
+- Treat output pixel dimensions separately from subject-to-canvas proportions
+  and compare the result against the approved original image.
+
 ## [5.6.0] - 2026-09-10
 
 - Warn about differing game Sprite source dimensions only when one exact size

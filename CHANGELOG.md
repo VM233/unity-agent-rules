@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.8.0] - 2026-09-19
+
+- Require C# serialization attributes to use `using System;` and `[Serializable]`.
+- Prohibit fully qualified `System.Serializable` and `SerializableAttribute`
+  spellings, resolving namespace collisions on the conflicting type instead.
+
 ## [5.7.0] - 2026-09-15
 
 - Preserve the complete source canvas, transparent margins, subject proportion,

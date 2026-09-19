@@ -29,6 +29,7 @@
 - 手写 `class`/`record class` 的完整声明跨度不超过 1500 个物理行，attribute、注释、预处理和嵌套类型计入；职责已经分裂时应更早提取，禁止用压行、region 或嵌套容器规避。
 - 手写生产代码、工具和测试禁止新增 `partial`，也不得向既有手写 `partial` 增加职责。修改既有 `partial` 时按聚合类型审查并提取真实协作者，删除旧状态与路径；仅编译器、生成器或框架硬契约可例外，且不得手改生成文件。
 - 修改含多顶层类型、超限 class 或违规 `partial` 的既有类型时，先修复其结构再扩展行为。项目可以收紧，但不得放宽这些门禁。
+- C# 序列化特性统一通过 `using System;` 写成 `[Serializable]`。禁止 `[System.Serializable]`、`[System.SerializableAttribute]`、`[global::System.Serializable]` 及其他全限定变体；若导入 `System` 产生类型歧义，应为冲突类型添加别名或限定名，不能退回全限定序列化特性。
 
 ## 观测、数学与性能
 

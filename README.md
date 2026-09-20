@@ -43,16 +43,15 @@ git submodule update --init --recursive
 - 玩家文案写入前必须建立机制事实表与逐 Locale 术语证据表；内部 ID、英文类名和其他 Locale 只能用于定位，不能直接生成玩家术语。已有注册对象且当前 UI 可达其 Tooltip/link 时，该对象独占内部机制文案，外层描述只引用它并保留自身新增的触发、目标、施加参数与例外，禁止复制内部效果；没有可引用产品或可达说明时才用普通语言描述可观察效果。
 - 功能/测试完整、翻译完整和 UI 信息量分别审查：正文保留核心效果与关键条件，已有属性或可达 Tooltip 承载详情，算法和低频叠加留在实现/测试中；修改已有内容功能时把旧文案当作核对证据，基于当前完整机制重写整条描述，合并、替换或删除失去必要性的旧句，禁止按开发顺序在末尾累加说明。已展示的动态值仍从行为 owner 读取。发现“完整”“不得遗漏”等规则与信息取舍冲突时，改写原条款并同步消费端，不只追加“要简洁”。
 - 所有中文玩家描述、详情与 Tooltip 均不以句号收尾，覆盖段落、列表项、富文本和动态拼接的最终可见结尾；写入及交付都执行本地化规则的全范围检查，不限物品类别或 key 后缀。
-- 每个手写 C# 文件一个顶层类型，手写 class 不超过 1500 行，禁止新增或扩写手写 `partial`；生成器或框架硬契约例外必须可证明。
-- C# 序列化特性统一导入 `System` 后使用 `[Serializable]`，禁止 `System.Serializable`、`SerializableAttribute` 及其全限定变体；命名冲突由冲突类型的别名或限定名解决。
-- Unity package 只从 registry 或完整远端 Git SHA 消费，永久禁止 `file:`、本地路径、embedded override、symlink 和 junction。用户维护 package 被修改时按既有流程发布，并同步直接消费 pin/lock。迁移清理按实际进程占用与路径读回结果验收。
+- 第一方手写 C# 的结构门禁统一调用 `code/policy-review`，以精确改动文件列表和项目收紧参数执行；Agent 规则不复制 route 已拥有的检查项。
+- Package 依赖、revision、manifest/lock 与 Unity `.meta` 门禁统一调用 `package/dependency-policy-review`。用户维护 package 被修改时仍按既有流程发布并同步直接消费 pin/lock，迁移清理按实际进程占用与路径读回结果验收。
 - VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。
 - 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；调用时区分全局参数、官方子命令 option 与 `--` 后的 Editor command 参数，并通过 bounded catalog discovery 获取 VM facade 的项目能力，不保留第二 server、HTTP 或脚本旁路。
 - 游戏 Sprite 使用消费项目声明的唯一 PPU 标准，禁止单图/目录自定义或用 PPU 缩放；偏离项目标准、同级多数或多数基线冲突必须直接报错。素材导入、替换、尺寸调整和重新导入显式使用 Full Rect，禁止 Tight 网格，并读回实际 importer；渲染网格不能代替碰撞轮廓。 项目现有 Sprite 也不得保留 Tight，交付前通过公共 `vm_pt_asset_sprite_mesh_review` 命令覆盖项目声明的完整范围并证明零问题。
 - 图片默认只对完整原图等比缩放，保留透明留白、主体占比与位置；裁剪留白、单独改变主体大小或统一图标主体占比必须由用户明确要求。
 - 普通主 Sprite 保持实际 Prefab 模板的默认 Transform scale，素材大小优先通过 CLI 缩放图片；特殊表现契约才可例外。恢复默认或改变图片尺寸时，同步核对全部碰撞分区、运行时复制、握持点与特效挂点。
 - 游戏 Sprite 源图中，只有某个宽高组合严格超过项目总数一半时，其他尺寸才报 Warning；未过半不报警告，尺寸警告不改变独立的 PPU 报错契约。
-- UI Toolkit 的布局关系由语义 owner 表达；absolute overlay 只因叠放而脱流，父级已拥有双轴居中时不得再用 `left`/`top` 手算同一中心，边缘锚定与有证据的光学偏移除外。
+- UI Toolkit 的 USS/UXML 静态门禁分别调用 `uitoolkit/audit-uss-styles` 与 `uitoolkit/audit-uxml-layout`；生成控件层级、运行时主题、视觉和输入行为继续由实际 consumer 验证。
 - 兼容性默认关闭；唯一常设例外是用户维护的跨项目通用 package/plugin 对其声明支持的 Unity 版本进行编译期兼容。
 - Package/plugin README 只保留稳定入口信息；版本修复史、迁移步骤、内部实现、详细 API/Editor 手册及完整命令、schema、测试清单必须进入 CHANGELOG、专门文档或权威代码/catalog，README 只链接，不复制。
 - 未经用户当前明确要求，不创建额外分支、worktree 或 PR；保留其他 dirty/untracked 内容，只暂存当前授权范围。

@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.11.0] - 2026-09-20
+
+- Replace copied C# structural policy lists with the authoritative
+  `code/policy-review` route and explicit result acceptance.
+- Replace copied package dependency, revision, manifest/lock, and Unity meta
+  policy lists with `package/dependency-policy-review`.
+- Replace copied USS/UXML static rule lists with the two UI Toolkit audit
+  routes while retaining runtime theme, visual, and input responsibilities.
+- Require consumer overlays to provide only project-specific route arguments
+  instead of restating rules already owned by an automated review.
+
 ## [5.10.0] - 2026-09-20
 
 - Prohibit Tight meshes across the complete existing Sprite inventory, not only newly imported or modified assets.

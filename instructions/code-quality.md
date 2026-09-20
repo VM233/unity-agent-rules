@@ -23,13 +23,10 @@
 - 可推导、重复、只记录 ready/fail/fallback、只服务 guard/重试/恢复或跨层手工同步的状态应删除。保留状态必须对应不可推导事实，并能指出唯一 writer、创建事件、consumer 和退出迁移。
 - 创建/销毁、订阅/退订、注册/注销、租用/归还和异步启动/取消由明确 owner 成对闭合；不得用延迟、重复调用、刷新多次、隐藏反馈或参数调节掩盖所有权和时序错误。
 
-## C# 类型与文件
+## C# 自动审查
 
-- 每个手写 `.cs` 文件只声明一个顶层类型；独立类型进入同名职责文件。嵌套类型必须真正从属于外层实现，没有独立 owner、生命周期或外部 consumer。
-- 手写 `class`/`record class` 的完整声明跨度不超过 1500 个物理行，attribute、注释、预处理和嵌套类型计入；职责已经分裂时应更早提取，禁止用压行、region 或嵌套容器规避。
-- 手写生产代码、工具和测试禁止新增 `partial`，也不得向既有手写 `partial` 增加职责。修改既有 `partial` 时按聚合类型审查并提取真实协作者，删除旧状态与路径；仅编译器、生成器或框架硬契约可例外，且不得手改生成文件。
-- 修改含多顶层类型、超限 class 或违规 `partial` 的既有类型时，先修复其结构再扩展行为。项目可以收紧，但不得放宽这些门禁。
-- C# 序列化特性统一通过 `using System;` 写成 `[Serializable]`。禁止 `[System.Serializable]`、`[System.SerializableAttribute]`、`[global::System.Serializable]` 及其他全限定变体；若导入 `System` 产生类型歧义，应为冲突类型添加别名或限定名，不能退回全限定序列化特性。
+- 修改第一方手写 C# 后，交付前通过官方 Unity CLI/Pipeline facade 调用 `code/policy-review`。`paths` 必须是本轮实际修改的第一方 `.cs` 精确文件列表，`forbidPartial` 设为 `true`，`maxTypeLines` 默认使用 `1500`；消费项目只能通过参数收紧门禁，不得在规则中复制 route 已拥有的检查项。
+- 只有响应同时满足 `success=true`、`passed=true`、`truncated=false`、`errors` 为空且 `scannedFiles` 与去重后的 `paths` 数量一致，才算该静态审查通过。结构规则、例外边界、rule ID 与诊断文本以 route 当前 schema 和结构化结果为唯一权威；编译仍按 Editor 安全细则独立执行。
 
 ## 观测、数学与性能
 

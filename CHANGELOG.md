@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.9.0] - 2026-09-20
+
+- Limit package/plugin READMEs to stable adoption, installation, dependency,
+  layout, minimal setup/validation entry points, and authoritative links.
+- Prohibit version and fix histories, migration procedures, internal
+  implementation details, detailed API/Editor manuals, and exhaustive command,
+  schema, or test inventories in READMEs.
+- Route those details to CHANGELOG, dedicated/generated documentation, or
+  authoritative code/catalogs, and require cleanup instead of append-only notes.
+
 ## [5.8.0] - 2026-09-19
 
 - Require C# serialization attributes to use `using System;` and `[Serializable]`.

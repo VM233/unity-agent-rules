@@ -48,7 +48,7 @@ git submodule update --init --recursive
 - Unity package 只从 registry 或完整远端 Git SHA 消费，永久禁止 `file:`、本地路径、embedded override、symlink 和 junction。用户维护 package 被修改时按既有流程发布，并同步直接消费 pin/lock。迁移清理按实际进程占用与路径读回结果验收。
 - VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。
 - 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；调用时区分全局参数、官方子命令 option 与 `--` 后的 Editor command 参数，并通过 bounded catalog discovery 获取 VM facade 的项目能力，不保留第二 server、HTTP 或脚本旁路。
-- 游戏 Sprite 使用消费项目声明的唯一 PPU 标准，禁止单图/目录自定义或用 PPU 缩放；偏离项目标准、同级多数或多数基线冲突必须直接报错。素材导入、替换、尺寸调整和重新导入显式使用 Full Rect，禁止 Tight 网格，并读回实际 importer；渲染网格不能代替碰撞轮廓。
+- 游戏 Sprite 使用消费项目声明的唯一 PPU 标准，禁止单图/目录自定义或用 PPU 缩放；偏离项目标准、同级多数或多数基线冲突必须直接报错。素材导入、替换、尺寸调整和重新导入显式使用 Full Rect，禁止 Tight 网格，并读回实际 importer；渲染网格不能代替碰撞轮廓。 项目现有 Sprite 也不得保留 Tight，交付前通过公共 `vm_pt_asset_sprite_mesh_review` 命令覆盖项目声明的完整范围并证明零问题。
 - 图片默认只对完整原图等比缩放，保留透明留白、主体占比与位置；裁剪留白、单独改变主体大小或统一图标主体占比必须由用户明确要求。
 - 普通主 Sprite 保持实际 Prefab 模板的默认 Transform scale，素材大小优先通过 CLI 缩放图片；特殊表现契约才可例外。恢复默认或改变图片尺寸时，同步核对全部碰撞分区、运行时复制、握持点与特效挂点。
 - 游戏 Sprite 源图中，只有某个宽高组合严格超过项目总数一半时，其他尺寸才报 Warning；未过半不报警告，尺寸警告不改变独立的 PPU 报错契约。

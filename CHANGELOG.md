@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.10.0] - 2026-09-20
+
+- Prohibit Tight meshes across the complete existing Sprite inventory, not only newly imported or modified assets.
+- Require the shared `asset/sprite-mesh-review` Unity CLI project tool to scan each consumer's complete declared Sprite scope and prove zero issues.
+- Keep the audit read-only and require semantic TextureImporter correction followed by a complete rerun.
+
 ## [5.9.0] - 2026-09-20
 
 - Limit package/plugin READMEs to stable adoption, installation, dependency,

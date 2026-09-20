@@ -15,6 +15,8 @@
 - 导入、重新导入、Inspector Apply 和素材移动等同源入口必须遵守同一 PPU 校验契约，并在导入后读回实际 TextureImporter。工具成功、参数已填写或视觉大小看似正确均不能替代 PPU 读回及零错误结果。
 - 所有 Sprite 素材的新增导入、替换、尺寸调整和重新导入，都必须显式设置 Mesh Type 为 Full Rect（`SpriteMeshType.FullRect`），禁止使用 Tight 网格。单图、多 Sprite 切片、图标、武器和 UI 素材均适用，不得沿用旧 importer、Preset、模板或工具默认值中的 Tight。
 - 导入流程必须将 Full Rect 写入实际 TextureImporter，并在导入完成后读回确认 `spriteMeshType=0`。命令参数使用当前工具 schema 公布的枚举值，例如 `meshType: "FullRect"`；只修改调用参数或命令返回成功不能代替 importer 读回。
+- 禁止项目中保留任何 Tight Sprite，不只约束本轮新增或修改的素材。Agent、导入工具、Preset、模板、生成器和 Inspector 操作都不得把 Sprite 设置为 Tight，也不得为既有 Tight 资源保留白名单或目录例外。
+- 项目级自动审查统一使用公共 Unity CLI 项目工具 `asset/sprite-mesh-review`，先通过 catalog 发现 `vm_pt_asset_sprite_mesh_review`，再覆盖消费项目声明的完整 Sprite 范围；未声明更窄的正式资源根时必须审查整个 `Assets`。只有结果同时满足 `passed=true`、`totalIssues=0`、`tightCount=0` 且 `spriteCount=fullRectCount` 才通过。审查工具保持只读，修复必须走语义化 TextureImporter 设置并在修复后重新全量审查。
 - Full Rect 保留纹理矩形内的透明区域，避免 Tight 网格按不透明轮廓裁剪描边等效果。渲染网格与碰撞轮廓分别维护，替换或缩放图片时继续核对 GUID/local file ID、PPU、pivot、朝向、碰撞轮廓及特效挂点，不得为了切换渲染网格把碰撞箱改成整张图片的矩形。
 
 ## 图片缩放与主体占比

@@ -44,7 +44,7 @@ git submodule update --init --recursive
 - 功能/测试完整、翻译完整和 UI 信息量分别审查：正文保留核心效果与关键条件，已有属性或可达 Tooltip 承载详情，算法和低频叠加留在实现/测试中；修改已有内容功能时把旧文案当作核对证据，基于当前完整机制重写整条描述，合并、替换或删除失去必要性的旧句，禁止按开发顺序在末尾累加说明。已展示的动态值仍从行为 owner 读取。发现“完整”“不得遗漏”等规则与信息取舍冲突时，改写原条款并同步消费端，不只追加“要简洁”。
 - 所有中文玩家描述、详情与 Tooltip 均不以句号收尾，覆盖段落、列表项、富文本和动态拼接的最终可见结尾；写入及交付都执行本地化规则的全范围检查，不限物品类别或 key 后缀。
 - 第一方手写 C# 的结构门禁统一调用 `code/policy-review`，以精确改动文件列表和项目收紧参数执行；Agent 规则不复制 route 已拥有的检查项。
-- Package 依赖、revision、manifest/lock 与 Unity `.meta` 门禁统一调用 `package/dependency-policy-review`。用户维护 package 被修改时仍按既有流程发布并同步直接消费 pin/lock，迁移清理按实际进程占用与路径读回结果验收。
+- Package 依赖、revision、manifest/lock 与 Unity `.meta` 门禁统一调用 `package/dependency-policy-review`。用户维护 package 被修改时仍按既有流程发布，但只在当前请求所在且已授权的消费项目同步 pin/lock；其他消费项目必须由用户当前明确点名，迁移清理按实际进程占用与路径读回结果验收。
 - VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。
 - 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；调用时区分全局参数、官方子命令 option 与 `--` 后的 Editor command 参数，并通过 bounded catalog discovery 获取 VM facade 的项目能力，不保留第二 server、HTTP 或脚本旁路。
 - 游戏 Sprite 使用消费项目声明的唯一 PPU 标准，禁止单图/目录自定义或用 PPU 缩放；偏离项目标准、同级多数或多数基线冲突必须直接报错。素材导入、替换、尺寸调整和重新导入显式使用 Full Rect，禁止 Tight 网格，并读回实际 importer；渲染网格不能代替碰撞轮廓。 项目现有 Sprite 也不得保留 Tight，交付前通过公共 `vm_pt_asset_sprite_mesh_review` 命令覆盖项目声明的完整范围并证明零问题。
@@ -71,7 +71,7 @@ git add .agents/shared-rules
 git commit -m "Update shared Unity agent rules"
 ```
 
-精确 gitlink 使用 clean detached HEAD 是正常状态。所有消费项目应固定同一发布 commit，可用下列命令核对：
+精确 gitlink 使用 clean detached HEAD 是正常状态。各消费项目独立采用获授权的发布 commit，不要求跨项目同步版本；在当前项目可用下列命令核对：
 
 ```powershell
 git ls-tree HEAD .agents/shared-rules
@@ -79,7 +79,7 @@ git ls-tree HEAD .agents/shared-rules
 
 ## 发布共享规则
 
-用户明确要求新增、纠正、优化、删除或沉淀共享规则时，已授权完成共享仓库提交/tag/推送及全部消费项目必要 overlay/gitlink 更新；不得夹带消费项目其他改动或创建 PR。纯规则和文档更新只需静态校验，不因此运行 Unity。
+用户明确要求新增、纠正、优化、删除或沉淀共享规则时，已授权完成共享仓库提交/tag/推送，并在当前请求所在且已授权的消费项目更新必要 overlay/gitlink；不得据此修改其他消费项目，也不得夹带消费项目其他改动或创建 PR。纯规则和文档更新只需静态校验，不因此运行 Unity。
 
 ```powershell
 git add <changed-files>

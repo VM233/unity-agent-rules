@@ -40,8 +40,8 @@
 ## Package 与发布闭环
 
 - VM Pipeline、Automation 和 framework package 只在各自权威仓库修改；不得编辑 `Library/PackageCache`，不得嵌入消费项目，也不得使用 `file:`、本地路径、symlink 或 junction。
-- package 修改后先在权威仓库更新版本、CHANGELOG 和文档，提交并推送不可变 revision；再让所有直接消费 package 更新最低兼容版本，最后让消费项目以完整远端 SHA 更新 manifest/lock。
-- 当前任务依赖且已证实属于用户维护 package 的 CLI/Pipeline 缺陷，自动进入权威修复、风险匹配验证、既有发布、直接消费 pin/lock 和正式 adoption 闭环，不等待二次发布授权；该例外不授权消费项目无关业务提交、产品发布、PR、第三方仓库或与该修复无关的验证。
+- package 修改后先在权威仓库更新版本、CHANGELOG 和文档，提交并推送不可变 revision；当前请求所在且已授权的消费项目需要采用时，再以完整远端 SHA 更新 manifest/lock。其他直接消费者不得自动升级。
+- 当前任务依赖且已证实属于用户维护 package 的 CLI/Pipeline 缺陷，自动进入权威修复、风险匹配验证和既有发布；当前请求所在且已授权消费项目的 pin/lock 与正式 adoption 也属于该闭环，不等待二次发布授权。该例外不授权打开或修改其他消费项目，也不授权消费项目无关业务提交、产品发布、PR、第三方仓库或与该修复无关的验证。
 - 更新已发布且有可信验证记录的 revision 时，不重复 package 全套测试。默认验证远端 revision、manifest/lock/registered package 一致、消费项目权威编译，以及当前请求直接依赖的正式命令路径。
 
 ## 缺陷、迁移与禁止 fallback

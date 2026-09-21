@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.16.0] - 2026-09-21
+
+- Remove implicit cross-project adoption from shared-rule and user-maintained
+  package publication workflows.
+- Limit consumer pin, lock, overlay, gitlink, Editor, commit, and push work to
+  the current requesting project unless the user explicitly names another
+  consumer project.
+- Let consumer projects adopt shared rules and package revisions independently
+  without treating unsynchronized consumers as an incomplete release.
+
 ## [5.15.0] - 2026-09-21
 
 - Require runtime-owned UI Toolkit text to include a representative non-empty

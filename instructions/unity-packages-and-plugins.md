@@ -4,22 +4,22 @@
 
 - 修改 Unity package/plugin、独立源码仓库、manifest/lockfile、Git revision、package metadata、发布内容或远程更新流程时必须读取本文件。
 - 普通消费项目的业务实现、修复、编译通过或完整闭环，不自动授权提交、推送或产品发布；消费项目根 `AGENTS.md` 与用户当前要求继续决定这些项目业务改动的发布权限。
-- 一旦权威证据确认 package/plugin/Editor extension 由用户维护，且当前任务已经要求或按适用规则进入其权威内容修改，该修改本身即构成限定的自动发布授权。无论原因是功能、修复、重构、文档、配置、metadata 或发布内容，都必须在同一任务按风险完成验证与文档/版本审阅，提交并推送权威仓库当前分支，执行该仓库既有的 tag、registry 或其他正式发布机制，并更新、提交、推送所有受本次发布影响且可控的消费端 pin/lock/安装配置；不得等待用户再次说 `push` 或确认发布。
-- 共享 CLI/Pipeline 细则确认“当前已授权任务实际依赖用户维护 package 所缺失或有缺陷的一等能力”时，已经属于上条所说的“按适用规则进入权威内容修改”；不得再用一般的业务发布权限分离、跨仓库边界或消费项目未重复写入授权为由暂停请求。此组合只授权共享 CLI/Pipeline 细则列出的权威修复、聚焦验证、既有发布、直接消费 pin/lock 与正式 adoption 链，其他权限仍由下条边界约束。
-- 上述自动授权只覆盖该 package/plugin 的权威发布及消费项目中与该发布直接相关的 pin/lock/安装配置，不授权提交消费项目其他业务改动、发布消费产品、创建 PR、修改无关仓库、扩大验证范围或新增仓库原本不存在的发布渠道。源码、凭据、上游控制、远端推进、重叠脏改或更高安全边界无法安全闭合时，报告精确阻点。
+- 一旦权威证据确认 package/plugin/Editor extension 由用户维护，且当前任务已经要求或按适用规则进入其权威内容修改，该修改本身即构成限定的自动发布授权。无论原因是功能、修复、重构、文档、配置、metadata 或发布内容，都必须在同一任务按风险完成验证与文档/版本审阅，提交并推送权威仓库当前分支，并执行该仓库既有的 tag、registry 或其他正式发布机制；不得等待用户再次说 `push` 或确认发布。只有当前请求所在且已授权的消费项目可以随本次任务更新、提交和推送直接相关的 pin/lock/安装配置。
+- 共享 CLI/Pipeline 细则确认“当前已授权任务实际依赖用户维护 package 所缺失或有缺陷的一等能力”时，已经属于上条所说的“按适用规则进入权威内容修改”；不得再用一般的业务发布权限分离或当前消费项目未重复写入授权为由暂停请求。此组合只授权共享 CLI/Pipeline 细则列出的权威修复、聚焦验证、既有发布，以及当前请求所在且已授权消费项目的 pin/lock 与正式 adoption 链，其他权限仍由下条边界约束。
+- 上述自动授权不覆盖其他消费项目。未经用户当前明确点名，不得为 package/plugin 发布打开其 Editor、修改 pin/lock/安装配置、提交或推送；package 的共享属性、兼容矩阵、已知消费者清单和“发布闭环”都不构成跨项目授权。当前消费项目内的自动授权仍不包括无关业务改动、产品发布、PR、扩大验证范围或新增仓库原本不存在的发布渠道。源码、凭据、上游控制、远端推进、重叠脏改或更高安全边界无法安全闭合时，报告精确阻点。
 - 涉及官方 Unity CLI、Pipeline/Automation package、route、schema、响应或命令验收时，还必须读取 `.agents/shared-rules/instructions/unity-cli-and-pipeline.md`；需要 Unity 操作时读取 `.agents/shared-rules/instructions/unity-editor-safety.md`。
 
 ## 归属、权威源码与唯一兼容例外
 
 - 用户当前对所有权的明确声明，或仓库 remote、manifest URL、安装文档、本地 checkout、公开契约和实际 pin 的一致证据，用于证明 package/plugin 的 owner、权威源码与目标 revision；不得仅凭命名猜用户控制权，也不得把无上游权限的第三方依赖当成可自动发布项目。
-- package/plugin 的持久改动在独立权威仓库完成并推送，再由消费项目的 `Packages/manifest.json` 与 `Packages/packages-lock.json` 同步固定远端 revision。不得把 `Library/PackageCache`、生成物、缓存、静默 embedded override 或消费项目内副本作为最终权威。
+- package/plugin 的持久改动在独立权威仓库完成并推送；当前请求所在且已授权的消费项目需要采用时，再由其 `Packages/manifest.json` 与 `Packages/packages-lock.json` 固定远端 revision。不得把 `Library/PackageCache`、生成物、缓存、静默 embedded override 或消费项目内副本作为最终权威。
 - 修改前重新检查消费项目 manifest/lock、真正解析的 package source 与目标 Unity 版本。只有命中下述唯一常设例外时，才继续审查 package manifest、README/Documentation、CI 矩阵和受控消费项目共同证明的 Unity 支持范围；没有权威证据的版本不得猜测为受支持。跨仓库执行 Git 操作前确认当前 repo root，避免在消费项目或错误 checkout 提交上游源码。
 - 唯一常设兼容例外是：由用户维护并作为通用能力面向多个 Unity 项目复用的 package/plugin/Editor extension，包括符合该归属的 Pipeline/Automation package，必须兼容其权威声明支持的 Unity 版本。Unity API、编译器或 Editor 行为差异使用版本条件或等价实现，让各受支持版本只编译和执行该版本的唯一权威分支；这不是运行时 fallback，不得先试新 API 再退旧 API，也不得为版本差异复制运行时状态。不得用 warning suppression 代替版本兼容实现。
 - 上述例外只覆盖 Unity 版本差异，不覆盖旧 plugin API、route、schema、响应、配置、序列化数据、工作流、server/protocol、package revision 或历史行为。项目专属代码、只服务单一项目的 package/tool、第三方依赖及其他兼容性仍执行共享代码质量细则的默认关闭规则，除非用户在当前请求中明确点名兼容范围。
 
 ## 依赖与 Unity meta 自动审查
 
-- 每次修改、发布或更新 package/plugin、manifest/lock、UPM 安装配置、Git revision 或 Unity 可见文件后，在每个受影响消费项目通过官方 Unity CLI/Pipeline facade 调用 `package/dependency-policy-review`。保持 `includeResolved=true`，并让 `metaRoots` 覆盖本轮触及且由该 Unity 项目拥有的全部 Asset/package 根；依赖来源、revision 一致性和 `.meta` 所有权的检查项只由 route 维护，不在 Agent 规则中复制。
+- 每次修改、发布或更新 package/plugin、manifest/lock、UPM 安装配置、Git revision 或 Unity 可见文件后，只在本轮实际修改且已授权的消费项目通过官方 Unity CLI/Pipeline facade 调用 `package/dependency-policy-review`。保持 `includeResolved=true`，并让 `metaRoots` 覆盖本轮触及且由该 Unity 项目拥有的全部 Asset/package 根；依赖来源、revision 一致性和 `.meta` 所有权的检查项只由 route 维护，不在 Agent 规则中复制。未获授权的其他消费项目不因验证要求进入操作范围。
 - 只有响应同时满足 `passed=true`、`truncated=false`、`errors` 为空，且报告中的 manifest、lock、解析结果和 `metaRoots` 都对应当前 checkout，才算自动审查通过。权威 package 仓库、远程发布、消费 pin/lock 更新与遗留目录清理仍按本文件其他章节闭环。
 
 ## 安装、升级与遗留目录清理
@@ -34,7 +34,7 @@
 - 触发修复前必须有错误日志、最小复现、公开响应与实现不一致、源码与文档/schema 矛盾或其他权威证据。先区分调用者误用、消费项目错误、宿主/传输问题和 plugin 自身缺陷，不得未经归属就盲改上游。
 - 一旦项目规则授权且确认属于可维护 plugin，停止使用并删除 workaround/fallback，统一审计同类入口、handler、共享 schema/序列化/错误映射、调用方、测试和文档生成链，在权威 producer/contract 修复报告实例与已确认同源实例。
 - 能由 typed schema、权威 producer 或结构化错误契约消除的误用必须修代码契约，不能只补文档，也不得为取证或继续任务写入临时绕行。只读诊断可以收集证据，但不能进入产品、工具、项目状态或交付物。
-- 完整闭环按适用范围覆盖：根因实现、风险匹配的聚焦回归、公开 schema/metadata/错误语义、文档与示例、版本/CHANGELOG、上游 commit/push、消费项目 manifest/lock pin、UPM 重新解析、reload/reconnect，以及通过正式公开接口重跑原失败路径。
+- 完整闭环按适用范围覆盖：根因实现、风险匹配的聚焦回归、公开 schema/metadata/错误语义、文档与示例、版本/CHANGELOG、上游 commit/push，以及当前请求所在且已授权消费项目的 manifest/lock pin、UPM 重新解析、reload/reconnect 和正式公开接口原失败路径重跑。
 - 只有源码、仓库访问、凭据、上游控制、安全边界、用户权限或未经授权的 breaking/product change 构成明确阻点时，才可保留未闭环项；交付时说明精确阻点和未验证范围，不实现或保留临时措施、备用路径或防御性替代。
 
 ## Package 文件与消费更新
@@ -52,4 +52,4 @@
 - 版本变化、修复与迁移进入 CHANGELOG 或专用迁移文档；详细 API 与 Editor 用法进入 `Documentation~` 或生成文档；命令、route、schema 与测试能力以权威 catalog、metadata、源码或测试程序集为准。README 只链接这些权威来源，不复制易漂移的清单。修改 README 或审阅发现越界内容时，必须删除、迁移、合并或改写，不得继续追加修正说明。
 - 其他文档维护也不仅是追加说明：删除、合并或改写过时、重复、失真或可能误导的内容。注册表、manifest、生成 metadata 或 schema 已提供权威信息时，文档说明权威来源/生成方式，不再手工维护易漂移的完整副本。
 - 任务使用 `update_plan` 时，把文档一致性审阅列为实现和主要技术验证之后、最终发布之前的独立步骤；后续验证改变公开契约时，发布前再次同步文档。
-- 发布前确认上游工作树只含本次改动、版本与 CHANGELOG 一致，且仓库既有发布机制要求的 commit/tag/registry 产物可达；不得为了形式统一给只有 Git revision 发布方式的仓库凭空增加 tag 或 registry。随后让所有受本次发布影响且可控的消费项目固定到同一发布 revision；遗漏已确认受影响的消费项目不构成发布闭环。
+- 发布前确认上游工作树只含本次改动、版本与 CHANGELOG 一致，且仓库既有发布机制要求的 commit/tag/registry 产物可达；不得为了形式统一给只有 Git revision 发布方式的仓库凭空增加 tag 或 registry。随后只让当前请求所在且已授权的消费项目固定到该发布 revision；其他消费项目未同步不构成发布缺口，也不得据此扩大范围。

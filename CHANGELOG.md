@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.13.0] - 2026-09-21
+
+- Require localized fixed UI Toolkit labels to own their text through UXML
+  Localization bindings and remain visible in UI Builder.
+- Prohibit runtime callbacks from filling empty labels with fixed copy, while
+  requiring true dynamic labels to declare their runtime text owner explicitly.
+
 ## [5.12.0] - 2026-09-21
 
 - Require an explicit inventory of every runtime-generated visible UI region in

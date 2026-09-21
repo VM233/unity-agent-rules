@@ -52,6 +52,7 @@ git submodule update --init --recursive
 - 普通主 Sprite 保持实际 Prefab 模板的默认 Transform scale，素材大小优先通过 CLI 缩放图片；特殊表现契约才可例外。恢复默认或改变图片尺寸时，同步核对全部碰撞分区、运行时复制、握持点与特效挂点。
 - 游戏 Sprite 源图中，只有某个宽高组合严格超过项目总数一半时，其他尺寸才报 Warning；未过半不报警告，尺寸警告不改变独立的 PPU 报错契约。
 - UI Toolkit 的 USS/UXML 静态门禁分别调用 `uitoolkit/audit-uss-styles` 与 `uitoolkit/audit-uxml-layout`；生成控件层级、运行时主题、视觉和输入行为继续由实际 consumer 验证。
+- UI Toolkit 固定玩家文案在 UXML 中直接声明 Localization binding 并在 UI Builder 可见；空 `Label` 仅用于真实动态值，且必须显式声明运行时文本 owner。
 - UI Toolkit 修改先盘点实际 host 的所有运行时生成区域；用户明确要求、参考设计展示或页面家族已经建立的设计期预览属于硬性完成门禁，必须在 UI Builder 中非空可见，并由运行时 owner 在重建前清空且保证无重复项。
 - 兼容性默认关闭；唯一常设例外是用户维护的跨项目通用 package/plugin 对其声明支持的 Unity 版本进行编译期兼容。
 - Package/plugin README 只保留稳定入口信息；版本修复史、迁移步骤、内部实现、详细 API/Editor 手册及完整命令、schema、测试清单必须进入 CHANGELOG、专门文档或权威代码/catalog，README 只链接，不复制。

@@ -10,6 +10,11 @@
 - 修改 USS 后，通过官方 Unity CLI/Pipeline facade 调用 `uitoolkit/audit-uss-styles`；修改 UXML 后调用 `uitoolkit/audit-uxml-layout`。`paths` 必须是本轮实际修改的精确文件列表，`roots` 与 `runtimeSourceRoots` 必须覆盖这些文件的完整 authoring/consumer 图，并设置 `runSelfTests=true`；静态样式、布局、selector、声明所有权和字面内容检查项只由 route 维护，不在 Agent 规则中复制。
 - 只有对应响应同时满足 `passed=true`、`truncated=false`、`errors` 为空且 `selfTests.passed=true`，才算自动审查通过。结构化 issue、suppression 契约与 rule ID 以 route 当前 schema 和结果为唯一权威；生成控件层级、运行时主题、实际视觉和输入行为仍按下节与消费项目细则验证。
 
+## 文本 authoring 所有权
+
+- 每个 authored `Label` 都必须在 UXML 中声明可审查的文本 owner。需要随 Locale 变化的固定玩家文案使用 `UnityEngine.Localization.LocalizedString` 的 `text` binding；所有语言完全一致的固定符号或文字可直接 author。禁止保留空 `Label`，再由 `PanelModifier`、open callback 或语言切换 callback 补固定本地化文案。
+- 只有价格、计数、运行时对象名称等真实动态值可以由运行时 producer 写入空 `Label`，并须紧邻该元素声明 route 公布的 reasoned runtime-text suppression，写明具体 owner 与数据职责。固定文案不得借 suppression 规避 binding。交付前在 UI Builder 实际 host 中确认固定文案直接可见；Play Mode 中出现不能替代这项证据。
+
 ## 运行时生成区域的设计期预览门禁
 
 - 修改含运行时生成可见内容的页面、UXML、USS、template 或 generator 前，逐一盘点实际 host UXML 中的生成容器，并核对用户参考、同页面或同家族页面、现有 `ui-builder-preview` 标记以及负责清空和重建的运行时 owner。记录 host、容器、代表样本与清空 owner。用户明确要求预览、参考设计展示了该区域的内容，或同页面/同家族已经建立对应预览契约时，设计期预览属于本轮必做范围，禁止因运行时会生成内容而省略。

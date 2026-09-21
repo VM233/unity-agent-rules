@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.15.0] - 2026-09-21
+
+- Require runtime-owned UI Toolkit text to include a representative non-empty
+  design-time value, and treat the runtime owner marker as documentation rather
+  than an exemption from UI Builder preview checks.
+
 ## [5.14.0] - 2026-09-21
 
 - Require UI Toolkit icons to use dedicated `VisualElement` owners beside text

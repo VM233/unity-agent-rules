@@ -13,7 +13,7 @@
 ## 文本 authoring 所有权
 
 - 每个 authored `Label` 都必须在 UXML 中声明可审查的文本 owner。需要随 Locale 变化的固定玩家文案使用 `UnityEngine.Localization.LocalizedString` 的 `text` binding；所有语言完全一致的固定符号或文字可直接 author。禁止保留空 `Label`，再由 `PanelModifier`、open callback 或语言切换 callback 补固定本地化文案。
-- 只有价格、计数、运行时对象名称等真实动态值可以由运行时 producer 写入空 `Label`，并须紧邻该元素声明 route 公布的 reasoned runtime-text suppression，写明具体 owner 与数据职责。固定文案不得借 suppression 规避 binding。交付前在 UI Builder 实际 host 中确认固定文案直接可见；Play Mode 中出现不能替代这项证据。
+- 价格、计数、运行时对象名称等真实动态值也必须在 UXML 中 author 一个能代表最终形态的非空设计期值，并紧邻该元素声明 route 公布的 reasoned runtime-text marker，写明具体 owner、替换时机与数据职责；运行时 owner 必须在页面首次展示前覆盖该值。marker 只声明运行时所有权，不能压掉空预览错误。固定文案必须使用 Localization binding，不得借 marker 规避 binding。交付前在 UI Builder 实际 host 中确认全部可见文本和图标都有预览；Play Mode 中出现不能替代这项证据。
 - `Label` 只承担文本；货币、物品、属性等图标必须由独立 `VisualElement` 承担并与文本节点组合。禁止把图标写入 `Label` 的 `background-image`，再用 padding 或 background position 拼成图文控件；该结构由 UXML 自动审查直接报错。
 
 ## 运行时生成区域的设计期预览门禁

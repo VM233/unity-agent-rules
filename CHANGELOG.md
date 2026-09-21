@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.14.0] - 2026-09-21
+
+- Require UI Toolkit icons to use dedicated `VisualElement` owners beside text
+  controls, and prohibit composing icons into `Label` background images.
+- Route violations through the UXML audit as unsuppressible hard errors.
+
 ## [5.13.0] - 2026-09-21
 
 - Require localized fixed UI Toolkit labels to own their text through UXML

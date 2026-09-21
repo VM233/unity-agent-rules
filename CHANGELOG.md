@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.12.0] - 2026-09-21
+
+- Require an explicit inventory of every runtime-generated visible UI region in
+  the actual host UXML before implementation.
+- Treat user-requested, reference-shown, and established same-family authoring
+  previews as mandatory scope, with blank or leaf-only previews blocking
+  completion.
+- Require both a non-empty UI Builder preview in the actual host and runtime
+  proof that the authoritative owner clears, rebuilds, and does not duplicate
+  preview entries.
+
 ## [5.11.0] - 2026-09-20
 
 - Replace copied C# structural policy lists with the authoritative

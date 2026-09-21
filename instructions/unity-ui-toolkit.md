@@ -10,6 +10,12 @@
 - 修改 USS 后，通过官方 Unity CLI/Pipeline facade 调用 `uitoolkit/audit-uss-styles`；修改 UXML 后调用 `uitoolkit/audit-uxml-layout`。`paths` 必须是本轮实际修改的精确文件列表，`roots` 与 `runtimeSourceRoots` 必须覆盖这些文件的完整 authoring/consumer 图，并设置 `runSelfTests=true`；静态样式、布局、selector、声明所有权和字面内容检查项只由 route 维护，不在 Agent 规则中复制。
 - 只有对应响应同时满足 `passed=true`、`truncated=false`、`errors` 为空且 `selfTests.passed=true`，才算自动审查通过。结构化 issue、suppression 契约与 rule ID 以 route 当前 schema 和结果为唯一权威；生成控件层级、运行时主题、实际视觉和输入行为仍按下节与消费项目细则验证。
 
+## 运行时生成区域的设计期预览门禁
+
+- 修改含运行时生成可见内容的页面、UXML、USS、template 或 generator 前，逐一盘点实际 host UXML 中的生成容器，并核对用户参考、同页面或同家族页面、现有 `ui-builder-preview` 标记以及负责清空和重建的运行时 owner。记录 host、容器、代表样本与清空 owner。用户明确要求预览、参考设计展示了该区域的内容，或同页面/同家族已经建立对应预览契约时，设计期预览属于本轮必做范围，禁止因运行时会生成内容而省略。
+- 必做预览必须以固定、可复现的代表样本存在于 UI Builder 实际打开的 host UXML 中，并能直接看出本轮布局与状态。空容器、自闭合容器、只在 leaf template 或另一个页面放样本、只展示 Play Mode/Game View 截图，均不能证明该 host 拥有设计期预览；预览缺失、空白或未覆盖本轮新增状态时必须判定未完成。
+- 生产 UXML 中的预览只可采用 `unity-ui-naming-and-assets.md` 定义的已授权 `runtime-replaced` 契约。交付前同时验证 UI Builder 中的非空预览，以及运行时 owner 在首次生成前无条件清空预览、从权威配置完整重建且最终没有重复项。生成逻辑、配置、template/container、selector、布局或状态素材变化时，必须在同一任务同步预览。
+
 ## 生成子元素的状态与主题覆盖
 
 - 给内置或自定义控件的生成部件换肤前，先确认实际生成层级、class、伪状态 owner，以及当前引擎/运行时主题对目标属性的 winning selector；不得从外层控件类型或 UXML 层级猜测。

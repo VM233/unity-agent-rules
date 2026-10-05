@@ -17,6 +17,11 @@
 
 ## 配置与数据所有权
 
+- 每个使用 VMFramework 的游戏必须提供唯一游戏配置入口 `GameSetting : GlobalSetting<GameSetting, GameSettingFile>`，并以 `GameSettingFile : GlobalSettingFile` 持有各领域 `GeneralSetting`。类型、脚本文件和根配置 Asset 分别统一命名为 `GameSetting`、`GameSettingFile`、`GameSettingFile.asset`；项目名可以用于 namespace，不得替代这些入口名或添加项目名前缀。
+- `GameSetting` 按领域公开 `*GeneralSetting` 强类型静态属性，直接采用 `GameSettingFile` 中的实际引用；框架负责发现、加载、校验与初始化。游戏配置由这一条 VMF 生命周期发布，领域运行时产品仍由对应 owner 构建，不在入口类复制业务状态、建表或初始化流程。
+- 根配置使用框架配置目录与 `GlobalSettingFileConfig` / `GlobalSettingFileEditorConfig` 接线，Game Editor 节点显示为 `Game Setting`；各领域设置归入这一根节点，并接入实际 `IGamePrefabsProvider` 注册图。新建、迁移或重构带 VMF 的游戏时必须核对该入口、资源、Addressables 地址、导航和运行时采用，不能只创建同名空类。
+- 更正入口时同步迁移全部受控 consumer、测试、序列化引用、加载地址和有效文档；保留已有资源 GUID、配置值及引用身份，并按本文件完成原生保存与读回。删除被替代的项目命名入口、资源和兼容别名，不保留双轨；共享规则发布不自动授权批量修改其他游戏。
+
 - 易迭代的距离、速度、时长、权重、概率、阈值、数量和策略应序列化在实际行为 owner 的 Prefab/配置上，并允许同类 Variant 在需要时独立覆写；常量和全局设置只表达真实不变量。
 - 跨组件协作通过语义事件、窄接口、属性或权威数据产品完成；consumer 不得搜索、强转或订阅具体 producer 的内部实现，也不得根据目录、名称、层级或其他职责域状态推断资格。
 - 已提交 Prefab、配置和本地化 Asset 是生产数据权威。只为初始化、迁移、修复或批量物化而创建的一次性 builder/upsert/菜单代码，必须在同一任务完成迁移、按授权读回并删除；不得保留可用代码常量整体重建或覆盖生产 Asset 的双重权威。

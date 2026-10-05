@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.17.0] - 2026-10-05
+
+- Require every VMFramework game to expose one `GameSetting` and
+  `GameSettingFile` through the framework's setting lifecycle.
+- Standardize typed GeneralSetting access, the root asset, loading address,
+  and Game Editor navigation without project-prefixed entry names.
+- Require native migration and identity readback, remove replaced entry points,
+  and keep adoption scoped to the requesting project.
+
 ## [5.16.0] - 2026-09-21
 
 - Remove implicit cross-project adoption from shared-rule and user-maintained

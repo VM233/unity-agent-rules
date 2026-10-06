@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.17.1] - 2026-10-07
+
+- Distinguish task-related verification from creating or reopening Editor views.
+- Prefer existing Device Simulator and other suitable windows; do not open Game
+  View because a screenshot, resolution query or missing-window result asks for it.
+- Keep window discovery free of creation and focus side effects, preserve the
+  user's layout, and limit authoring-window requirements to their actual host.
+
 ## [5.17.0] - 2026-10-05
 
 - Require every VMFramework game to expose one `GameSetting` and

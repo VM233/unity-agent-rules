@@ -89,4 +89,3 @@ git tag -a v<major>.<minor>.<patch> -m "v<major>.<minor>.<patch>"
 git push origin main
 git push origin v<major>.<minor>.<patch>
 ```
-

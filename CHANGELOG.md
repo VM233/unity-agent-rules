@@ -532,4 +532,3 @@
 
 - Publish the shared Unity automation instruction contract for BattleIdle and MarbleBattlers.
 - Define submodule-based consumption, project-local routing, conflict boundaries, compact response rules, and risk-tiered CLI regression policy.
-

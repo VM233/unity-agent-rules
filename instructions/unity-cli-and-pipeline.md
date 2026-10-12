@@ -31,7 +31,8 @@
 
 ## Contract、错误与生命周期
 
-- 每个 Automation/project-tool contract 必须声明精确 input/output schema、稳定 error code、side effects、preconditions、完成证据、transaction 语义和实际 package owner。Dictionary 请求不得靠说明文字代替闭合 schema；typed request/result 由同一类型生成 schema。
+- 每个 Automation/project-tool contract 必须声明精确 input/output schema、稳定 error code、side effects、preconditions、完成证据、transaction 语义和实际 package owner。Dictionary 请求不得靠说明文字代替闭合 schema；typed request/result 由同一类型生成 schema。用户级/跨项目偏好写入必须明确标为全局持久副作用，不能只称改变视图；临时验证资源必须有唯一 owner、能力身份及成功/失败/取消/重载/退出清理契约，不能让改名字成为资源复用策略。
+- Game View 查询、已有尺寸选择、临时任意尺寸会话和永久预设维护是不同契约。已有尺寸选择不得新增或保存预设，普通验证不得进入永久创建路径；临时会话必须在 finally 结束，并以完整预设表和用户偏好文件无遗留作为完成证据。调用顺序和具体命令以当前 catalog 为准，缺少生命周期能力时修 Automation owner，不用外部 YAML 改写或恢复选中项掩盖遗漏。
 - domain failure 返回命令结果内的 `ok=false` 与稳定错误码；CLI 连接、参数绑定、Pipeline readiness 和未预期执行异常由官方 envelope 负责。不得把 transport success 当作 domain success。
 - 长操作必须返回持久 `jobId`、`jobType`、poll route 与跨 reload 所需 capability token；轮询、取消、清理由 catalog 中对应 Job contract 完成。不能用进程存活、日志尾部或固定 sleep 推断完成。
 - package resolve/update 的成功必须同时证明 manifest、lock、已解析 package path/hash、Asset refresh、干净编译、assembly reload 与目标 revision；只看到 PackageCache 目录或 manifest 变化不算 adoption。

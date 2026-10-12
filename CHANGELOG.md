@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.17.2] - 2026-10-12
+
+- Preserve the complete Game View preset table and user preference file, not only
+  the selected resolution, zoom, existing windows and focus.
+- Separate existing resolution selection, scoped temporary validation and explicit
+  permanent preference maintenance; forbid task-named verification presets.
+- Require global persistent effects and temporary-resource retirement to appear
+  in CLI contracts and caller finally paths, including failure/cancel/reload/quit.
+
 ## [5.17.1] - 2026-10-07
 
 - Distinguish task-related verification from creating or reopening Editor views.
@@ -523,3 +532,4 @@
 
 - Publish the shared Unity automation instruction contract for BattleIdle and MarbleBattlers.
 - Define submodule-based consumption, project-local routing, conflict boundaries, compact response rules, and risk-tiered CLI regression policy.
+

@@ -1,5 +1,9 @@
 # Changelog
 
+## [5.17.3] - 2026-10-12
+
+- Normalize shared guidance document endings after the preset-lifecycle publication.
+
 ## [5.17.2] - 2026-10-12
 
 - Preserve the complete Game View preset table and user preference file, not only

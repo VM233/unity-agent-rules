@@ -27,6 +27,7 @@
 
 - 修改第一方手写 C# 后，交付前通过官方 Unity CLI/Pipeline facade 调用 `code/policy-review`。`paths` 必须是本轮实际修改的第一方 `.cs` 精确文件列表，`forbidPartial` 设为 `true`，`maxTypeLines` 默认使用 `1500`；消费项目只能通过参数收紧门禁，不得在规则中复制 route 已拥有的检查项。
 - 只有响应同时满足 `success=true`、`passed=true`、`truncated=false`、`errors` 为空且 `scannedFiles` 与去重后的 `paths` 数量一致，才算该静态审查通过。结构规则、例外边界、rule ID 与诊断文本以 route 当前 schema 和结构化结果为唯一权威；编译仍按 Editor 安全细则独立执行。
+- 精确手写源码列表按实际 producer 归属确认；可由权威生成器重现的生成表审查其生成器、schema 和编译产品，不混入手写类型尺寸门禁，也不为它抬高 `maxTypeLines`。仅添加 generated 标记不能改变手写源码身份。
 
 ## 观测、数学与性能
 

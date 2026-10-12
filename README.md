@@ -43,7 +43,7 @@ git submodule update --init --recursive
 - 玩家文案写入前必须建立机制事实表与逐 Locale 术语证据表；内部 ID、英文类名和其他 Locale 只能用于定位，不能直接生成玩家术语。已有注册对象且当前 UI 可达其 Tooltip/link 时，该对象独占内部机制文案，外层描述只引用它并保留自身新增的触发、目标、施加参数与例外，禁止复制内部效果；没有可引用产品或可达说明时才用普通语言描述可观察效果。
 - 功能/测试完整、翻译完整和 UI 信息量分别审查：正文保留核心效果与关键条件，已有属性或可达 Tooltip 承载详情，算法和低频叠加留在实现/测试中；修改已有内容功能时把旧文案当作核对证据，基于当前完整机制重写整条描述，合并、替换或删除失去必要性的旧句，禁止按开发顺序在末尾累加说明。已展示的动态值仍从行为 owner 读取。发现“完整”“不得遗漏”等规则与信息取舍冲突时，改写原条款并同步消费端，不只追加“要简洁”。
 - 所有中文玩家描述、详情与 Tooltip 均不以句号收尾，覆盖段落、列表项、富文本和动态拼接的最终可见结尾；写入及交付都执行本地化规则的全范围检查，不限物品类别或 key 后缀。
-- 第一方手写 C# 的结构门禁统一调用 `code/policy-review`，以精确改动文件列表和项目收紧参数执行；Agent 规则不复制 route 已拥有的检查项。
+- 第一方手写 C# 的结构门禁统一调用 `code/policy-review`，以 producer 归属确认精确改动文件列表和项目收紧参数；生成物、正式调用链与用户级持久版本的验收执行代码质量及 CLI 细则，Agent 规则不复制 route 已拥有的检查项。
 - Package 依赖、revision、manifest/lock 与 Unity `.meta` 门禁统一调用 `package/dependency-policy-review`。用户维护 package 被修改时仍按既有流程发布，但只在当前请求所在且已授权的消费项目同步 pin/lock；其他消费项目必须由用户当前明确点名，迁移清理按实际进程占用与路径读回结果验收。
 - VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。
 - 每个使用 VMFramework 的游戏统一提供 `GameSetting` / `GameSettingFile` 配置入口与 `Game Setting` 导航；配置所有权、框架生命周期和迁移要求见 `instructions/unity-prefabs-and-serialization.md`。

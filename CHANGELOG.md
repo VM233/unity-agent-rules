@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.17.4] - 2026-10-12
+
+- Reload the latest saved global preferences and verify their file version before
+  permanent maintenance; preserve updates made by another Editor.
+- Require the actual executor/Pipeline envelope, confirmation and effects to be
+  exercised after native handler tests.
+- Define precise handwritten source ownership; validate real generated tables at
+  their producer/schema/compilation boundary without raising type-size limits.
+
 ## [5.17.3] - 2026-10-12
 
 - Normalize shared guidance document endings after the preset-lifecycle publication.

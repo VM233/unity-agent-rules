@@ -57,5 +57,6 @@
 
 - 先用 `unity status` 证明唯一实例与绝对项目路径，再用五命令 facade 做 bounded discovery；确认顶层命令数量没有因 Automation catalog 膨胀。
 - 对 catalog 验证总 contract 数、package owner 分布、invalid contract 列表、revision 与分页上限；只拉取少量样本及本轮直接依赖 contract 的完整 schema。
+- typed handler 的本地回归不能替代正式调用验收；必须经实际 executor/Pipeline 重放原请求，覆盖执行元数据、绑定、确认及实际副作用。用户级持久写入同时核对最新原生读回与文件版本，禁止把旧 Editor 内存当作全局存储权威。
 - 代码或编译契约改动必须按 `unity-editor-safety.md` 通过最后一次官方 package resolve/refresh/clean compile，error 为零并单独检查 warning/obsolete。其他验证按本轮改动风险执行，不再要求用户单独点名。
 - 验收后扫描 manifest/lock、package metadata、项目/用户配置、宿主配置、活动进程、README 与 Agent 规则，确认旧 package/server/route/config 为零，且所有依赖均为 registry 版本或完整远端 Git SHA。

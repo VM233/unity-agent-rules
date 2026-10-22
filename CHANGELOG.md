@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.18.0] - 2026-10-23
+
+- Require feature and defect work to repair substandard code and organization
+  encountered along the actual implementation flow in the same task.
+- Close component responsibilities, shared ownership and consumer/configuration
+  migrations with appropriate validation instead of layering new behavior over
+  known defects; preserve unrelated data and existing publication boundaries.
+
 ## [5.17.4] - 2026-10-12
 
 - Reload the latest saved global preferences and verify their file version before

@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.19.0] - 2026-10-23
+
+- Treat a requested semantic content rename as both an ID and player-name
+  migration by default, including configuration, registration, recipes, drops,
+  localization, owned resources, consumers, tests and active documentation.
+- Preserve Unity resource identity, distinguish shared categories from concrete
+  content identity, and verify real registration and display without silently
+  retaining aliases or rewriting user saves.
+
 ## [5.18.0] - 2026-10-23
 
 - Require feature and defect work to repair substandard code and organization

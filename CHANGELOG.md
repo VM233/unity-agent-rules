@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.20.0] - 2026-10-24
+
+- Remove the fixed five-command facade limit and static command allowlist.
+- Discover infrastructure commands and durable job lifecycle routes from the
+  current official CLI and registered contracts, while retaining bounded
+  discovery and the single official transport.
+
 ## [5.19.0] - 2026-10-23
 
 - Treat a requested semantic content rename as both an ID and player-name

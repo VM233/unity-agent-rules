@@ -9,7 +9,7 @@
 ## 唯一传输与职责边界
 
 - Unity Technologies 官方 Unity CLI 是唯一进程边界、实例发现与项目绑定入口；`com.unity.pipeline` 是唯一 Editor 命令传输。不得新增或保留第二 server、HTTP bridge、stdio adapter、第二端口协议、直接 socket/HTTP 调用或项目脚本传输作为兼容路径。
-- `VMUnityPipeline` 只拥有五个稳定顶层命令：`vm_catalog_status`、`vm_catalog_list`、`vm_catalog_get`、`vm_editor_state`、`vm_automation_call`。不得把数百个 Automation route 注册成同量顶层 CLI command。
+- `VMUnityPipeline` 拥有发现、项目绑定、调用与持久任务等通用基础设施入口；可用命令与调用协议以当前官方 CLI 和已注册 contract 为准，不固定顶层命令数量或使用静态命令白名单。正式任务返回的轮询、取消和清理入口按其当前 contract 调用；业务 Automation 能力继续通过 catalog 发现和调用，不重复注册整套业务 route。
 - `VMUnityAutomation` 拥有通用 Unity command 的 typed contract、handler、统一 schema/error/effect/lifecycle 元数据、请求身份、持久 Job 与执行生命周期；`VMFramework-Pipeline` 只拥有 VMFramework 领域 project tool；消费项目 project tool 只拥有项目专属编排与 output schema。跨项目一致的 GamePrefab 契约审查（包括 `IPrefabProvider.Prefab` 空引用）属于 `VMFramework-Pipeline`，不得在消费项目复制审查器或 fallback。
 - RuntimeOnly command 由运行时 Pipeline manager 与项目运行时 service 拥有。Editor catalog 与 Runtime catalog 分离，运行时能力不得污染 Editor 顶层命令表，也不得借运行时入口绕过 Editor 写入和验证权限。
 - 定位错误或冗余的权威 owner，并修正其 producer/contract。一个 schema、错误映射、压缩、绑定或生命周期只能有一个 owner，禁止在 facade、Automation、framework 与项目层重复补偿。
@@ -25,7 +25,7 @@
 ## 渐进发现与 Token 边界
 
 - 正常工作不得无界列出完整官方命令或 Automation catalog。先用官方 `unity command` 的小 `query`/`tag`/`limit` 查候选，再用 `vm_catalog_list` 读取最多一个小页，最后只对一个精确命令调用 `vm_catalog_get`。
-- `vm_catalog_list` 默认 10、上限 50；完整 input/output schema 只由 `vm_catalog_get` 返回。Automation catalog 可以包含数百个 contract，但顶层 CLI 列表必须保持小而稳定。
+- `vm_catalog_list` 默认 10、上限 50；完整 input/output schema 只由 `vm_catalog_get` 返回。分页发现与按需读取 schema 约束每次查询的范围，不限制合法基础设施命令的数量。
 - 重复调用使用一个 `unity --non-interactive --no-banner shell --protocol ndjson` 会话；每行一个带相关 ID 的请求，每行读取一个响应。不得为每个小调用重新支付进程启动和全量发现成本。
 - 正常响应使用 compact JSON/NDJSON。结构去重优先于空白压缩；不得输出不可解析拼接文本，也不得把内部完整 Job 状态在多层重复包裹。
 
@@ -55,7 +55,7 @@
 
 ## 验收
 
-- 先用 `unity status` 证明唯一实例与绝对项目路径，再用五命令 facade 做 bounded discovery；确认顶层命令数量没有因 Automation catalog 膨胀。
+- 先用 `unity status` 证明唯一实例与绝对项目路径，再按当前正式 CLI 和 catalog 做 bounded discovery；验证本轮依赖的基础设施入口与任务生命周期协议，不以命令数量或旧静态清单拒绝合法调用。
 - 对 catalog 验证总 contract 数、package owner 分布、invalid contract 列表、revision 与分页上限；只拉取少量样本及本轮直接依赖 contract 的完整 schema。
 - typed handler 的本地回归不能替代正式调用验收；必须经实际 executor/Pipeline 重放原请求，覆盖执行元数据、绑定、确认及实际副作用。用户级持久写入同时核对最新原生读回与文件版本，禁止把旧 Editor 内存当作全局存储权威。
 - 代码或编译契约改动必须按 `unity-editor-safety.md` 通过最后一次官方 package resolve/refresh/clean compile，error 为零并单独检查 warning/obsolete。其他验证按本轮改动风险执行，不再要求用户单独点名。

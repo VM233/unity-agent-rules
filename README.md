@@ -31,12 +31,14 @@ git submodule update --init --recursive
 - Localization 与玩家文案：`.agents/shared-rules/instructions/unity-localization.md`。
 - Package/plugin、manifest/lock 与发布：`.agents/shared-rules/instructions/unity-packages-and-plugins.md`。
 - 官方 Unity CLI、Pipeline、Automation catalog 与旧传输迁移：`.agents/shared-rules/instructions/unity-cli-and-pipeline.md`。
+- 脚本、资源和 Assets 根层目录组织：`.agents/shared-rules/instructions/project-organization.md`。
 - Git 分支、提交、推送与 PR：`.agents/shared-rules/instructions/git-workflow.md`。
 - 共享文件缺失时先执行 `git submodule update --init --recursive`，读取成功前不继续相关任务。
 ```
 
 ## 核心约定
 
+- CLI 调用、持久 Job、目录分类与验收流程使用 [unity-cli-project-review skill](https://github.com/VM233/unity-cli-project-review-skill)；共享规则保留权限和职责约束，实时参数与检测策略由工具 owner 持有。
 - 用户请求和消费项目规则决定功能、验证、Git、发布与破坏性操作权限；共享规则负责工程质量和工具安全，不要求代码改动行数或文件数最少。
 - 所有 Unity 项目永不创建场景备份，也不检查或询问是否备份；已授权启动前丢弃旧场景恢复文件，恢复备份弹窗直接选择不保留，完整边界见 `instructions/unity-editor-safety.md`。
 - 实现需求时同步治理实际遇到的不合格代码和组织方式，按 `instructions/code-quality.md` 修正职责、复用与完整消费链，不把旧问题留作继续叠加功能的基础。

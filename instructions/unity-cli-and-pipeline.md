@@ -5,6 +5,7 @@
 - 使用或修改官方 Unity CLI、`com.unity.pipeline`、VM Unity Pipeline、Automation catalog、命令 schema、project tool、持久 Job、RuntimeOnly command，诊断连接/绑定/发现/执行故障，或清理旧传输 workaround 时，必须完整读取本文件。
 - 上级指令、用户当前明确要求、消费项目根 `AGENTS.md` 和共享 `unity-editor-safety.md` 的权限边界始终优先。任务相关验证按共享 Editor 安全细则执行，不因使用 CLI 再次询问授权；消费项目业务提交与产品发布仍保持独立边界。
 - 同时修改 package/plugin、Unity 代码、Prefab/序列化或项目工具时，必须一并读取对应规则；更具体规则只能收紧，不能重新授权 fallback、双轨传输或越权验证。
+- 具体调用、发现、Job 与验证操作读取已安装的 `$unity-cli-project-review` skill 及其命中参考；安装入口为 [VM233/unity-cli-project-review-skill](https://github.com/VM233/unity-cli-project-review-skill)。本文件保留共享权限、职责与工具契约，操作步骤由 skill 维护，实时参数由正式 catalog 持有。
 
 ## 唯一传输与职责边界
 
@@ -14,20 +15,17 @@
 - RuntimeOnly command 由运行时 Pipeline manager 与项目运行时 service 拥有。Editor catalog 与 Runtime catalog 分离，运行时能力不得污染 Editor 顶层命令表，也不得借运行时入口绕过 Editor 写入和验证权限。
 - 定位错误或冗余的权威 owner，并修正其 producer/contract。一个 schema、错误映射、压缩、绑定或生命周期只能有一个 owner，禁止在 facade、Automation、framework 与项目层重复补偿。
 
-## 项目绑定与调用语法
+## 项目绑定契约
 
-- 每次调用都使用按平台规范化的绝对项目根路径。可设置 `UNITY_PROJECT_PATH`，也可把 `--project-path <absolute-path>` 放在实际声明它的官方子命令之后，例如 `unity status --project-path <absolute-path>` 或 `unity command --project-path <absolute-path> ...`；它不是可放在 `unity` 与子命令之间的全局参数。项目名、Unity product name、仓库名、目录 basename、端口和窗口标题只作展示。同名 checkout 是合法常态。
+- 每次调用都使用按平台规范化的绝对项目根路径。项目名、Unity product name、仓库名、目录 basename、端口和窗口标题只作展示。同名 checkout 是合法常态。
 - 路径正确却因名称、最近连接或手动选择失败，必须修官方/VM Pipeline 的 path binding owner；禁止改项目名、猜端口、切 cwd、选择同名实例或写全局例外绕过。
-- 官方 CLI 参数分三层：真正的全局参数位于首个子命令前；`status`、`command`、`list` 等官方子命令自己的 option 位于该子命令后、位置参数前；已注册 Editor command 的参数才位于独立的 `--` 后。完整形态例如 `unity --json command --project-path <absolute-path> vm_automation_call -- --arguments_json <json> --expected_project_path <absolute-path>`。参数名严格使用当前 `--help` 或 catalog 公布的拼写，不得由 C# 字段名、过期示例或其他命令的 option 推测。
-- 非交互自动化可设置 `UNITY_NO_CONSENT_PROMPT=1`，但不得替用户记录 analytics opt-in/opt-out。不得把首次同意提示的选择混入项目配置。
+- 参数、绑定与确认以当前正式 contract 为准，不得从字段名或旧示例推测；不得替用户记录 analytics opt-in/opt-out。
 - 变更性 Automation command 必须传精确 `expected_project_path`；dangerous contract 还必须传 contract 声明的显式确认参数。绑定、确认和参数错误在进入 Unity 副作用前失败。
 
-## 渐进发现与 Token 边界
+## 发现与响应边界
 
-- 正常工作不得无界列出完整官方命令或 Automation catalog。先用官方 `unity command` 的小 `query`/`tag`/`limit` 查候选，再用 `vm_catalog_list` 读取最多一个小页，最后只对一个精确命令调用 `vm_catalog_get`。
-- `vm_catalog_list` 默认 10、上限 50；完整 input/output schema 只由 `vm_catalog_get` 返回。分页发现与按需读取 schema 约束每次查询的范围，不限制合法基础设施命令的数量。
-- 重复调用使用一个 `unity --non-interactive --no-banner shell --protocol ndjson` 会话；每行一个带相关 ID 的请求，每行读取一个响应。不得为每个小调用重新支付进程启动和全量发现成本。
-- 正常响应使用 compact JSON/NDJSON。结构去重优先于空白压缩；不得输出不可解析拼接文本，也不得把内部完整 Job 状态在多层重复包裹。
+- 按 skill 进行 bounded discovery，读取少量候选和当前要执行的精确 schema，不无界列完整命令表。发现限制不等于基础设施入口数量限制，不能建立静态白名单。
+- 正常响应保持可解析的 compact JSON/NDJSON，结构去重优先于空白压缩；不得把内部完整 Job 状态在多层重复包裹。
 
 ## Contract、错误与生命周期
 
@@ -55,8 +53,7 @@
 
 ## 验收
 
-- 先用 `unity status` 证明唯一实例与绝对项目路径，再按当前正式 CLI 和 catalog 做 bounded discovery；验证本轮依赖的基础设施入口与任务生命周期协议，不以命令数量或旧静态清单拒绝合法调用。
-- 对 catalog 验证总 contract 数、package owner 分布、invalid contract 列表、revision 与分页上限；只拉取少量样本及本轮直接依赖 contract 的完整 schema。
+- 按 skill 执行项目绑定、正式调用和持久任务验收；catalog 的有效性、owner 和 revision 以当前正式结构化结果为证据，不靠旧数量或静态清单。
 - typed handler 的本地回归不能替代正式调用验收；必须经实际 executor/Pipeline 重放原请求，覆盖执行元数据、绑定、确认及实际副作用。用户级持久写入同时核对最新原生读回与文件版本，禁止把旧 Editor 内存当作全局存储权威。
 - 代码或编译契约改动必须按 `unity-editor-safety.md` 通过最后一次官方 package resolve/refresh/clean compile，error 为零并单独检查 warning/obsolete。其他验证按本轮改动风险执行，不再要求用户单独点名。
 - 验收后扫描 manifest/lock、package metadata、项目/用户配置、宿主配置、活动进程、README 与 Agent 规则，确认旧 package/server/route/config 为零，且所有依赖均为 registry 版本或完整远端 Git SHA。

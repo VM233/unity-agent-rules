@@ -1,5 +1,10 @@
 # Changelog
 
+## [5.22.0] - 2026-10-26
+
+- Route operational Unity CLI discovery, invocation, durable jobs and adoption to the reusable unity-cli-project-review skill while retaining shared authority and permission contracts.
+- Add project organization routing for shallow Assets inventory and owned script/resource scopes; keep third-party layouts untouched and reuse the typed Automation review owner.
+
 ## [5.21.0] - 2026-10-26
 
 - Prohibit scene backups, scene copies and recovery archives across Unity projects;

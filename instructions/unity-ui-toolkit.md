@@ -5,7 +5,14 @@
 - 修改 UI Toolkit/UXML/USS、自定义 `VisualElement`、生成子元素蒙皮或伪状态级联时读取本文件；项目布局、素材与控件实现细则仍由消费项目维护。
 - 验证范围按共享 Editor 安全细则与本轮 UI 改动风险选择；必要的 authoring 审查、运行时、视觉和输入验证直接执行，不另行要求用户点名工具或授权。
 
-## UXML 与 USS 自动审查
+## 浮动窗口与桌面指针
+
+- 浮动面板复用已有窗口放置与拖动 owner；打开时按完整可见 presentation bounds 放入单个显示器工作区，拖动手柄使用公共指针捕获组件。不得为单一页面复制拖动回调、坐标状态或原生输入名单。
+- 透明桌面窗口的原生命中由当前实际呈现的 UI Toolkit panel、原生 picking 与鼠标 capture 决定，覆盖非唯一实例、弹出内容和关闭动画。viewport carrier 不承担可点击区域；实际 UI 与世界画面的交互区域分别由其 owner 提供，不维护第二份 UI 矩形白名单。
+- 正常内容审查必须组合窗口交互审查，覆盖角色声明、放置 owner、presentation 路径、可命中手柄与共享拖动接线，并提供能拒绝缺失 owner/手柄的反例。输入代码变更还要验证重开、隐藏、root 重建、取消/丢失捕获及释放后的状态；静态配置审查不能证明原生点击没有穿透到其他进程。
+- 涉及原生透明窗口时，用真实 Player 验证 UI 上的点击接收方及 UI 外的预期穿透，保留正式 CLI 输入/系统状态与游戏结果证据。内部事件派发、截图或一次几何检查不能代替该验收；本地构建与验证不自动授权上传包体。
+
+## UXML 与 USS 审查入口
 
 - 修改 USS 后，通过官方 Unity CLI/Pipeline facade 调用 `uitoolkit/audit-uss-styles`；修改 UXML 后调用 `uitoolkit/audit-uxml-layout`。`paths` 必须是本轮实际修改的精确文件列表，`roots` 与 `runtimeSourceRoots` 必须覆盖这些文件的完整 authoring/consumer 图，并设置 `runSelfTests=true`；静态样式、布局、selector、声明所有权和字面内容检查项只由 route 维护，不在 Agent 规则中复制。
 - 只有对应响应同时满足 `passed=true`、`truncated=false`、`errors` 为空且 `selfTests.passed=true`，才算自动审查通过。结构化 issue、suppression 契约与 rule ID 以 route 当前 schema 和结果为唯一权威；生成控件层级、运行时主题、实际视觉和输入行为仍按下节与消费项目细则验证。

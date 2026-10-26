@@ -38,6 +38,8 @@ git submodule update --init --recursive
 
 ## 核心约定
 
+- 浮动窗口复用放置、拖动和实际 UI 命中 owner，常规内容审查覆盖交互契约；透明原生窗口另验真实 Player 的点击接收方与区域外穿透。
+
 - CLI 调用、持久 Job、目录分类与验收流程使用 [unity-cli-project-review skill](https://github.com/VM233/unity-cli-project-review-skill)；共享规则保留权限和职责约束，实时参数与检测策略由工具 owner 持有。
 - 用户请求和消费项目规则决定功能、验证、Git、发布与破坏性操作权限；共享规则负责工程质量和工具安全，不要求代码改动行数或文件数最少。
 - 所有 Unity 项目永不创建场景备份，也不检查或询问是否备份；已授权启动前丢弃旧场景恢复文件，恢复备份弹窗直接选择不保留，完整边界见 `instructions/unity-editor-safety.md`。

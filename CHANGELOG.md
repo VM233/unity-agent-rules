@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.23.0] - 2026-10-26
+
+- Require shared floating-window placement, drag capture and actual presented UI
+  hit ownership; remove manual native UI rectangle allowlists.
+- Include interaction contracts in routine content review and distinguish native
+  Player pointer routing from static geometry or internal event dispatch.
+
 ## [5.22.0] - 2026-10-26
 
 - Route operational Unity CLI discovery, invocation, durable jobs and adoption to the reusable unity-cli-project-review skill while retaining shared authority and permission contracts.

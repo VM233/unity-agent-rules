@@ -30,10 +30,17 @@
 - 只能在 Player、Addressables/AssetBundle 或其他打包环境确认的问题，执行必要的本地构建与产物验证，不默认转交用户；构建成功不等于允许运营发布。用户明确限制运行、工具或构建，或环境使验证无法完成时，报告准确的未验证范围和原因。
 - 验证必须对应本轮修改的 owner、契约、生命周期、产品或相邻风险。运行时失败按 `code-quality.md` 冻结当前 build 与测试语义，保存首个非法状态并完成其余独立且属于本轮范围的场景后统一归因；不得边测边补丁或把失败后移当成功。
 
+## Scene 备份与启动恢复
+
+- 永不创建 Scene 备份、副本或恢复归档；不检查、不询问是否已有备份，不把备份作为修改、验证、启动或重启的前置条件，也不因未备份而停止任务。
+- 已获授权的 Editor 启动或重启，在目标项目的 Editor 已关闭后直接丢弃其 `Temp/__Backupscenes` 旧恢复文件，再通过官方 Unity CLI 打开精确项目路径；不把旧恢复文件复制到 `Assets/_Recovery` 或其他目录，不保留恢复归档。清理只限核实路径内的 Scene 恢复文件，不删除整个 `Temp`，也不删除运行中 Editor/Play Mode 正在使用的临时数据。
+- `Scene Backup Detected` 等场景备份恢复弹窗直接选择 Discard/不保留，不选择 Keep Backups，不暂停等待或再次询问。这是场景恢复备份的常设处理方式，不授权丢弃正在编辑的未保存场景，也不扩展到其他类型的 Save/Reload 对话框。
+- 旧 `EnterPlayModeOptions.DisableSceneBackupUnlessDirty` 已被 Unity 标记为无效，不能把设置它当作关闭备份或恢复弹窗的证据。通过 Hub 或其他入口绕过启动前处理时，不宣称 Unity 原生恢复弹窗已经全局关闭。
+
 ## Scene 与资源写入
 
 - 已加载 Scene 不得由 `apply_patch`、shell 或外部文本工具改写 `.unity`。使用 Unity Scene API/`SerializedObject` 修改并显式保存，保存后不再外部格式化。
-- 确需外部修改 Scene 时，先确认无未保存数据并在 Unity 中卸载或切换；不得自动确认 Reload/Save/Discard 对话框。脏 Scene 或模态对话框出现时停止并交由用户决定。
+- 确需外部修改 Scene 时，先确认无未保存数据并在 Unity 中卸载或切换；涉及当前编辑内容取舍的 Reload/Save/Discard 对话框交由用户决定。场景备份恢复弹窗按上节直接丢弃，不适用此暂停要求。
 - 删除、重命名、移动、复制、事务或目录 refresh/import 不得包含已加载 Scene；确需处理时先通过 Scene API 保存并卸载。
 
 ## Safe Mode

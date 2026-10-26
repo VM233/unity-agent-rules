@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.21.0] - 2026-10-26
+
+- Prohibit scene backups, scene copies and recovery archives across Unity projects;
+  remove backup checks and confirmation gates from agent workflows.
+- Discard stale recovery files before an authorized Editor launch and dismiss
+  scene-backup recovery prompts without retaining backups or asking again.
+- Keep current unsaved scene edits and live Play Mode temporary state separate
+  from disposable recovery files; do not claim obsolete options disable recovery.
+
 ## [5.20.0] - 2026-10-24
 
 - Remove the fixed five-command facade limit and static command allowlist.

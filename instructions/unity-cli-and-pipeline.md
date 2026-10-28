@@ -5,7 +5,7 @@
 - 使用或修改官方 Unity CLI、`com.unity.pipeline`、VM Unity Pipeline、Automation catalog、命令 schema、project tool、持久 Job、RuntimeOnly command，诊断连接/绑定/发现/执行故障，或清理旧传输 workaround 时，必须完整读取本文件。
 - 上级指令、用户当前明确要求、消费项目根 `AGENTS.md` 和共享 `unity-editor-safety.md` 的权限边界始终优先。任务相关验证按共享 Editor 安全细则执行，不因使用 CLI 再次询问授权；消费项目业务提交与产品发布仍保持独立边界。
 - 同时修改 package/plugin、Unity 代码、Prefab/序列化或项目工具时，必须一并读取对应规则；更具体规则只能收紧，不能重新授权 fallback、双轨传输或越权验证。
-- 具体调用、发现、Job 与验证操作读取已安装的 `$unity-cli-project-review` skill 及其命中参考；安装入口为 [VM233/unity-cli-project-review-skill](https://github.com/VM233/unity-cli-project-review-skill)。本文件保留共享权限、职责与工具契约，操作步骤由 skill 维护，实时参数由正式 catalog 持有。
+- 具体调用、发现、持久 Job、故障修复、能力补齐、迁移与验证操作读取已安装的 `$unity-cli-project-review` skill 及其命中参考；安装入口为 [VM233/unity-cli-project-review-skill](https://github.com/VM233/unity-cli-project-review-skill)。本文件保留共享权限、职责与工具契约，操作步骤由 skill 维护，实时参数由正式 catalog 持有。
 
 ## 唯一传输与职责边界
 
@@ -30,30 +30,26 @@
 ## Contract、错误与生命周期
 
 - 每个 Automation/project-tool contract 必须声明精确 input/output schema、稳定 error code、side effects、preconditions、完成证据、transaction 语义和实际 package owner。Dictionary 请求不得靠说明文字代替闭合 schema；typed request/result 由同一类型生成 schema。用户级/跨项目偏好写入必须明确标为全局持久副作用，不能只称改变视图；临时验证资源必须有唯一 owner、能力身份及成功/失败/取消/重载/退出清理契约，不能让改名字成为资源复用策略。
-- Game View 查询、已有尺寸选择、临时任意尺寸会话和永久预设维护是不同契约。已有尺寸选择不得新增或保存预设，普通验证不得进入永久创建路径；临时会话必须在 finally 结束，并以完整预设表和用户偏好文件无遗留作为完成证据。调用顺序和具体命令以当前 catalog 为准，缺少生命周期能力时修 Automation owner，不用外部 YAML 改写或恢复选中项掩盖遗漏。
+- 只读查询、选择已有状态、临时资源会话和永久偏好维护必须有独立契约；普通验证不得进入永久预设维护路径。具体会话、finally、reload/退出清理和读回流程由 skill 维护，权限与用户状态保全执行 Editor 安全细则。
 - domain failure 返回命令结果内的 `ok=false` 与稳定错误码；CLI 连接、参数绑定、Pipeline readiness 和未预期执行异常由官方 envelope 负责。不得把 transport success 当作 domain success。
 - 长操作必须返回持久 `jobId`、`jobType`、poll route 与跨 reload 所需 capability token；轮询、取消、清理由 catalog 中对应 Job contract 完成。不能用进程存活、日志尾部或固定 sleep 推断完成。
-- package resolve/update 的成功必须同时证明 manifest、lock、已解析 package path/hash、Asset refresh、干净编译、assembly reload 与目标 revision；只看到 PackageCache 目录或 manifest 变化不算 adoption。
-- Editor 状态必须直接提供 play、pause、transition、compiling、updating、scene 和绝对 project path，不能从 UI、窗口标题或最近日志推断。
+- 状态和 adoption 必须由权威 producer 提供可读回的完成证据；日志、窗口标题、缓存目录或 manifest 单点变化不能替代实际状态与采用结果。具体检查由 skill 维护。
 
 ## Package 与发布闭环
 
 - VM Pipeline、Automation 和 framework package 只在各自权威仓库修改；不得编辑 `Library/PackageCache`，不得嵌入消费项目，也不得使用 `file:`、本地路径、symlink 或 junction。
-- package 修改后先在权威仓库更新版本、CHANGELOG 和文档，提交并推送不可变 revision；当前请求所在且已授权的消费项目需要采用时，再以完整远端 SHA 更新 manifest/lock。其他直接消费者不得自动升级。
-- 当前任务依赖且已证实属于用户维护 package 的 CLI/Pipeline 缺陷，自动进入权威修复、风险匹配验证和既有发布；当前请求所在且已授权消费项目的 pin/lock 与正式 adoption 也属于该闭环，不等待二次发布授权。该例外不授权打开或修改其他消费项目，也不授权消费项目无关业务提交、产品发布、PR、第三方仓库或与该修复无关的验证。
-- 更新已发布且有可信验证记录的 revision 时，不重复 package 全套测试。默认验证远端 revision、manifest/lock/registered package 一致、消费项目权威编译，以及当前请求直接依赖的正式命令路径。
+- 当前已授权任务依赖且已证实由用户维护的 CLI/Pipeline 缺陷或缺失能力，自动进入权威修复或补齐、风险匹配验证与既有发布；当前请求所在且已授权消费项目的 pin/lock 与正式 adoption 同属闭环，不再询问是否修复、补命令、发布或接入。
+- 发布权限与边界执行 `unity-packages-and-plugins.md`，操作流程执行 skill。该授权不覆盖其他消费项目、无关业务提交、产品发布、PR、第三方仓库、未授权破坏性操作或无关验证。
 
-## 缺陷、迁移与禁止 fallback
+## 故障与能力缺口必须直接闭环
 
-- CLI command 未注册、catalog/schema 过期、命令描述会稳定误导、绑定错误、Job 假完成、RuntimeOnly 泄漏到 Editor，或官方 CLI 与实际 package revision 不一致，都是一等能力缺陷；立即停止依赖该非法前置状态的动作，修权威 owner 并完成发布/pin/adoption。
+- 已授权任务遇到 CLI 问题立即归因并修复，所需 CLI 功能缺失直接补齐正式能力，再继续原任务。不得向用户重复询问要不要修、要不要新增命令或是否手工处理，也不得停在问题登记、建议、待办或“工具暂不支持”。
+- 先按当前契约区分调用误用、暂时未就绪、领域拒绝与真实工具缺陷/能力缺口；误用修 caller，暂时中断保留原 Job，缺陷或缺口修唯一 owner 的 producer、注册、typed schema、错误与生命周期及受影响 consumer。不能盲改上游、重复提交变更请求或把正常领域结果当成 CLI 缺陷。
 - 不得用 Computer Use、鼠标、键盘、Editor 菜单、直接 HTTP、退役 route、通用 execute-code、项目临时脚本或文件改写替代缺失/有缺陷的一等 CLI contract。只读源码与日志可以归因，不能冒充正式能力验收。
-- 从旧自建传输迁移到 CLI 时必须建立完整旧 route 决策台账，逐项选择 `custom_cli`、`merge_into` 或 `delete_redundant`，并验证新 catalog、consumer rewrite 与零消费者证明。完成后删除旧 package、server、配置、进程入口、route/schema、文档示例与兼容 alias；不得长期双轨。
-- 完成迁移后必须删除旧传输仓库、离线迁移台账及当前 changelog/README/Agent 规则中的旧名称；不得用历史证据名义保留活动或可发现的旧实现表面。
-- 任何 CLI/Pipeline 问题都必须在下一次进度更新和最终交付中明确报告；在权威修复、发布和 adoption 前，相关证据标记为失败或无结论，不能换通道后宣称完成。
+- 修复与旧传输迁移的具体步骤执行 skill；完成后删除已被替代的实现、route、配置和活动文档表面，不保留新旧双轨或临时补偿。
+- 只有无法自行取得的必要源码、凭据、上游权限、不可替代环境或未授权的破坏性/产品选择才构成阻点；先完成仍可执行的归因与修复，准确报告精确缺口。进度和交付说明处理结果与证据，不把已获授权的技术处理转成用户选择题；正式修复、发布和 adoption 前不得宣称恢复。
 
 ## 验收
 
-- 按 skill 执行项目绑定、正式调用和持久任务验收；catalog 的有效性、owner 和 revision 以当前正式结构化结果为证据，不靠旧数量或静态清单。
-- typed handler 的本地回归不能替代正式调用验收；必须经实际 executor/Pipeline 重放原请求，覆盖执行元数据、绑定、确认及实际副作用。用户级持久写入同时核对最新原生读回与文件版本，禁止把旧 Editor 内存当作全局存储权威。
-- 代码或编译契约改动必须按 `unity-editor-safety.md` 通过最后一次官方 package resolve/refresh/clean compile，error 为零并单独检查 warning/obsolete。其他验证按本轮改动风险执行，不再要求用户单独点名。
-- 验收后扫描 manifest/lock、package metadata、项目/用户配置、宿主配置、活动进程、README 与 Agent 规则，确认旧 package/server/route/config 为零，且所有依赖均为 registry 版本或完整远端 Git SHA。
+- 按 skill 执行项目绑定、正式请求重放、持久任务、资源清理与 adoption 验收；catalog 的有效性、owner、revision 和真实副作用以当前正式结构化结果为证据。本地 typed handler 测试不替代实际 executor/Pipeline 调用，修复或新增能力后必须继续原任务并验证其真实消费链。
+- 编译与风险匹配验证执行 `unity-editor-safety.md`，不再要求用户单独点名；纯规则与文档变更只做静态校验。只有完成对应正式调用和读回后，才能报告已修复、已补齐或当前项目已采用。

@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.24.0] - 2026-10-28
+
+- Require immediate CLI fault repair and direct implementation of missing
+  capabilities needed by authorized tasks, without asking whether to fix,
+  add commands, publish or adopt within existing permission boundaries.
+- Move operational resource-session, migration, regression and adoption
+  procedures into the existing unity-cli-project-review skill; retain shared
+  ownership, transport, permission and completion contracts here.
+- Replay the original failed or previously unsupported request through the
+  formal executor and resume the original task before reporting completion.
+
 ## [5.23.0] - 2026-10-26
 
 - Require shared floating-window placement, drag capture and actual presented UI

@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.25.0] - 2026-11-04
+
+- Review the full candidate/staged inventory and large-file ownership before
+  every commit and upload, including push-all and LFS content.
+- Exclude disposable captures, recordings, run receipts, geometry dumps,
+  browser sessions and caches; retain production sources, reusable tools,
+  necessary fixtures and concise conclusions.
+- Retire authorized temporary outputs, ignore their producer locations and
+  correct accidentally included unpublished commits before upload without
+  rewriting published history or deleting player data and production art.
+
 ## [5.24.0] - 2026-10-28
 
 - Require immediate CLI fault repair and direct implementation of missing

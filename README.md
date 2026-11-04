@@ -39,6 +39,7 @@ git submodule update --init --recursive
 ## 核心约定
 
 - 浮动窗口复用放置、拖动和实际 UI 命中 owner，常规内容审查覆盖交互契约；透明原生窗口另验真实 Player 的点击接收方与区域外穿透。
+- UI 过渡审查从真实源码、调用与文档宿主生成统一状态产品，分别证明覆盖、运行时、自然中间画面和输入；整页与局部均适用，具体契约见 `instructions/unity-ui-toolkit.md`。
 
 - CLI 调用、持久 Job、故障修复、能力补齐、迁移、目录分类与验收流程使用 [unity-cli-project-review skill](https://github.com/VM233/unity-cli-project-review-skill)；共享规则保留权限和职责约束，实时参数与检测策略由工具 owner 持有。已授权任务遇到 CLI 问题立即修复，所需能力缺失直接补齐，不再询问是否处理，并在正式回归后继续原任务。
 - 用户请求和消费项目规则决定功能、验证、Git、发布与破坏性操作权限；共享规则负责工程质量和工具安全，不要求代码改动行数或文件数最少。

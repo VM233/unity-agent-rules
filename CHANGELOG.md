@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.26.0] - 2026-11-05
+
+- Derive full-page and local UI transition inventories, graphs and review views
+  from actual source, calls, serialized configuration and document containment.
+- Require coherent content/input publication, retained source pixels, native
+  intermediate frames and complete cancellation/root retirement.
+- Separate source, host, runtime, drawing and input acceptance; keep local scope,
+  first invalid witnesses and stopping conditions explicit across handoffs.
+
 ## [5.25.0] - 2026-11-04
 
 - Review the full candidate/staged inventory and large-file ownership before

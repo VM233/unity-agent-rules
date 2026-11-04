@@ -17,6 +17,13 @@
 - 修改 USS 后，通过官方 Unity CLI/Pipeline facade 调用 `uitoolkit/audit-uss-styles`；修改 UXML 后调用 `uitoolkit/audit-uxml-layout`。`paths` 必须是本轮实际修改的精确文件列表，`roots` 与 `runtimeSourceRoots` 必须覆盖这些文件的完整 authoring/consumer 图，并设置 `runSelfTests=true`；静态样式、布局、selector、声明所有权和字面内容检查项只由 route 维护，不在 Agent 规则中复制。
 - 只有对应响应同时满足 `passed=true`、`truncated=false`、`errors` 为空且 `selfTests.passed=true`，才算自动审查通过。结构化 issue、suppression 契约与 rule ID 以 route 当前 schema 和结果为唯一权威；生成控件层级、运行时主题、实际视觉和输入行为仍按下节与消费项目细则验证。
 
+## UI 状态过渡
+
+- 整页导航和局部显隐、选择、内容替换都属于过渡审查。先从实际 producer、调用关系、序列化配置和 UIDocument host 推导可达状态与边；状态表、关系图、全量/局部审查及可视化消费同一产品。直接显示、层级和影响显隐的 class 变化必须可追踪，新增未覆盖变化保留为失败缺口，不能靠手工登记完整性。
+- 实际文档宿主须包含 authored 内容及运行时覆盖层。区分初次展示前初始化与已显示内容变化；相关标题、内容、动作和输入身份由一个 publication owner 一起发布。退场内容在其交接边界前保留真实画面，不能先清空再依靠父节点淡入掩盖局部跳变。
+- 每种过渡沿真实控件留下当前源/build、语言、视口、原状态、自然中间渲染帧、准确目标和终态证据；检查输入、焦点/捕获、返回、重入、反转、取消、root 更换及退役。关闭与释放须成对结束动画、异步等待、订阅及图片等资源。工具回执、时长、phase 数值和终态截图不代替画面验收。
+- 源码覆盖、宿主接线、运行时、画面及输入分别给出结论和精确缺口。局部审查纳入相邻 producer、consumer、调用及实际 host，只能签署该范围。失败按代码质量细则冻结首个非法状态；已有反例与停止条件须跨工具、方法变体和交接保留。
+
 ## 文本 authoring 所有权
 
 - 每个 authored `Label` 都必须在 UXML 中声明可审查的文本 owner。需要随 Locale 变化的固定玩家文案使用 `UnityEngine.Localization.LocalizedString` 的 `text` binding；所有语言完全一致的固定符号或文字可直接 author。禁止保留空 `Label`，再由 `PanelModifier`、open callback 或语言切换 callback 补固定本地化文案。

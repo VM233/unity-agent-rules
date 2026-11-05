@@ -38,6 +38,7 @@ git submodule update --init --recursive
 
 ## 核心约定
 
+- 手游视图使用直接旋转、捏合及平移手势，清理冗余控件的完整生产链；所有平台的 UI 切换均明确审查过渡，除必须即时反馈的交互外快速自然续接当前显示状态。具体契约见 `instructions/unity-ui-toolkit.md`。
 - 浮动窗口复用放置、拖动和实际 UI 命中 owner，常规内容审查覆盖交互契约；透明原生窗口另验真实 Player 的点击接收方与区域外穿透。
 - UI 过渡审查从真实源码、调用与文档宿主生成统一状态产品，分别证明覆盖、运行时、自然中间画面和输入；整页与局部均适用，具体契约见 `instructions/unity-ui-toolkit.md`。
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.27.0] - 2026-11-05
+
+- Use direct mobile rotation, pinch and appropriate pan gestures across applicable
+  views; retire redundant buttons and their dedicated production chains.
+- Require explicit transition decisions for every UI switch on all platforms:
+  quick natural motion except necessary immediate interaction feedback.
+- Continue from displayed values through retargeting, reversal, cancellation and
+  gesture takeover; use unscaled presentation time and retire motion lifetimes.
+
 ## [5.26.0] - 2026-11-05
 
 - Derive full-page and local UI transition inventories, graphs and review views

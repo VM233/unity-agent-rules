@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.29.0] - 2026-11-08
+
+- Require actual four-edge mobile safe areas for every screen, independent
+  overlay, generated UI, important content and complete input target.
+- Cover Dynamic Island/cutouts, system bars and home gestures across rotation,
+  root reuse, motion, authoring previews and supported languages; reject fixed
+  top offsets, missed hosts and duplicated nested/host insets.
+- Include pre-Unity loading/error UI and browser safe-area ownership for mobile
+  H5; distinguish static, Simulator and actual device acceptance.
+
 ## [5.28.0] - 2026-11-07
 
 - Reuse the existing toast owner for transient operation results in an upper safe

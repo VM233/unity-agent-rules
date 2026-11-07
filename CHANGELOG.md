@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.28.0] - 2026-11-07
+
+- Reuse the existing toast owner for transient operation results in an upper safe
+  overlay, including nutrition gains, shared motion, dismissal and priority.
+- Prohibit feedback reservations and content displacement; require unchanged
+  before/during/after layout, scrolling and input evidence through interruption.
+
 ## [5.27.0] - 2026-11-05
 
 - Use direct mobile rotation, pinch and appropriate pan gestures across applicable

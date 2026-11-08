@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.29.1] - 2026-11-08
+
+- Scope UI layout, authoring and safe-area acceptance to the orientations the
+  consuming product actually supports. Portrait-only games do not acquire
+  landscape or rotation requirements from shared tools or historical matrices.
+
 ## [5.29.0] - 2026-11-08
 
 - Require actual four-edge mobile safe areas for every screen, independent

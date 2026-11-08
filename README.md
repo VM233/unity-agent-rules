@@ -2,7 +2,7 @@
 
 跨 Unity 项目共享的 Agent 规则。项目通过 Git submodule 固定版本，根 `AGENTS.md` 只保存项目事实与任务路由。
 
-全部手机 UI 都必须按实际四边安全区布局和命中，覆盖独立覆盖层、设计期预览、横竖屏和过渡过程；原生与 H5 宿主分别核对，不能只修 toast 或增加固定顶部空白。完整契约见 [UI Toolkit 安全区域](instructions/unity-ui-toolkit.md#全部手游-ui-的安全区域)。
+全部手机 UI 都必须按实际四边安全区布局和命中，覆盖独立覆盖层、设计期预览、项目明确支持的屏幕方向和过渡过程；仅竖屏项目不增加横屏验收。原生与 H5 宿主分别核对，不能只修 toast 或增加固定顶部空白。完整契约见 [UI Toolkit 安全区域](instructions/unity-ui-toolkit.md#全部手游-ui-的安全区域)。
 
 ## 接入项目
 

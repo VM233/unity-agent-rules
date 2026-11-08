@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.31.0] - 2026-11-08
+
+- Reject default top-edge toast placement; use the actual focal reading region
+  and automatically verify native geometry without reserving page space.
+- Require meaningful content entries, shared availability/publication products
+  and fresh domain semantic checks with zero/populated/reused negative controls.
+
 ## [5.30.0] - 2026-11-08
 
 - Require visible stage and progress throughout every loading step, including

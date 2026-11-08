@@ -37,7 +37,8 @@
 
 ## GamePrefab 最终审查门
 
-- 任务只要新增、删除或修改 VMFramework GamePrefab、其 Wrapper、Prefab 引用或注册关系，就在全部写入、导入、编译及已授权读回完成后，通过官方 Unity CLI 的 bounded catalog 查询 `validate-game-prefabs`，取得当前精确 contract 后保持全局默认审查范围调用。当前 command 是 `vm_pt_vmf_validate_game_prefabs`，其 route 是 `vmframework/validate-game-prefabs`；route 不得当作 `vm_catalog_get` 或 `vm_automation_call` 的 command。不得用项目专用脚本、局部 selector、Inspector 外观或启动成功替代。
+- 任务新增、删除 GamePrefab，或改变其 ID/名称、Wrapper/Prefab 引用、类型、组件/层级、序列化契约、provider 或注册可达性时，在全部写入、导入、编译及已授权读回完成后，通过官方 Unity CLI 的 bounded catalog 查询 `validate-game-prefabs`，取得当前精确 contract 后保持全局默认审查范围调用。当前 command 是 `vm_pt_vmf_validate_game_prefabs`，其 route 是 `vmframework/validate-game-prefabs`；route 不得当作 `vm_catalog_get` 或 `vm_automation_call` 的 command。不得用项目专用脚本、局部 selector、Inspector 外观或启动成功替代。
+- 仅修改既有字段取值，且上述身份、结构、契约、引用及注册关系均未变化时，原生保存并准确读回受影响字段即可证明该配置已采用，不自动重跑全局注册图。行为风险与已确认缺陷仍按 Editor 安全和代码质量细则做针对性回归；这不构成缺陷豁免。
 - 最终检查必须同时扫描所有可发现 Wrapper，并把其中每个精确 GamePrefab 配置对象与 `GlobalSettingCollector -> IGamePrefabsProvider` 的运行时注册图比对；只统计磁盘 Wrapper、只验证 Prefab 引用或只按相同 ID 推断可达都不构成注册证明。新增 Wrapper 必须接入实际运行时 provider owner，不能因 Asset 存在而视为已注册。
-- 这一步是交付、提交或推送前最后一个 GamePrefab 内容验证；后续若再改变任何 GamePrefab 内容、Wrapper、provider 或引用，原结果立即失效并必须重跑。只有外层传输成功、内层 owner `ok=true`/`status=completed`，且结果 `passed=true`、`errorCount=0`、`missingPrefabCount=0`、`unregisteredGamePrefabCount=0`、`registeredGamePrefabCount=gamePrefabCount` 才算通过；字段缺失、返回被截断、只查看日志或旧版检查器均不是通过证据。
+- 命中上述结构或注册变更时，这一步是交付、提交或推送前最后一个 GamePrefab 注册图验证；后续再次改变这些身份、结构、契约、引用或注册关系会使结果失效并必须重跑，独立的既有字段改值不使未受影响的注册证据失效。只有外层传输成功、内层 owner `ok=true`/`status=completed`，且结果 `passed=true`、`errorCount=0`、`missingPrefabCount=0`、`unregisteredGamePrefabCount=0`、`registeredGamePrefabCount=gamePrefabCount` 才算通过；字段缺失、返回被截断、只查看日志或旧版检查器均不是通过证据。
 - 若消费项目尚未提供该命令，先在 `VMFramework-Pipeline` 权威 package 完成发布并采用远端不可变 revision；不得把缺失能力下沉为项目审查器或保留双轨。

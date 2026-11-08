@@ -61,7 +61,8 @@ git submodule update --init --recursive
 - 所有中文玩家描述、详情与 Tooltip 均不以句号收尾，覆盖段落、列表项、富文本和动态拼接的最终可见结尾；写入及交付都执行本地化规则的全范围检查，不限物品类别或 key 后缀。
 - 第一方手写 C# 的结构门禁统一调用 `code/policy-review`，以 producer 归属确认精确改动文件列表和项目收紧参数；生成物、正式调用链与用户级持久版本的验收执行代码质量及 CLI 细则，Agent 规则不复制 route 已拥有的检查项。
 - Package 依赖、revision、manifest/lock 与 Unity `.meta` 门禁统一调用 `package/dependency-policy-review`。用户维护 package 被修改时仍按既有流程发布，但只在当前请求所在且已授权的消费项目同步 pin/lock；其他消费项目必须由用户当前明确点名，迁移清理按实际进程占用与路径读回结果验收。
-- VMFramework GamePrefab 变更在所有写入、编译和读回之后、交付或 Git 发布之前，最后通过官方 bounded catalog 查询并调用精确 `validate-game-prefabs` contract；结果必须证明所有 Wrapper 配置均可从运行时 GeneralSetting provider 图到达，且零错误、零缺失 Prefab、零未注册配置。任何后续 GamePrefab、Wrapper、provider 或引用改动都会使结果失效。
+- 验证只覆盖本轮实际改变的契约，直接复用未受影响的通过证据。纯后台配置、条目对齐及既有平台接入开关以保存和准确读回收尾，不重跑既有产品矩阵；已确认缺陷仍必须当轮修复并针对性回归，完整边界见 `instructions/unity-editor-safety.md`。
+- GamePrefab 的身份、结构、序列化契约、引用或注册可达性变化才触发最后一次全局 `validate-game-prefabs` 注册图审查；既有字段改值使用原生保存和准确读回。目录审查由成员、位置、分类或策略变化触发，不因原路径内改值重复扫描。
 - 每个使用 VMFramework 的游戏统一提供 `GameSetting` / `GameSettingFile` 配置入口与 `Game Setting` 导航；配置所有权、框架生命周期和迁移要求见 `instructions/unity-prefabs-and-serialization.md`。
 - 官方 Unity CLI 与 `com.unity.pipeline` 是唯一传输；项目绑定、命令与任务生命周期遵循当前正式 contract，不固定命令数量或静态白名单，不保留第二 server、HTTP 或脚本旁路；具体调用步骤由 CLI skill 维护。
 - 游戏 Sprite 使用消费项目声明的唯一 PPU 标准，禁止单图/目录自定义或用 PPU 缩放；偏离项目标准、同级多数或多数基线冲突必须直接报错。素材导入、替换、尺寸调整和重新导入显式使用 Full Rect，禁止 Tight 网格，并读回实际 importer；渲染网格不能代替碰撞轮廓。 项目现有 Sprite 也不得保留 Tight，交付前通过公共 `vm_pt_asset_sprite_mesh_review` 命令覆盖项目声明的完整范围并证明零问题。

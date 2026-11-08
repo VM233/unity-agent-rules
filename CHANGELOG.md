@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.32.0] - 2026-11-08
+
+- Reuse passing evidence when its actual contract is unchanged. Finish pure
+  platform configuration and existing rollout-switch adoption with exact saved
+  readback instead of repeating gameplay, saves, SDK mocks or product matrices.
+- Trigger global GamePrefab registration checks only for identity, structure,
+  serialization-contract, reference or registration changes; trigger directory
+  audits only when membership, location, classification or policy changes.
+- Preserve mandatory repair and focused regression for every confirmed defect,
+  including validation tools; these scope rules create no defect exemption.
+
 ## [5.31.1] - 2026-11-08
 
 - Preserve the product's approved toast anchor and spacing. Do not infer screen

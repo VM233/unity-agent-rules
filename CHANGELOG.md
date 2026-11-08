@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.31.1] - 2026-11-08
+
+- Preserve the product's approved toast anchor and spacing. Do not infer screen
+  centering or an arbitrary move from a request to avoid the top edge.
+- Correct the overly restrictive central/lower wording from5.31.0; retain native
+  placement checks and the existing shared feedback lifecycle.
+
 ## [5.31.0] - 2026-11-08
 
 - Reject default top-edge toast placement; use the actual focal reading region

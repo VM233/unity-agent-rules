@@ -8,7 +8,7 @@
 
 ## 接入项目
 
-短时 toast 默认进入玩家聚焦的中央或中下阅读区域，禁止默认顶部锚定。内容入口必须消费真实资格与内容产品，并通过零项、有内容、复用及原失败对照的自动语义审查。见 [反馈与内容入口](instructions/unity-ui-toolkit.md#即时结果与悬浮反馈)。
+短时 toast 保留产品已确认合适的阅读位置，禁止默认贴顶，也禁止把“不要贴顶”推导成“必须居中”或任意挪位。原有锚点和间距须由实际原生几何自动核对。内容入口必须消费真实资格与内容产品，并通过零项、有内容、复用及原失败对照的自动语义审查。见 [反馈与内容入口](instructions/unity-ui-toolkit.md#即时结果与悬浮反馈)。
 
 ```powershell
 git submodule add https://github.com/VM233/unity-agent-rules.git .agents/shared-rules

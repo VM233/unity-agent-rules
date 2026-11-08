@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.30.0] - 2026-11-08
+
+- Require visible stage and progress throughout every loading step, including
+  pre-engine downloads, startup, saves, world/location and interface preparation.
+- Use actual work counts/native progress or explicit indeterminate activity;
+  reject blank waits, fabricated percentages and premature completion. Cover
+  handoffs, slow/cached work, cancellation, reentry and paired retirement.
+
 ## [5.29.1] - 2026-11-08
 
 - Scope UI layout, authoring and safe-area acceptance to the orientations the

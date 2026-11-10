@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.33.0] - 2026-11-10
+
+- Distinguish brief browsing summaries from concrete execution requirements;
+  avoid copying complete rejection notices into navigation catalogs or repeating
+  ingredient/tool readings in the same view.
+- Review person, gender, age, number and context in every Locale, including
+  dynamic changes, reuse and authoring previews.
+
 ## [5.32.0] - 2026-11-08
 
 - Reuse passing evidence when its actual contract is unchanged. Finish pure

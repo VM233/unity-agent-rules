@@ -4,13 +4,9 @@
 
 玩家信息按浏览、检查与执行分配详略，避免目录复述整套条件；人物称谓须符合真实主体、性别和语境。见 [本地化与信息取舍](instructions/unity-localization.md#功能契约与-ui-信息取舍)。
 
-全部手机 UI 都必须按实际四边安全区布局和命中，覆盖独立覆盖层、设计期预览、项目明确支持的屏幕方向和过渡过程；仅竖屏项目不增加横屏验收。原生与 H5 宿主分别核对，不能只修 toast 或增加固定顶部空白。完整契约见 [UI Toolkit 安全区域](instructions/unity-ui-toolkit.md#全部手游-ui-的安全区域)。
-
-每个加载步骤从等待开始到完成或失败都必须有阶段与可见进度，包括引擎出现前的下载和原生/H5 交接。使用真实计数或原生进度，未知总量用活动进度条，禁止空白等待和伪造百分比；按步骤验收交接、中断与退役。见 [加载进度](instructions/unity-ui-toolkit.md#每个加载步骤的进度)。
+通用 UI 制作与审查统一使用 [unity-game-ui-review skill](https://github.com/VM233/unity-game-ui-review-skill)，包括原生控件 authoring、受限文本适配、文化相关格式、布局、预览和验收。共享 UI 规则仅保留[路由](instructions/unity-ui-toolkit.md)，消费项目 overlay 只保存项目事实。
 
 ## 接入项目
-
-短时 toast 保留产品已确认合适的阅读位置，禁止默认贴顶，也禁止把“不要贴顶”推导成“必须居中”或任意挪位。原有锚点和间距须由实际原生几何自动核对。内容入口必须消费真实资格与内容产品，并通过零项、有内容、复用及原失败对照的自动语义审查。见 [反馈与内容入口](instructions/unity-ui-toolkit.md#即时结果与悬浮反馈)。
 
 ```powershell
 git submodule add https://github.com/VM233/unity-agent-rules.git .agents/shared-rules
@@ -45,11 +41,6 @@ git submodule update --init --recursive
 ```
 
 ## 核心约定
-
-- 短时操作结果复用既有 toast/通知 owner，在上方安全覆盖层悬浮显示；禁止插入占位、预留高度或移动正文，验收比较反馈前中后的实际布局与输入。执行条件与持续状态保持页面自身职责，详见 `instructions/unity-ui-toolkit.md`。
-- 手游视图使用直接旋转、捏合及平移手势，清理冗余控件的完整生产链；所有平台的 UI 切换均明确审查过渡，除必须即时反馈的交互外快速自然续接当前显示状态。具体契约见 `instructions/unity-ui-toolkit.md`。
-- 浮动窗口复用放置、拖动和实际 UI 命中 owner，常规内容审查覆盖交互契约；透明原生窗口另验真实 Player 的点击接收方与区域外穿透。
-- UI 过渡审查从真实源码、调用与文档宿主生成统一状态产品，分别证明覆盖、运行时、自然中间画面和输入；整页与局部均适用，具体契约见 `instructions/unity-ui-toolkit.md`。
 
 - CLI 调用、持久 Job、故障修复、能力补齐、迁移、目录分类与验收流程使用 [unity-cli-project-review skill](https://github.com/VM233/unity-cli-project-review-skill)；共享规则保留权限和职责约束，实时参数与检测策略由工具 owner 持有。已授权任务遇到 CLI 问题立即修复，所需能力缺失直接补齐，不再询问是否处理，并在正式回归后继续原任务。
 - 用户请求和消费项目规则决定功能、验证、Git、发布与破坏性操作权限；共享规则负责工程质量和工具安全，不要求代码改动行数或文件数最少。

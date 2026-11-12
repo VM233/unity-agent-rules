@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.35.0] - 2026-11-12
+
+- Consolidate reusable UI creation, native-control authoring, localization,
+  safe-area, preview and acceptance workflows in unity-game-ui-review.
+- Keep the shared UI instruction as routing and project overlays as concrete
+  product/binding facts; remove duplicate UI checklists and stale README copies.
+- Route constrained-caption fitting and culture-dependent display formatting to
+  the skill without copying a second implementation checklist into rules.
+
 ## [5.34.0] - 2026-11-12
 
 - Require a source-backed issue inventory before nontrivial implementation,

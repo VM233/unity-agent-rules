@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.34.0] - 2026-11-12
+
+- Require a source-backed issue inventory before nontrivial implementation,
+  refactoring or repair, covering the relevant complete flow and risks introduced
+  by the candidate instead of considering only the latest failure.
+- Reassess related upstream and downstream assumptions when a missed condition
+  appears; group same-mechanism repairs before costly builds and regressions.
+- Keep analytical coverage separate from risk-matched validation, reuse valid
+  evidence and avoid expanding hypotheses into whole-project audit requirements.
+
 ## [5.33.0] - 2026-11-10
 
 - Distinguish brief browsing summaries from concrete execution requirements;
